@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">parts</string>
+    <string name="title_home">首页</string>
+    <string name="title_dashboard">询价单</string>
+    <string name="title_4s">4S查询</string>
+    <string name="title_mine">我的</string>
+
+</resources>
