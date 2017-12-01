@@ -33,5 +33,10 @@ dependencies {
     //tablayout
     compile 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:design:26.1.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.lzy.net:okrx2:2.0.2'
+    compile 'com.lzy.net:okserver:2.0.5'
+
 
 }
