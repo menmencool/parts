@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="tabTitles">
+        <item>@string/title_home</item>
+        <item>@string/title_dashboard</item>
+        <item>@string/title_4s</item>
+        <item>@string/title_mine</item>
+
+    </integer-array>
+    <integer-array name="tabImgs">
+        <item>@drawable/home_tb3x</item>
+        <item>@drawable/inquiry3x</item>
+        <item>@drawable/service3x</item>
+        <item>@drawable/mine3x</item>
+    </integer-array>
+
+</resources>

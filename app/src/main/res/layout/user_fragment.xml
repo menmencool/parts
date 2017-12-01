@@ -86,11 +86,6 @@
             android:background="@color/i_white"
             android:orientation="vertical" >
 
-            <hyc.cn.com.hyc_android.view.ChartView
-                android:id="@+id/income_chart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/chart_buttons"

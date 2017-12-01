@@ -5,20 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cloud.parts.com.parts.MainActivity" >
+    android:background="@color/i_white"
+    tools:context="cloud.parts.com.parts.activity.MainActivity" >
+
 
     <FrameLayout
         android:id="@+id/home_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/i_white"
         android:layout_weight="1" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_h"
-        style="@style/CustomTab"
+        tl:tabPaddingStart="0dp"
+        tl:tabPaddingEnd="0dp"
         tl:tabIndicatorColor="@null"
-        ></android.support.design.widget.TabLayout>
+        >
+    </android.support.design.widget.TabLayout>
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
 
+
+    </android.support.v4.app.FragmentTabHost>
 </LinearLayout>
