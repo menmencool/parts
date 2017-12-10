@@ -1,11 +1,7 @@
 package cloud.parts.com.parts.fragment;
 
-import android.app.AlertDialog.Builder;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +12,8 @@ import android.view.ViewGroup;
 import cloud.parts.com.parts.R;
 
 
-public class ProjectFragment extends Fragment implements OnClickListener {
-	protected static final String TAG = "ProjectFragment";
+public class InquireFragment extends Fragment implements OnClickListener {
+	protected static final String TAG = "InquireFragment";
 	/**
 	 * 当前拉取的页数
 	 */
@@ -42,7 +38,7 @@ public class ProjectFragment extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.i(TAG, "fragment onCreateView!");
-		View rootView = inflater.inflate(R.layout.project_fragment, container,
+		View rootView = inflater.inflate(R.layout.inquinre_fragment, container,
 				false);
 		return  rootView;
 	}

@@ -1,9 +1,7 @@
 package cloud.parts.com.parts.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,8 +12,8 @@ import android.widget.TextView;
 import cloud.parts.com.parts.R;
 
 
-public class ChartFragment extends Fragment implements OnClickListener {
-	protected static final String TAG = "ChartFragment";
+public class QueryFormFragment extends Fragment implements OnClickListener {
+	protected static final String TAG = "QueryFormFragment";
 	private LinearLayout chart_loading;
 	private String token;
 	private float denstiy;
@@ -34,7 +32,7 @@ public class ChartFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.user_chart, container, false);
+		View rootView = inflater.inflate(R.layout.queryform_chart, container, false);
 
 		return rootView;
 	}// monthURLuser_chart.xml
@@ -49,7 +47,7 @@ public class ChartFragment extends Fragment implements OnClickListener {
 //		@Override
 //		protected void onPreExecute() {
 //			chart_loading.setVisibility(View.VISIBLE);
-//			user_chart.setVisibility(View.GONE);
+//			queryform_chart.setVisibility(View.GONE);
 //			chart_buttons.setVisibility(View.GONE);
 //			super.onPreExecute();
 //		}
@@ -64,11 +62,11 @@ public class ChartFragment extends Fragment implements OnClickListener {
 //			super.onPostExecute(result);
 //			if (result == null) {
 //				chart_loading.setVisibility(View.GONE);
-//				LogUtil.showAliert(ChartFragment.this.getActivity(), "信息获取失败！");
+//				LogUtil.showAliert(QueryFormFragment.this.getActivity(), "信息获取失败！");
 //			} else {
 //				yearList = result;
 //				chart_loading.setVisibility(View.GONE);
-//				user_chart.setVisibility(View.VISIBLE);
+//				queryform_chart.setVisibility(View.VISIBLE);
 //				chart_buttons.setVisibility(View.VISIBLE);
 //				String month = yearList.get(0).getMonth();
 //				String startY = month.substring(0, month.indexOf("/"));
@@ -82,11 +80,11 @@ public class ChartFragment extends Fragment implements OnClickListener {
 //						+ endM + "月收益");
 ////				int bannerh=chart_banners.getHeight()+chart_buttons.getHeight();
 ////				Log.i(TAG, "bannerh:"+bannerh);
-////				user_chart.setLayoutParams(new LinearLayout.LayoutParams(width,
+////				queryform_chart.setLayoutParams(new LinearLayout.LayoutParams(width,
 ////						(int) (height - bannerh)));//TODO:120 * denstiy
-//				user_chart
+//				queryform_chart
 //						.setInfo(null, denstiy, width, height, result);
-//				user_chart.invalidate();
+//				queryform_chart.invalidate();
 //			}
 //		}
 //	}
@@ -101,7 +99,7 @@ public class ChartFragment extends Fragment implements OnClickListener {
 //		@Override
 //		protected void onPreExecute() {
 //			chart_loading.setVisibility(View.VISIBLE);
-//			user_chart.setVisibility(View.GONE);
+//			queryform_chart.setVisibility(View.GONE);
 //			chart_buttons.setVisibility(View.GONE);
 //			super.onPreExecute();
 //		}
@@ -123,11 +121,11 @@ public class ChartFragment extends Fragment implements OnClickListener {
 //				String[] strings = curTime.split("-");
 //				chart_title.setText(strings[0]+"年"+strings[1]+"月收益");
 //				chart_loading.setVisibility(View.GONE);
-//				user_chart.setVisibility(View.VISIBLE);
+//				queryform_chart.setVisibility(View.VISIBLE);
 //				chart_buttons.setVisibility(View.VISIBLE);
-//				user_chart
+//				queryform_chart
 //						.setInfo(null, denstiy, width, height, result);
-//				user_chart.invalidate();
+//				queryform_chart.invalidate();
 //			}
 //		}
 //	}

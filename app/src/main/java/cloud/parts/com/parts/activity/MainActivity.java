@@ -14,17 +14,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.fragment.ChartFragment;
+import cloud.parts.com.parts.fragment.InquireFragment;
+import cloud.parts.com.parts.fragment.QueryFormFragment;
 import cloud.parts.com.parts.fragment.HomeFragment;
-import cloud.parts.com.parts.fragment.ProjectFragment;
 import cloud.parts.com.parts.fragment.UserFragment;
 
 public class MainActivity extends BaseActivity{
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     TabLayout mTabLayout;
     private FragmentTabHost tab_host;
-    private Class fragments[] = {HomeFragment.class, ProjectFragment.class,
-            ChartFragment.class,UserFragment.class};
+    private Class fragments[] = {HomeFragment.class, InquireFragment.class,
+            QueryFormFragment.class,UserFragment.class};
     @Override
     protected void initView() {
         setContentView(R.layout.home_activity);
