@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.fragment.InquireFragment;
 import cloud.parts.com.parts.fragment.QueryFormFragment;
-import cloud.parts.com.parts.fragment.HomeFragment;
+import cloud.parts.com.parts.fragment.home.HomeFragment;
 import cloud.parts.com.parts.fragment.UserFragment;
 
 public class MainActivity extends BaseActivity{

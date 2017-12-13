@@ -1,20 +1,14 @@
-package cloud.parts.com.parts.fragment;
+package cloud.parts.com.parts.fragment.home;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import cloud.parts.com.parts.R;
 
@@ -31,7 +25,7 @@ public class HomeFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.home_fragment, container,
+		View rootView = inflater.inflate(R.layout.fragment_home, container,
 				false);
 		// 下拉刷新
 //		home_refresh_view = (RefreshListview) rootView
