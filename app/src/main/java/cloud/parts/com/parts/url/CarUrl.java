@@ -8,4 +8,5 @@ package cloud.parts.com.parts.url;
 
 public class CarUrl {
     public static final String CAR_URL="http://47.95.240.83:8080/sscvapi/partscloudapi/";
+    public static final String Home_URL=CAR_URL+"queryIndexData";
 }
