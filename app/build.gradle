@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -38,11 +38,16 @@ dependencies {
     compile 'com.lzy.net:okrx2:2.0.2'
     compile 'com.lzy.net:okserver:2.0.5'
     //首页轮播
-    compile 'com.youth.banner:banner:1.4.9'
+    compile 'com.youth.banner:banner:1.4.10'
     //图片展示
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:26.1.0'
     //
     compile 'com.google.code.gson:gson:2.8.0'
-
+    //log
+    compile 'com.orhanobut:logger:2.1.1'
+    implementation files('libs/ocr-sdk.jar')
+    implementation project(':ocr_ui')
+    //RecyclerView
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
 }

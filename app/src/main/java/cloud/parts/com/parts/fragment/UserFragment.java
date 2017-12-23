@@ -17,28 +17,13 @@ import java.util.concurrent.ExecutorService;
 import cloud.parts.com.parts.R;
 
 public class UserFragment extends Fragment implements OnClickListener {
-
-    protected static final String TAG = "UserFragment";
-    private TextView use_iremain, total_imoney, income_mouth, income_year,
-            income_sum, income_rmb;
-    private RelativeLayout income_totals, income_remains;
-    private LinearLayout user_loading;
-    private LinearLayout user_views;
-    private String token;
-    private ExecutorService userThreads = null;
     private View root;
-    private int height;
-    private int width;
-    private float denstiy;
     private TextView include_title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(TAG, "fragment onCreateView!");
-
         root = inflater.inflate(R.layout.user_fragment, container, false);
-
         initView(root);
         return root;
     }
@@ -48,6 +33,11 @@ public class UserFragment extends Fragment implements OnClickListener {
         super.onActivityCreated(savedInstanceState);
     }
 
+    private void initView(View root) {
+        include_title = (TextView) root.findViewById(R.id.include_title);
+        include_title.setVisibility(View.VISIBLE);
+        include_title.setText("用户信息");
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -62,8 +52,6 @@ public class UserFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onDestroy() {
-        if (userThreads != null)
-            userThreads.shutdown();
         super.onDestroy();
 
     }
@@ -77,10 +65,6 @@ public class UserFragment extends Fragment implements OnClickListener {
         }
     }
 
-    private void initView(View root) {
-        include_title = (TextView) root.findViewById(R.id.include_title);
-        include_title.setText("用户信息");
-    }
 }
 
 

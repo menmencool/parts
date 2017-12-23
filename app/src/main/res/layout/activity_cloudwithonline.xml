@@ -1,8 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/i_gray_back"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/i_gray_back"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,7 +13,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/top3x"/>
+            android:background="@mipmap/top3x" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +27,7 @@
                 android:layout_marginTop="90dp"
                 android:text="VIN识别码查询"
                 android:textColor="@color/i_white"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,10 +36,10 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_marginTop="10dp"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/i_backgrounds">
 
                     <EditText
@@ -49,8 +51,7 @@
                         android:layout_marginLeft="30dp"
                         android:background="@null"
                         android:hint="请输入VIN码..."
-                        android:textColorHint="@color/i_white"
-                        />
+                        android:textColorHint="@color/i_white" />
                 </RelativeLayout>
 
                 <ImageView
@@ -59,7 +60,8 @@
                     android:layout_height="41dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/scancode3x"/>
+                    android:layout_marginTop="5dp"
+                    android:src="@mipmap/scancode3x" />
             </LinearLayout>
         </LinearLayout>
 
@@ -68,23 +70,43 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/tb_bg">
+        android:layout_height="wrap_content"
+        android:background="@color/tb_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="18dp"
+                android:src="@mipmap/push3x" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扫描提示"
+                />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="26dp"
-            android:text="历史记录"
-            android:textColor="@color/i_black"
-            android:textSize="18sp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="扫描提示提示内容解说........"
+            android:textColor="@color/erweima" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_home_carlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/i_white"
-        ></android.support.v7.widget.RecyclerView>
+        android:background="@color/i_white"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

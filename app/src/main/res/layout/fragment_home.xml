@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"/>
+                android:layout_height="240dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -25,121 +25,75 @@
                 android:background="@color/i_gray_line4"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/push3x" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="集团内推："
-                    android:textColor="@color/i_black"/>
+                    android:textColor="@color/i_black" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_home_accessories"
                     style="@style/home_all_v">
 
                     <ImageView
                         style="@style/home_im"
-                        android:src="@mipmap/accessoriesquery3x"/>
+                        android:src="@mipmap/accessoriesquery3x" />
 
                     <TextView
                         style="@style/home_tv"
-                        android:text="配件查询"/>
+                        android:text="配件查询" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="3dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/i_gray_line4"/>
+                    android:background="@color/i_gray_line4" />
 
                 <LinearLayout
+                    android:id="@+id/ll_home_history"
                     style="@style/home_all_v">
 
                     <ImageView
                         style="@style/home_im"
-                        android:src="@mipmap/queryhistory3x"/>
+                        android:src="@mipmap/queryhistory3x" />
 
                     <TextView
                         style="@style/home_tv"
-                        android:text="查询历史"/>
+                        android:text="查询历史" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="3dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/i_gray_line4"/>
+                    android:background="@color/i_gray_line4" />
 
                 <LinearLayout
+                    android:id="@+id/ll_home_4s"
                     style="@style/home_all_v">
 
                     <ImageView
                         style="@style/home_im"
-                        android:src="@mipmap/sshop3x"/>
+                        android:src="@mipmap/sshop3x" />
 
                     <TextView
                         style="@style/home_tv"
-                        android:text="4S店查询"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="3dp"
-                android:background="@color/i_gray_line4"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    style="@style/home_all_v">
-
-                    <ImageView
-                        style="@style/home_im"
-                        android:src="@mipmap/newpricelist3x"/>
-
-                    <TextView
-                        style="@style/home_tv"
-                        android:text="新建询查单"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/i_gray_line4"/>
-
-                <LinearLayout
-                    style="@style/home_all_v">
-
-                    <ImageView
-                        style="@style/home_im"
-                        android:src="@mipmap/temporary3x"/>
-
-                    <TextView
-                        style="@style/home_tv"
-                        android:text="暂存询价单"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/i_gray_line4"/>
-
-                <LinearLayout
-                    style="@style/home_all_v">
-
-                    <ImageView
-                        style="@style/home_im"
-                        android:src="@mipmap/clipboard3x"/>
-
-                    <TextView
-                        style="@style/home_tv"
-                        android:text="已报价询查单"/>
+                        android:text="4S店查询" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -147,57 +101,124 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="3dp"
-                android:background="@color/i_gray_line4"/>
+                android:background="@color/i_gray_line4" />
+
+            <LinearLayout
+                android:id="@+id/ll_home_new"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/home_all_v">
+
+                    <ImageView
+                        style="@style/home_im"
+                        android:src="@mipmap/newpricelist3x" />
+
+                    <TextView
+                        style="@style/home_tv"
+                        android:text="新建询查单" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/i_gray_line4" />
+
+                <LinearLayout
+                    android:id="@+id/ll_home_hold"
+                    style="@style/home_all_v">
+
+                    <ImageView
+                        style="@style/home_im"
+                        android:src="@mipmap/temporary3x" />
+
+                    <TextView
+                        style="@style/home_tv"
+                        android:text="暂存询价单" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/i_gray_line4" />
+
+                <LinearLayout
+                    android:id="@+id/ll_home_offer"
+                    style="@style/home_all_v">
+
+                    <ImageView
+                        style="@style/home_im"
+                        android:src="@mipmap/clipboard3x" />
+
+                    <TextView
+                        style="@style/home_tv"
+                        android:text="已报价询查单" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="3dp"
+                android:background="@color/i_gray_line4" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_home_notice"
                     style="@style/home_all_v">
 
                     <ImageView
                         style="@style/home_im"
-                        android:src="@mipmap/noticemessage3x"/>
+                        android:src="@mipmap/noticemessage3x" />
 
                     <TextView
                         style="@style/home_tv"
-                        android:text="公告消息"/>
+                        android:text="公告消息" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="3dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/i_gray_line4"/>
+                    android:background="@color/i_gray_line4" />
 
                 <LinearLayout
+                    android:id="@+id/ll_home_organization"
                     style="@style/home_all_v">
 
                     <ImageView
                         style="@style/home_im"
-                        android:src="@mipmap/ling3x"/>
+                        android:src="@mipmap/ling3x" />
 
                     <TextView
                         style="@style/home_tv"
-                        android:text="机构消息"/>
+                        android:text="机构消息" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="3dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/i_gray_line4"/>
+                    android:background="@color/i_gray_line4" />
 
                 <LinearLayout
+                    android:id="@+id/ll_home_expect"
                     style="@style/home_all_v">
 
                     <ImageView
                         style="@style/home_im"
-                        android:src="@mipmap/staytuned3x"/>
+                        android:src="@mipmap/staytuned3x" />
 
                     <TextView
                         style="@style/home_tv"
-                        android:text="敬请期待"/>
+                        android:text="敬请期待" />
                 </LinearLayout>
 
             </LinearLayout>

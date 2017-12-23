@@ -9,7 +9,7 @@
     <color name="i_red_lock">#d53736</color>
     <color name="i_divider">#90000000</color>
     <color name="i_record">#80000000</color>
-    <color name="i_background">#70000000</color>
+    <color name="i_background">#8a000000</color>
     <color name="i_white">#ffffff</color>
     <color name="i_white_bottom">#90ffffff</color>
     <color name="i_black">#000000</color>
@@ -28,4 +28,6 @@
     <color name="tb_bg_selected">#e9e9e9</color>
     <color name="tb_bg">#f9f9fb</color>
     <color name="i_backgrounds">#37f9f7f7</color>
+    <color name="erweima">#01AFFA</color>
+    <color name="dingdan_yuandian">#FF0000</color>
 </resources>

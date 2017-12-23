@@ -10,8 +10,8 @@
     </integer-array>
     <integer-array name="tabImgs">
         <item>@drawable/home_tb3x</item>
-        <item>@drawable/inquiry3x</item>
-        <item>@drawable/service3x</item>
+        <item>@drawable/inquire3x</item>
+        <item>@drawable/pricelist3x</item>
         <item>@drawable/mine3x</item>
     </integer-array>
 

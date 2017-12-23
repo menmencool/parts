@@ -9,7 +9,6 @@
     </style>
 
     <style name="home_all_v">
-        <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -25,7 +24,7 @@
     <style name="home_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
     </style>
 
     <declare-styleable name="CircleImageView">
