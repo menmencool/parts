@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,18 +18,18 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/dingdan_yuandian" />
+            android:background="@drawable/dingdan_yuandian"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="品牌：" />
+            android:text="编码："/>
 
         <TextView
             android:id="@+id/tv_vinquery_carname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""/>
     </LinearLayout>
 
     <LinearLayout
@@ -43,40 +43,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="33dp"
-            android:text="VIN：" />
+            android:text="名称："/>
 
         <TextView
             android:id="@+id/tv_vinquery_vincode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="33dp"
-            android:text="查询时间：" />
+            android:text="进价："/>
 
         <TextView
-            android:id="@+id/tv_vinquery_querytime"
+            android:id="@+id/tv_vinquery_purchasingprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="33dp"
+            android:text="售价："/>
+
+        <TextView
+            android:id="@+id/tv_vinquery_sellingprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
     </LinearLayout>
+
     <View
-        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="3dp"
-        android:background="@color/i_gray_line4" />
+        android:layout_marginLeft="20dp"
+        android:background="@color/i_gray_line4"/>
 
 </LinearLayout>

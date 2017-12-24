@@ -9,4 +9,5 @@ package cloud.parts.com.parts;
 public class TestData {
     public static final String TOKEN="1234567";
     public static final String VIN="5UXZV4C56D0B02465";
+    public static final String NAME="宝马";
 }

@@ -7,11 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
-import cloud.parts.com.parts.fragment.home.adapter.VINQueryAdapter;
 
 /**
  * describe:

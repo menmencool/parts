@@ -8,7 +8,7 @@ import java.util.List;
  * author:zhuang
  */
 
-public class VINQueryBean {
+public class DetailsBean {
 
     /**
      * errorcode : 0

@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.fragment.InquireFragment;
-import cloud.parts.com.parts.fragment.QueryFormFragment;
+import cloud.parts.com.parts.fragment.queryprice.QueryFormFragment;
 import cloud.parts.com.parts.fragment.home.HomeFragment;
 import cloud.parts.com.parts.fragment.UserFragment;
 
 public class MainActivity extends BaseActivity{
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    TabLayout mTabLayout;
+   public  static TabLayout mTabLayout;
     private FragmentTabHost tab_host;
     private Class fragments[] = {HomeFragment.class, InquireFragment.class,
             QueryFormFragment.class,UserFragment.class};

@@ -24,9 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fragment.home.CloudWithOnlineActivity"/>
         <activity android:name=".fragment.home.ScanCodeActivity"/>
         <activity android:name=".fragment.home.FourSQueryActivity"/>
+        <activity android:name=".fragment.home.DetailsActivity"/>
     </application>
 
 </manifest>

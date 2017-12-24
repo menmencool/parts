@@ -50,4 +50,6 @@ dependencies {
     implementation project(':ocr_ui')
     //RecyclerView
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
+    //tab
+    compile 'com.android.support:design:26.1.0'
 }

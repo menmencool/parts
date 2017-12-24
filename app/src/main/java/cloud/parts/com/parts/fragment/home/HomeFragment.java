@@ -1,5 +1,6 @@
 package cloud.parts.com.parts.fragment.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -27,8 +31,10 @@ import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
+import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.home.bean.HomeBean;
 import cloud.parts.com.parts.ocr.FileUtil;
+import cloud.parts.com.parts.ocr.RecognizeService;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 import cloud.parts.com.parts.utils.GlideImageLoader;
@@ -48,9 +54,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout ll_home_expect;
     private ImageView include_ivmes;
     private TextView include_mes;
-    private String ur = "https://www2.autoimg.cn/newsdfs/g12/M04/0D/FD/autohomecar__wKjBy1onBlKASqMHAA3e5ox-HPE499.jpg";
-    private String sa = "https://www2.autoimg.cn/newsdfs/g22/M0C/E7/FB/autohomecar__wKgFW1onZyqAd8U5ABFwZRbqUVw563.jpg";
+    private String ur = "https://www2.autoimg" +
+            ".cn/newsdfs/g12/M04/0D/FD/autohomecar__wKjBy1onBlKASqMHAA3e5ox-HPE499.jpg";
+    private String sa = "https://www2.autoimg" +
+            ".cn/newsdfs/g22/M0C/E7/FB/autohomecar__wKgFW1onZyqAd8U5ABFwZRbqUVw563.jpg";
 
+    //行驶证需要的
+    private boolean hasGotToken = false;
+    private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
 
     public HomeFragment() {
     }
@@ -62,6 +73,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_home, container,
                 false);
         initView(rootView);
+        // 请选择您的初始化方式
+        initAccessToken();  //授权文件、安全模式
         return rootView;
     }
 
@@ -134,7 +147,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_home_accessories:
-                startActivity(new Intent(getActivity(), CloudWithOnlineActivity.class));
+                if (!checkTokenStatus()) {
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        FileUtil.getSaveFile(getActivity().getApplication()).getAbsolutePath());
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
+                /**
+                 * 区别Vip
+                 */
+               // MainActivity.mTabLayout.getTabAt(1).select();
+
+
                 break;
             case R.id.ll_home_history:
                 break;
@@ -162,5 +189,71 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         imageViews.clear();
     }
 
+    /**
+     * OCR识别返回的结果
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 识别成功回调，行驶证识别
+        if (requestCode == REQUEST_CODE_VEHICLE_LICENSE && resultCode == Activity.RESULT_OK) {
+            RecognizeService.recVehicleLicense(FileUtil.getSaveFile(getActivity()
+                            .getApplicationContext()).getAbsolutePath(),
+                    new RecognizeService.ServiceListener() {
+                        @Override
+                        public void onResult(String result) {
+                            //infoPopText(result);
+                            Logger.e(result.toString());
+                            Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
+                                    .show();
+                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 释放内存资源
+        OCR.getInstance().release();
+    }
+
+    /**
+     * 行驶证识别
+     */
+    private boolean checkTokenStatus() {
+        if (!hasGotToken) {
+            Toast.makeText(getActivity().getApplicationContext(), "token还未成功获取", Toast
+                    .LENGTH_LONG).show();
+        }
+        Log.e("----------------", hasGotToken + "");
+        return hasGotToken;
+    }
+
+    //授权文件（安全模式）
+    //此种身份验证方案使用授权文件获得AccessToken，缓存在本地。建议有安全考虑的开发者使用此种身份验证方式。
+    private void initAccessToken() {
+        OCR.getInstance().initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken accessToken) {
+                // 调用成功，返回AccessToken对象
+                String token = accessToken.getAccessToken();
+                Log.e("---------------", "token:-------->" + token);
+                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                Log.e("============", "onError:licence方式获取token失败---->" + error.getMessage());
+            }
+        }, getActivity().getApplicationContext());
+    }
 
 }
