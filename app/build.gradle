@@ -52,4 +52,6 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
     //tab
     compile 'com.android.support:design:26.1.0'
+    //db
+    compile 'org.litepal.android:core:1.6.1'
 }

@@ -15,6 +15,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
+import org.litepal.LitePalApplication;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -23,7 +25,7 @@ import okhttp3.OkHttpClient;
  * Created by admin on 2017/12/1.
  */
 
-public class PartsApp extends Application {
+public class PartsApp extends LitePalApplication {
     private static final PartsApp ourInstance = new PartsApp();
 
     public static PartsApp getInstance() {

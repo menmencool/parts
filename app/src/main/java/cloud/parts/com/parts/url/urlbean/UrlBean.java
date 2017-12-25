@@ -1,5 +1,7 @@
 package cloud.parts.com.parts.url.urlbean;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * 时间：2017/12/13 22:48
  */
 
-public class UrlBean {
+public class UrlBean extends DataSupport{
     /**
      * mobile : 13011111111
      * verifycode : 1234
