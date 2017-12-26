@@ -52,4 +52,10 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.33'
     //tab
     compile 'com.android.support:design:26.1.0'
+    //弹窗
+    compile 'com.bigkoo:alertview:1.0.3'
+    //db
+    compile 'org.litepal.android:core:1.6.1'
+    //查看数据库神器
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
 }

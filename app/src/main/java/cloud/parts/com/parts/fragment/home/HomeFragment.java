@@ -156,14 +156,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                         CameraActivity.CONTENT_TYPE_GENERAL);
                 startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
-                /**
-                 * 区别Vip
-                 */
-               // MainActivity.mTabLayout.getTabAt(1).select();
+
 
 
                 break;
             case R.id.ll_home_history:
+                /**
+                 * 区别Vip
+                 */
+                MainActivity.mTabLayout.getTabAt(1).select();
                 break;
             case R.id.ll_home_4s:
                 startActivity(new Intent(getActivity(), FourSQueryActivity.class));

@@ -16,8 +16,9 @@ public class CarUrl {
     分组查询  出参   该车型的分组结构  一次性全部返回
     分组下的配件查询接口*/
     public static final String BRANDNAME_URL=CAR_URL+"queryPartsByGrouppkAndBrandname.json";
-    //生成询价单接口
+     //配件详情接口
     public static final String PARTBYPARTCODE_URL=CAR_URL+"queryPartByPartcode.json";
+
     //历史价格接口
     public static final String HISTORYPRICE_URL=CAR_URL+"queryHistoryPrice.json";
 }

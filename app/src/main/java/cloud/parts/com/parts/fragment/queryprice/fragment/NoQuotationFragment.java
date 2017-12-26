@@ -20,7 +20,7 @@ public class NoQuotationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle
             savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tsf, container,
+        View rootView = inflater.inflate(R.layout.fragment_noquotation, container,
                 false);
         return rootView;
     }

@@ -8,11 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,9 +24,12 @@ import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.orhanobut.logger.Logger;
 
 import cloud.parts.com.parts.R;
+import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.fragment.home.DetailsActivity;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
@@ -35,17 +40,19 @@ public class InquireFragment extends Fragment implements OnClickListener {
     private TextView include_titles;
     private ImageView iv_home_scancode;
     // private ArrayList<VINQueryBean.DataDicBean> dataDicBeans = new ArrayList<>();
-
+    private RecyclerView rl_home_carlist;
     //行驶证需要的
     private boolean hasGotToken = false;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
-    private RecyclerView rl_home_carlist;
+    private EditText et_home_vinnumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_cloudwithonline, container,
                 false);
+        // 请选择您的初始化方式
+        initAccessToken();  //授权文件、安全模式
         initView(rootView);
         return rootView;
     }
@@ -65,11 +72,10 @@ public class InquireFragment extends Fragment implements OnClickListener {
         include_titles.setText("云配在线");
         iv_home_scancode = (ImageView) rootView.findViewById(R.id.iv_home_scancode);
         iv_home_scancode.setOnClickListener(this);
-        // 请选择您的初始化方式
-        initAccessToken();  //授权文件、安全模式
         rl_home_carlist = (RecyclerView) rootView.findViewById(R.id.rl_home_carlist);
         rl_home_carlist.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        et_home_vinnumber = (EditText) rootView.findViewById(R.id.et_home_vinnumber);
     }
 
     @Override
@@ -93,20 +99,35 @@ public class InquireFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_home_scancode:
-                if (!checkTokenStatus()) {
-                    return;
-                }
-                Intent intent = new Intent(getActivity(), CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getActivity().getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
+                alertShow();
                 break;
             case R.id.include_banck:
                 getActivity().finish();
                 break;
         }
+    }
+    //对话框
+    public void alertShow() {
+        new AlertView("选择搜索方式", null, "取消", null,
+                new String[]{"扫描行驶证", "直接搜索"},
+                getActivity(), AlertView.Style.ActionSheet, new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position) {
+                if (position == 0) {
+                    if (!checkTokenStatus()) {
+                        return;
+                    }
+                    Intent intent = new Intent(getActivity(), CameraActivity.class);
+                    intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                            FileUtil.getSaveFile(getActivity().getApplication()).getAbsolutePath());
+                    intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                            CameraActivity.CONTENT_TYPE_GENERAL);
+                    startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
+                } else if (position == 1) {
+                    submit();
+                }
+            }
+        }).show();
     }
 
     /**
@@ -122,12 +143,10 @@ public class InquireFragment extends Fragment implements OnClickListener {
         // 识别成功回调，行驶证识别
         if (requestCode == REQUEST_CODE_VEHICLE_LICENSE && resultCode == Activity.RESULT_OK) {
             RecognizeService.recVehicleLicense(FileUtil.getSaveFile(getActivity()
-                            .getApplicationContext())
-                            .getAbsolutePath(),
+                            .getApplicationContext()).getAbsolutePath(),
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            //infoPopText(result);
                             Logger.e(result.toString());
                             Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
                                     .show();
@@ -175,6 +194,19 @@ public class InquireFragment extends Fragment implements OnClickListener {
                 Log.e("============", "onError:licence方式获取token失败---->" + error.getMessage());
             }
         }, getActivity().getApplicationContext());
+    }
+
+    private void submit() {
+        // validate
+        String vinnumber = et_home_vinnumber.getText().toString().trim();
+        if (TextUtils.isEmpty(vinnumber)) {
+            Toast.makeText(getContext(), "请输入VIN码...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+        intent.putExtra("VIN", TestData.VIN);//vinnumber
+        startActivity(intent);
+        et_home_vinnumber.setText("");
     }
 /*    public void getData() {
         UrlBean urlBean = new UrlBean();

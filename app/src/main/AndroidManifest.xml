@@ -27,6 +27,9 @@
         <activity android:name=".fragment.home.ScanCodeActivity"/>
         <activity android:name=".fragment.home.FourSQueryActivity"/>
         <activity android:name=".fragment.home.DetailsActivity"/>
+        <activity android:name=".web.WebViewShow"/>
+        <activity android:name=".fragment.home.GroupByQueryActivity"/>
+        <activity android:name=".fragment.home.PartsListActivity" />
     </application>
 
 </manifest>

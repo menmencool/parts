@@ -51,6 +51,7 @@
                         android:layout_marginLeft="30dp"
                         android:background="@null"
                         android:hint="请输入VIN码..."
+                        android:textColor="@color/i_white"
                         android:textColorHint="@color/i_white" />
                 </RelativeLayout>
 
@@ -61,7 +62,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:src="@mipmap/scancode3x" />
+                    android:src="@mipmap/sousuo_lv" />
             </LinearLayout>
         </LinearLayout>
 

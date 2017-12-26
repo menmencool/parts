@@ -92,12 +92,12 @@
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-hdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",
@@ -224,24 +224,24 @@
         "source": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bd_ocr_rotate.png"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_bd_ocr_hint_align_id_card_back.png.flat",
-        "source": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bd_ocr_hint_align_id_card_back.png"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_abc_text_select_handle_middle_mtrl_dark.png.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-mdpi-v4\\abc_text_select_handle_middle_mtrl_dark.png"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_bd_ocr_hint_align_id_card_back.png.flat",
+        "source": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bd_ocr_hint_align_id_card_back.png"
     },
     {
         "merged": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxxhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\1d0c7b816e61b1ca551bf2464c87c95c\\res\\drawable-xxxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-hdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_abc_list_menu_item_checkbox.xml.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-hdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_abc_list_pressed_holo_dark.9.png.flat",
@@ -604,12 +604,12 @@
         "source": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bd_ocr_hint_align_bank_card.png"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
-        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-mdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
+        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
     },
     {
         "merged": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
@@ -1716,12 +1716,12 @@
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable\\abc_btn_colored_material.xml"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_notification_bg.xml.flat",
-        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable\\notification_bg.xml"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_right_mtrl_light.png.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xxxhdpi-v4\\abc_text_select_handle_right_mtrl_light.png"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_notification_bg.xml.flat",
+        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable\\notification_bg.xml"
     },
     {
         "merged": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_abc_list_divider_mtrl_alpha.9.png.flat",
@@ -1772,12 +1772,12 @@
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
-        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-mdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_abc_btn_default_mtrl_shape.xml.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
+        "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-mdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
     },
     {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
@@ -2268,12 +2268,12 @@
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xhdpi-v4\\abc_text_select_handle_right_mtrl_light.png"
     },
     {
-        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_bd_ocr_id_card_locator_back.png.flat",
-        "source": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bd_ocr_id_card_locator_back.png"
-    },
-    {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\drawable-xxhdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4_bd_ocr_id_card_locator_back.png.flat",
+        "source": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bd_ocr_id_card_locator_back.png"
     },
     {
         "merged": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",

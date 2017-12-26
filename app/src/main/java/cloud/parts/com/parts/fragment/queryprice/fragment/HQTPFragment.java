@@ -20,7 +20,7 @@ public class HQTPFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle
             savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tsf, container,
+        View rootView = inflater.inflate(R.layout.fragment_hqtp, container,
                 false);
         return rootView;
     }

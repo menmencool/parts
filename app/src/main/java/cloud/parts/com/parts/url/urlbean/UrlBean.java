@@ -1,5 +1,7 @@
 package cloud.parts.com.parts.url.urlbean;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 /**

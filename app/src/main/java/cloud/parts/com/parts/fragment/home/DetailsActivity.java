@@ -1,24 +1,35 @@
 package cloud.parts.com.parts.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 
+import org.litepal.crud.DataSupport;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
+import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapter;
 import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapters;
 import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
@@ -40,6 +51,10 @@ public class DetailsActivity extends BaseActivity {
     private RecyclerView rl_details_hotparts;
     private TextView tv_details_carname;
     private TextView tv_details_brand;
+    private EditText et_home_vinnumber;
+    private ImageView iv_home_scancode;
+    private DBDataBean mDataBean;
+    private List<DBDataBean> mQueryall;
 
     @Override
     protected void initView() {
@@ -59,18 +74,29 @@ public class DetailsActivity extends BaseActivity {
         rl_details_accessories.setNestedScrollingEnabled(false);
         rl_details_accessories.setLayoutManager(new LinearLayoutManager(this));
         rl_details_hotparts.setLayoutManager(new LinearLayoutManager(this));
+
+        et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
+        iv_home_scancode = (ImageView) findViewById(R.id.iv_home_scancode);
+        iv_home_scancode.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
+        //存储返回成功的内容
+        mDataBean = new DBDataBean();
+        //查询
+        mQueryall = DataSupport.findAll(DBDataBean.class);
+
+
         hotpartsData();
         accessoriesData();
     }
 
     //热门配件
     public void hotpartsData() {
+        String vin = getIntent().getStringExtra("VIN");
         UrlBean urlBean = new UrlBean();
-        urlBean.setVin(TestData.VIN);
+        urlBean.setVin(vin);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         OkGo.<String>post(CarUrl.VIN_URL)
@@ -84,6 +110,33 @@ public class DetailsActivity extends BaseActivity {
                         DetailsBean.DataDicBean dataDic = vinQueryBean.getDataDic();
                         tv_details_carname.setText(dataDic.getModel().getPpmc());
                         tv_details_brand.setText(dataDic.getModel().getCxmc2());
+                        //获取当前时间
+                        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String date = sDateFormat.format(new java.util.Date());
+                        if (mQueryall.size() != 0) {
+                            for (int i = 0; i < mQueryall.size(); i++) {
+                                if (mQueryall.get(i).getVincode().equals(dataDic.getVincode())) {
+                                    mDataBean.setTime(date);
+                                    mDataBean.updateAll("", dataDic.getVincode());
+                                    Logger.e("111111111111111111111");
+                                } else {
+                                    //存入信息
+                                    mDataBean.setVincode(dataDic.getVincode());
+                                    mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
+                                    mDataBean.setTime(date);
+                                    mDataBean.save();
+                                    Logger.e("222233333333333333333");
+                                }
+                            }
+                        } else {
+                            //存入信息
+                            mDataBean.setVincode(dataDic.getVincode());
+                            mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
+                            mDataBean.setTime(date);
+                            mDataBean.save();
+                            Logger.e("22222");
+                        }
+
                         //热门配件
                         List<DetailsBean.DataDicBean.HotpartsBean> hotparts = dataDic.getHotparts();
                         DetailsAdapter adapter = new DetailsAdapter(R.layout.vinquery_adapter,
@@ -126,8 +179,7 @@ public class DetailsActivity extends BaseActivity {
                                 DetailsBeans.class);
                         List<DetailsBeans.DataDicBean.MatchPartsBean> matchParts = detailsBeans
                                 .getDataDic().getMatchParts();
-                        //热门配件
-                        DetailsAdapters adapter = new DetailsAdapters(R.layout.vinquery_adapter,
+                        DetailsAdapters adapter = new DetailsAdapters(R.layout.accessories_adapter,
                                 matchParts);
                         adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                         rl_details_accessories.setAdapter(adapter);
@@ -148,21 +200,58 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        include_banck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.include_banck:
+                finish();
+                break;
+            case R.id.include_mes:
+                startActivity(new Intent(this, GroupByQueryActivity.class));
+                break;
+            case R.id.iv_home_scancode:
+                alertShow();
+                break;
+        }
+    }
 
+    public void alertShow() {
+        new AlertView("选择搜索方式", null, "取消", null,
+                new String[]{"批量扫描", "直接搜索"},
+                this, AlertView.Style.ActionSheet, new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position) {
+                if (position == 0) {
+              /*      if (!checkTokenStatus()) {
+                        return;
+                    }
+                    Intent intent = new Intent(getActivity(), CameraActivity.class);
+                    intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                            FileUtil.getSaveFile(getActivity().getApplication()).getAbsolutePath());
+                    intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                            CameraActivity.CONTENT_TYPE_GENERAL);
+                    startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);*/
+                } else if (position == 1) {
+                    submit();
+
+                }
+            }
+        }).show();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    private void submit() {
+        // validate
+        String vinnumber = et_home_vinnumber.getText().toString().trim();
+        if (TextUtils.isEmpty(vinnumber)) {
+            Toast.makeText(this, "输入配件编号...", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 }

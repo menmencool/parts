@@ -50,6 +50,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuan_1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="替"
+            android:textColor="@color/i_white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuan_2"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="包"
+            android:textColor="@color/i_white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuan_3"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="警"
+            android:textColor="@color/i_white"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,8 +125,7 @@
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="3dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="1dp"
         android:background="@color/i_gray_line4"/>
 
 </LinearLayout>
