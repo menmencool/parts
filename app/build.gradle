@@ -57,5 +57,5 @@ dependencies {
     //db
     compile 'org.litepal.android:core:1.6.1'
     //查看数据库神器
-    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
 }

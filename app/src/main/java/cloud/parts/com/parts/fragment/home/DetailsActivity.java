@@ -38,7 +38,7 @@ import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
- *  类用途：
+ * 类用途：
  * 作者：Zhuang
  * 时间：2017/12/24 10:49
  */
@@ -117,15 +117,13 @@ public class DetailsActivity extends BaseActivity {
                             for (int i = 0; i < mQueryall.size(); i++) {
                                 if (mQueryall.get(i).getVincode().equals(dataDic.getVincode())) {
                                     mDataBean.setTime(date);
-                                    mDataBean.updateAll("", dataDic.getVincode());
-                                    Logger.e("111111111111111111111");
+                                    mDataBean.updateAll("vincode=?", dataDic.getVincode());
                                 } else {
                                     //存入信息
                                     mDataBean.setVincode(dataDic.getVincode());
                                     mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
                                     mDataBean.setTime(date);
                                     mDataBean.save();
-                                    Logger.e("222233333333333333333");
                                 }
                             }
                         } else {
@@ -134,7 +132,6 @@ public class DetailsActivity extends BaseActivity {
                             mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
                             mDataBean.setTime(date);
                             mDataBean.save();
-                            Logger.e("22222");
                         }
 
                         //热门配件

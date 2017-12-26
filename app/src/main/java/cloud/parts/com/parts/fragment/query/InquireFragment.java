@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment;
+package cloud.parts.com.parts.fragment.query;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,11 +26,20 @@ import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
+import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.home.DetailsActivity;
+import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapter;
+import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
+import cloud.parts.com.parts.fragment.query.adapter.InquireAdapter;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
 
@@ -45,6 +54,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
     private boolean hasGotToken = false;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
     private EditText et_home_vinnumber;
+    private InquireAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +70,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        initData();
     }
 
     private void initView(View rootView) {
@@ -78,9 +88,32 @@ public class InquireFragment extends Fragment implements OnClickListener {
         et_home_vinnumber = (EditText) rootView.findViewById(R.id.et_home_vinnumber);
     }
 
+    private void initData() {
+        //查询
+        final List<DBDataBean> all = DataSupport.findAll(DBDataBean.class);
+        //热门配件
+        mAdapter = new InquireAdapter(R.layout.inquire_adapter,
+                all);
+        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        rl_home_carlist.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
+                () {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int
+                    position) {
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                intent.putExtra("VIN", all.get(position).getVincode());
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        initData();
         getActivity().setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -106,6 +139,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
                 break;
         }
     }
+
     //对话框
     public void alertShow() {
         new AlertView("选择搜索方式", null, "取消", null,
@@ -208,38 +242,4 @@ public class InquireFragment extends Fragment implements OnClickListener {
         startActivity(intent);
         et_home_vinnumber.setText("");
     }
-/*    public void getData() {
-        UrlBean urlBean = new UrlBean();
-        urlBean.setVin(TestData.VIN);
-        final Gson gson = new Gson();
-        final String s = gson.toJson(urlBean);
-        OkGo.<String>post(CarUrl.VIN_URL)
-                .tag(this)
-                .upJson(s)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        VINQueryBean vinQueryBean = gson.fromJson(response.body().toString(),
-                        VINQueryBean.class);
-                        VINQueryBean.DataDicBean dataDic= vinQueryBean.getDataDic();
-                        dataDicBeans.add(dataDic);
-                        VINQueryAdapter adapter = new VINQueryAdapter(R.layout.vinquery_adapter,
-                        dataDicBeans);
-                        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                        rl_home_carlist.setAdapter(adapter);
-                     *//*   adapter.setOnItemClickListener(new BaseQuickAdapter
-                     * .OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int
-                            position) {
-                                String pkgId = result.get(position).getTestPkgId();
-                                Intent intent = new Intent(context, PkgIdActivity.class);
-                                intent.putExtra("id", pkgId);
-                                context.startActivity(intent);
-                            }
-                        });*//*
-                    }
-                });
-    }*/
-
 }

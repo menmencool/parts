@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.fragment.InquireFragment;
+import cloud.parts.com.parts.fragment.query.InquireFragment;
 import cloud.parts.com.parts.fragment.queryprice.QueryFormFragment;
 import cloud.parts.com.parts.fragment.home.HomeFragment;
 import cloud.parts.com.parts.fragment.UserFragment;
