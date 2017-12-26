@@ -38,7 +38,7 @@ import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
- * 类用途：
+ *  类用途：
  * 作者：Zhuang
  * 时间：2017/12/24 10:49
  */
