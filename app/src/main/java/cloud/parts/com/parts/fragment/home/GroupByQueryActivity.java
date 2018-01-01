@@ -36,9 +36,6 @@ public class GroupByQueryActivity extends BaseActivity {
         rl_groupby_list = (RecyclerView) findViewById(R.id.rl_groupby_list);
         rl_groupby_list.setOnClickListener(this);
 
-
-
-
         tv = (TextView) findViewById(R.id.tv);
         tv.setOnClickListener(this);
     }

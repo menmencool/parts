@@ -7,22 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
-import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapters;
-import cloud.parts.com.parts.fragment.home.bean.DetailsBeans;
-import cloud.parts.com.parts.url.CarUrl;
-import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
  * describe:

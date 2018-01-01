@@ -129,20 +129,42 @@
                 android:layout_height="3dp"
                 android:background="@color/i_gray_line4"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/i_gray_line4"
+                android:padding="10dp"
+                android:text="已识别配件"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rl_details_accessories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/i_white"
                 ></android.support.v7.widget.RecyclerView>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/i_gray_line4"
+                android:padding="10dp"
+                android:text="未识别配件"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rl_details_noaccessories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/i_white"
+                ></android.support.v7.widget.RecyclerView>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/i_gray_line4"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/i_gray_line4"
                 android:padding="10dp"
                 android:text="热门配件"
                 android:textColor="#ff0000"/>
@@ -151,29 +173,21 @@
                 android:id="@+id/rl_details_hotparts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/i_white"
+                android:layout_marginBottom="30dp"
                 ></android.support.v7.widget.RecyclerView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <ImageView
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="10dp"
         android:src="@mipmap/add"/>
+
     <include layout="@layout/include_title"/>
 </RelativeLayout>

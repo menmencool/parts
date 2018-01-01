@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/dingdan_yuandian"/>
+            android:background="@mipmap/slide_bx"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -18,12 +18,12 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
@@ -32,6 +32,7 @@ import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapter;
 import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapters;
+import cloud.parts.com.parts.fragment.home.adapter.ErrorAdapter;
 import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
 import cloud.parts.com.parts.fragment.home.bean.DetailsBeans;
 import cloud.parts.com.parts.url.CarUrl;
@@ -55,6 +56,7 @@ public class DetailsActivity extends BaseActivity {
     private ImageView iv_home_scancode;
     private DBDataBean mDataBean;
     private List<DBDataBean> mQueryall;
+    private RecyclerView rl_details_noaccessories;
 
     @Override
     protected void initView() {
@@ -67,17 +69,21 @@ public class DetailsActivity extends BaseActivity {
         include_mes.setText("分组查询");
         include_mes.setOnClickListener(this);
         rl_details_accessories = (RecyclerView) findViewById(R.id.rl_details_accessories);//识别配件
+        rl_details_noaccessories = (RecyclerView) findViewById(R.id.rl_details_noaccessories);
         rl_details_hotparts = (RecyclerView) findViewById(R.id.rl_details_hotparts);//热门配件
         tv_details_carname = (TextView) findViewById(R.id.tv_details_carname);
         tv_details_brand = (TextView) findViewById(R.id.tv_details_brand);
-        rl_details_hotparts.setNestedScrollingEnabled(false);
-        rl_details_accessories.setNestedScrollingEnabled(false);
         rl_details_accessories.setLayoutManager(new LinearLayoutManager(this));
         rl_details_hotparts.setLayoutManager(new LinearLayoutManager(this));
-
+        rl_details_noaccessories.setLayoutManager(new LinearLayoutManager(this));
+        rl_details_hotparts.setNestedScrollingEnabled(false);
+        rl_details_accessories.setNestedScrollingEnabled(false);
+        rl_details_hotparts.setNestedScrollingEnabled(false);
+        rl_details_noaccessories.setNestedScrollingEnabled(false);
         et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
         iv_home_scancode = (ImageView) findViewById(R.id.iv_home_scancode);
         iv_home_scancode.setOnClickListener(this);
+
     }
 
     @Override
@@ -112,7 +118,7 @@ public class DetailsActivity extends BaseActivity {
                         tv_details_brand.setText(dataDic.getModel().getCxmc2());
                         //获取当前时间
                         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String date = sDateFormat.format(new java.util.Date());
+                        String date = sDateFormat.format(new Date());
                         if (mQueryall.size() != 0) {
                             for (int i = 0; i < mQueryall.size(); i++) {
                                 if (mQueryall.get(i).getVincode().equals(dataDic.getVincode())) {
@@ -174,12 +180,22 @@ public class DetailsActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
                                 DetailsBeans.class);
+                        //已识别配件
                         List<DetailsBeans.DataDicBean.MatchPartsBean> matchParts = detailsBeans
                                 .getDataDic().getMatchParts();
-                        DetailsAdapters adapter = new DetailsAdapters(R.layout.accessories_adapter,
+                        DetailsAdapters matchadapter = new DetailsAdapters(R.layout.accessories_adapter,
                                 matchParts);
-                        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                        rl_details_accessories.setAdapter(adapter);
+                        matchadapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+                        rl_details_accessories.setAdapter(matchadapter);
+                        //未识别配件
+                        List<String> errorParts = detailsBeans.getDataDic().getErrorParts();
+                        ErrorAdapter erroradapter = new ErrorAdapter(R.layout.error_adapter,
+                                errorParts);
+                        erroradapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+                        rl_details_noaccessories.setAdapter(erroradapter);
+
+
+
                      /*   adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
                      () {
                             @Override

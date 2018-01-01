@@ -73,16 +73,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_home, container,
                 false);
         initView(rootView);
-        // 请选择您的初始化方式
-        initAccessToken();  //授权文件、安全模式
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        // 请选择您的初始化方式
+        initAccessToken();  //授权文件、安全模式
         initData();
-
     }
 
     private void initView(View rootView) {
@@ -156,9 +155,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                         CameraActivity.CONTENT_TYPE_GENERAL);
                 startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
-
-
-
                 break;
             case R.id.ll_home_history:
                 /**
