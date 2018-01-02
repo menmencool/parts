@@ -77,5 +77,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         //登录点击跳转逻辑在此
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 }
