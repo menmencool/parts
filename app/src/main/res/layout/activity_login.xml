@@ -72,6 +72,7 @@
                     android:src="@mipmap/pwd"/>
 
                 <EditText
+                    android:maxLength="6"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:inputType="number"
