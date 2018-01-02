@@ -92,8 +92,6 @@ public class DetailsActivity extends BaseActivity {
         mDataBean = new DBDataBean();
         //查询
         mQueryall = DataSupport.findAll(DBDataBean.class);
-
-
         hotpartsData();
         accessoriesData();
     }
@@ -194,7 +192,19 @@ public class DetailsActivity extends BaseActivity {
                         erroradapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                         rl_details_noaccessories.setAdapter(erroradapter);
 
-
+                        matchadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            @Override
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                switch (view.getId()){
+                                    case R.id.tv_vinquery_by:
+                                        Intent intent = new Intent(DetailsActivity.this,PartsListActivity.class);
+                                        intent.putExtra("grouppk","1");
+                                        intent.putExtra("brandname","宝马");
+                                        startActivity(intent);
+                                        break;
+                                }
+                            }
+                        });
 
                      /*   adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
                      () {

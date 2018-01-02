@@ -21,16 +21,10 @@
             android:background="@mipmap/slide_bx"/>
 
         <TextView
-            android:textColor="@color/i_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="编码："/>
-
-        <TextView
-            android:textColor="@color/i_black"
             android:id="@+id/tv_vinquery_carname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/i_black"
             android:text=""/>
 
         <View
@@ -85,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="33dp"
-            android:text="名称："/>
+            android:text="分组："/>
 
         <TextView
             android:id="@+id/tv_vinquery_vincode"
@@ -109,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="33dp"
-            android:text="报价："/>
+            android:text="价格："/>
 
         <TextView
             android:id="@+id/tv_vinquery_purchasingprice"

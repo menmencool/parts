@@ -56,7 +56,10 @@ public class GroupByQueryActivity extends BaseActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            startActivity(new Intent(GroupByQueryActivity.this,PartsListActivity.class));
+                Intent intent = new Intent(GroupByQueryActivity.this,PartsListActivity.class);
+                intent.putExtra("grouppk","1");
+                intent.putExtra("brandname","宝马");
+                startActivity(intent);
             }
         });
     }

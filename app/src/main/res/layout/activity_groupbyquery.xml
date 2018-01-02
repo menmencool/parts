@@ -23,7 +23,7 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="数据"/>
+        android:text="TEST"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_groupby_list"
         android:layout_width="match_parent"

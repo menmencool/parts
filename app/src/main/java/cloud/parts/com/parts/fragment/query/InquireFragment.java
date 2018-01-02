@@ -195,7 +195,9 @@ public class InquireFragment extends Fragment implements OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         // 释放内存资源
-        OCR.getInstance().release();
+        if (OCR.getInstance() != null) {
+            OCR.getInstance().release();
+        }
     }
 
     /**
