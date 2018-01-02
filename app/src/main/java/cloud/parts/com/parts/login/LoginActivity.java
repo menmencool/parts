@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +51,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_login_ok:
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                submit();
                 break;
         }
     }
@@ -76,6 +75,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
             return;
         }
-        // TODO validate success, do something
+        //登录点击跳转逻辑在此
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 }

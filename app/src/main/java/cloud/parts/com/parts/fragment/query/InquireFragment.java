@@ -37,8 +37,6 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.home.DetailsActivity;
-import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapter;
-import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
 import cloud.parts.com.parts.fragment.query.adapter.InquireAdapter;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;

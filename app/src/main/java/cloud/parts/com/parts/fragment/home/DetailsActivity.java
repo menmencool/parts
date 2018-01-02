@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -57,7 +58,9 @@ public class DetailsActivity extends BaseActivity {
     private DBDataBean mDataBean;
     private List<DBDataBean> mQueryall;
     private RecyclerView rl_details_noaccessories;
-
+    private ImageView iv_details_top;
+    private String sa = "https://www2.autoimg" +
+            ".cn/newsdfs/g22/M0C/E7/FB/autohomecar__wKgFW1onZyqAd8U5ABFwZRbqUVw563.jpg";
     @Override
     protected void initView() {
         setContentView(R.layout.activity_details);
@@ -83,7 +86,9 @@ public class DetailsActivity extends BaseActivity {
         et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
         iv_home_scancode = (ImageView) findViewById(R.id.iv_home_scancode);
         iv_home_scancode.setOnClickListener(this);
-
+        //展示test
+        iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
+        Glide.with(this).load(sa).into(iv_details_top);
     }
 
     @Override
@@ -181,7 +186,8 @@ public class DetailsActivity extends BaseActivity {
                         //已识别配件
                         List<DetailsBeans.DataDicBean.MatchPartsBean> matchParts = detailsBeans
                                 .getDataDic().getMatchParts();
-                        DetailsAdapters matchadapter = new DetailsAdapters(R.layout.accessories_adapter,
+                        DetailsAdapters matchadapter = new DetailsAdapters(R.layout
+                                .accessories_adapter,
                                 matchParts);
                         matchadapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                         rl_details_accessories.setAdapter(matchadapter);
@@ -192,14 +198,17 @@ public class DetailsActivity extends BaseActivity {
                         erroradapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                         rl_details_noaccessories.setAdapter(erroradapter);
 
-                        matchadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                        matchadapter.setOnItemChildClickListener(new BaseQuickAdapter
+                                .OnItemChildClickListener() {
                             @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                switch (view.getId()){
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int
+                                    position) {
+                                switch (view.getId()) {
                                     case R.id.tv_vinquery_by:
-                                        Intent intent = new Intent(DetailsActivity.this,PartsListActivity.class);
-                                        intent.putExtra("grouppk","1");
-                                        intent.putExtra("brandname","宝马");
+                                        Intent intent = new Intent(DetailsActivity.this,
+                                                PartsListActivity.class);
+                                        intent.putExtra("grouppk", "1");
+                                        intent.putExtra("brandname", "宝马");
                                         startActivity(intent);
                                         break;
                                 }

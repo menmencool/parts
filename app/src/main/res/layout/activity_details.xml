@@ -21,9 +21,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="@mipmap/top3x">
+                android:layout_height="220dp">
 
+                <ImageView
+                    android:id="@+id/iv_details_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:src="@mipmap/top3x"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
