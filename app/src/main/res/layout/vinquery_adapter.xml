@@ -21,11 +21,13 @@
             android:background="@mipmap/slide_bx"/>
 
         <TextView
+            android:textColor="@color/i_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="编码："/>
 
         <TextView
+            android:textColor="@color/i_black"
             android:id="@+id/tv_vinquery_carname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -30,7 +30,8 @@ public class DetailsAdapters extends BaseQuickAdapter<DetailsBeans.DataDicBean.M
         helper.setText(R.id.tv_vinquery_carname, item.getPartcode())
                 .setText(R.id.tv_vinquery_vincode, item.getPartname())
                 .setText(R.id.tv_vinquery_purchasingprice, item.getSaleprice() + "元");
-        helper.addOnClickListener(R.id.tv_vinquery_by);
+        helper.addOnClickListener(R.id.tv_vinquery_by)
+                .addOnClickListener(R.id.tv_vinquery_delete);
 
     }
 }

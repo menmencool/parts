@@ -29,10 +29,12 @@ import com.youth.banner.Banner;
 import java.util.ArrayList;
 import java.util.List;
 
+import cloud.parts.com.parts.PartsApp;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.home.bean.HomeBean;
+import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
 import cloud.parts.com.parts.url.CarUrl;
@@ -59,8 +61,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private String sa = "https://www2.autoimg" +
             ".cn/newsdfs/g22/M0C/E7/FB/autohomecar__wKgFW1onZyqAd8U5ABFwZRbqUVw563.jpg";
 
-    //行驶证需要的
-    private boolean hasGotToken = false;
+
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
 
     public HomeFragment() {
@@ -80,7 +81,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // 请选择您的初始化方式
-        initAccessToken();  //授权文件、安全模式
         initData();
     }
 
@@ -115,6 +115,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
+        //todo  获取token
+        String token = UserCentre.getInstance().getToken();
         UrlBean urlBean = new UrlBean();
         urlBean.setToken(TestData.TOKEN);
         final Gson gson = new Gson();
@@ -146,7 +148,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_home_accessories:
-                if (!checkTokenStatus()) {
+                if (!MainActivity.hasGotToken) {
+                    Toast.makeText(getActivity(), "Token值未获取", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent = new Intent(getActivity(), CameraActivity.class);
@@ -223,36 +226,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * 行驶证识别
-     */
-    private boolean checkTokenStatus() {
-        if (!hasGotToken) {
-            Toast.makeText(getActivity().getApplicationContext(), "token还未成功获取", Toast
-                    .LENGTH_LONG).show();
-        }
-        Log.e("----------------", hasGotToken + "");
-        return hasGotToken;
-    }
 
-    //授权文件（安全模式）
-    //此种身份验证方案使用授权文件获得AccessToken，缓存在本地。建议有安全考虑的开发者使用此种身份验证方式。
-    private void initAccessToken() {
-        OCR.getInstance().initAccessToken(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken accessToken) {
-                // 调用成功，返回AccessToken对象
-                String token = accessToken.getAccessToken();
-                Log.e("---------------", "token:-------->" + token);
-                hasGotToken = true;
-            }
 
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-                Log.e("============", "onError:licence方式获取token失败---->" + error.getMessage());
-            }
-        }, getActivity().getApplicationContext());
-    }
+
 
 }

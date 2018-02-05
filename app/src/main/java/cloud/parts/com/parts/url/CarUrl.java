@@ -21,4 +21,8 @@ public class CarUrl {
 
     //历史价格接口
     public static final String HISTORYPRICE_URL=CAR_URL+"queryHistoryPrice.json";
+    //图片生成
+    public static final String IMAGE_GENERATION="http://47.95.240.83:8080/sscvapi/kaptcha/";
+    //登录
+    public static final String LOGIN_URL=CAR_URL+"login.json";
 }

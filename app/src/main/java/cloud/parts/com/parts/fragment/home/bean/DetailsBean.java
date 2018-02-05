@@ -10,10 +10,21 @@ import java.util.List;
 
 public class DetailsBean {
 
+
     /**
      * errorcode : 0
      * errormsg :
-     * dataDic : {"vincode":"5UXZV4C56D0B02465","model":{"model_pk":"1","brand_name":"宝马","ppid":"15","ppszm":"B","ppmc":"宝马","cxzszm":"B","cxid":"472","cxzmc":"宝马(进口)","cxiszm":"B","cximc":"宝马7系","cxiid":"153","cxmc":"2004款 730Li","cxmc2":"宝马 宝马7系 2004款 730Li","nf":"2004","zt":"停售","cjzdjg":"87.00万","sszdjg":"","cs":"宝马(进口)","jb":"大型车","fdj":"3.0L 231马力 L6","bsx":"手自一体变速箱(AT)","fdjxh":"","plml":"2979","pll":"3","jqxs":"自然吸气","qgplxs":"L","qggs":"6","qmgs":"4","ysb":"10.2","rlxs":"汽油","rybh":"95号","gyfs":"多点电喷","ggcl":"铝","gtcl":"铝镁合金","hbbz":"欧III","jc":"6挡手自一体","dwgs":"6","bsxlx":"手自一体变速箱(AT)","qdfs":"前置后驱","sqxs":"-"},"hotparts":[{"partpk":"1","brandname":"宝马","partcode":"12345678","saleprice":"100.00","partname":"大灯","purchaseprice":"120.00"},{"partpk":"2","brandname":"宝马","partcode":"12345679","saleprice":"1000.00","partname":"轮胎","purchaseprice":"1200.00"}]}
+     * dataDic : {"vincode":"5UXZV4C56D0B02465","model":{"model_pk":"1","brand_name":"宝马",
+     * "ppid":"15","ppszm":"B","ppmc":"宝马","cxzszm":"B","cxid":"472","cxzmc":"宝马(进口)",
+     * "cxiszm":"B","cximc":"宝马7系","cxiid":"153","cxmc":"2004款 730Li","cxmc2":"宝马 宝马7系 2004款
+     * 730Li","nf":"2004","zt":"停售","cjzdjg":"87.00万","sszdjg":"","cs":"宝马(进口)","jb":"大型车",
+     * "fdj":"3.0L 231马力 L6","bsx":"手自一体变速箱(AT)","fdjxh":"","plml":"2979","pll":"3",
+     * "jqxs":"自然吸气","qgplxs":"L","qggs":"6","qmgs":"4","ysb":"10.2","rlxs":"汽油","rybh":"95号",
+     * "gyfs":"多点电喷","ggcl":"铝","gtcl":"铝镁合金","hbbz":"欧III","jc":"6挡手自一体","dwgs":"6",
+     * "bsxlx":"手自一体变速箱(AT)","qdfs":"前置后驱","sqxs":"-","imgurl":"","configuration":[]},
+     * "hotparts":[{"partpk":"1","brandname":"宝马","partcode":"12345678","saleprice":"100.00",
+     * "partname":"大灯","purchaseprice":"120.00"},{"partpk":"2","brandname":"宝马",
+     * "partcode":"12345679","saleprice":"1000.00","partname":"轮胎","purchaseprice":"1200.00"}]}
      */
 
     private int errorcode;
@@ -47,8 +58,17 @@ public class DetailsBean {
     public static class DataDicBean {
         /**
          * vincode : 5UXZV4C56D0B02465
-         * model : {"model_pk":"1","brand_name":"宝马","ppid":"15","ppszm":"B","ppmc":"宝马","cxzszm":"B","cxid":"472","cxzmc":"宝马(进口)","cxiszm":"B","cximc":"宝马7系","cxiid":"153","cxmc":"2004款 730Li","cxmc2":"宝马 宝马7系 2004款 730Li","nf":"2004","zt":"停售","cjzdjg":"87.00万","sszdjg":"","cs":"宝马(进口)","jb":"大型车","fdj":"3.0L 231马力 L6","bsx":"手自一体变速箱(AT)","fdjxh":"","plml":"2979","pll":"3","jqxs":"自然吸气","qgplxs":"L","qggs":"6","qmgs":"4","ysb":"10.2","rlxs":"汽油","rybh":"95号","gyfs":"多点电喷","ggcl":"铝","gtcl":"铝镁合金","hbbz":"欧III","jc":"6挡手自一体","dwgs":"6","bsxlx":"手自一体变速箱(AT)","qdfs":"前置后驱","sqxs":"-"}
-         * hotparts : [{"partpk":"1","brandname":"宝马","partcode":"12345678","saleprice":"100.00","partname":"大灯","purchaseprice":"120.00"},{"partpk":"2","brandname":"宝马","partcode":"12345679","saleprice":"1000.00","partname":"轮胎","purchaseprice":"1200.00"}]
+         * model : {"model_pk":"1","brand_name":"宝马","ppid":"15","ppszm":"B","ppmc":"宝马",
+         * "cxzszm":"B","cxid":"472","cxzmc":"宝马(进口)","cxiszm":"B","cximc":"宝马7系","cxiid":"153",
+         * "cxmc":"2004款 730Li","cxmc2":"宝马 宝马7系 2004款 730Li","nf":"2004","zt":"停售",
+         * "cjzdjg":"87.00万","sszdjg":"","cs":"宝马(进口)","jb":"大型车","fdj":"3.0L 231马力 L6",
+         * "bsx":"手自一体变速箱(AT)","fdjxh":"","plml":"2979","pll":"3","jqxs":"自然吸气","qgplxs":"L",
+         * "qggs":"6","qmgs":"4","ysb":"10.2","rlxs":"汽油","rybh":"95号","gyfs":"多点电喷","ggcl":"铝",
+         * "gtcl":"铝镁合金","hbbz":"欧III","jc":"6挡手自一体","dwgs":"6","bsxlx":"手自一体变速箱(AT)",
+         * "qdfs":"前置后驱","sqxs":"-","imgurl":"","configuration":[]}
+         * hotparts : [{"partpk":"1","brandname":"宝马","partcode":"12345678","saleprice":"100.00",
+         * "partname":"大灯","purchaseprice":"120.00"},{"partpk":"2","brandname":"宝马",
+         * "partcode":"12345679","saleprice":"1000.00","partname":"轮胎","purchaseprice":"1200.00"}]
          */
 
         private String vincode;
@@ -121,6 +141,8 @@ public class DetailsBean {
              * bsxlx : 手自一体变速箱(AT)
              * qdfs : 前置后驱
              * sqxs : -
+             * imgurl :
+             * configuration : []
              */
 
             private String model_pk;
@@ -163,6 +185,8 @@ public class DetailsBean {
             private String bsxlx;
             private String qdfs;
             private String sqxs;
+            private String imgurl;
+            private List<?> configuration;
 
             public String getModel_pk() {
                 return model_pk;
@@ -482,6 +506,22 @@ public class DetailsBean {
 
             public void setSqxs(String sqxs) {
                 this.sqxs = sqxs;
+            }
+
+            public String getImgurl() {
+                return imgurl;
+            }
+
+            public void setImgurl(String imgurl) {
+                this.imgurl = imgurl;
+            }
+
+            public List<?> getConfiguration() {
+                return configuration;
+            }
+
+            public void setConfiguration(List<?> configuration) {
+                this.configuration = configuration;
             }
         }
 

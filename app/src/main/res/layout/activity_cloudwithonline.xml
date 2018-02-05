@@ -106,8 +106,9 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:scrollbars="none"
         android:id="@+id/rl_home_carlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/i_white"></android.support.v7.widget.RecyclerView>
+        android:background="@color/i_white"/>
 </LinearLayout>

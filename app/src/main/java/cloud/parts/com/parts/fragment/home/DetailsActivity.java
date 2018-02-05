@@ -1,5 +1,6 @@
 package cloud.parts.com.parts.fragment.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.bumptech.glide.Glide;
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 
 import org.litepal.crud.DataSupport;
 
@@ -30,12 +33,15 @@ import java.util.List;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
+import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapter;
 import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapters;
 import cloud.parts.com.parts.fragment.home.adapter.ErrorAdapter;
 import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
 import cloud.parts.com.parts.fragment.home.bean.DetailsBeans;
+import cloud.parts.com.parts.ocr.FileUtil;
+import cloud.parts.com.parts.ocr.RecognizeService;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
@@ -59,8 +65,11 @@ public class DetailsActivity extends BaseActivity {
     private List<DBDataBean> mQueryall;
     private RecyclerView rl_details_noaccessories;
     private ImageView iv_details_top;
-    private String sa = "https://www2.autoimg" +
-            ".cn/newsdfs/g22/M0C/E7/FB/autohomecar__wKgFW1onZyqAd8U5ABFwZRbqUVw563.jpg";
+    private TextView tv_yishibie;
+    private TextView tv_weishibie;
+    private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
+    private List<DetailsBeans.DataDicBean.MatchPartsBean> mMatchParts;
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_details);
@@ -81,14 +90,15 @@ public class DetailsActivity extends BaseActivity {
         rl_details_noaccessories.setLayoutManager(new LinearLayoutManager(this));
         rl_details_hotparts.setNestedScrollingEnabled(false);
         rl_details_accessories.setNestedScrollingEnabled(false);
-        rl_details_hotparts.setNestedScrollingEnabled(false);
         rl_details_noaccessories.setNestedScrollingEnabled(false);
         et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
         iv_home_scancode = (ImageView) findViewById(R.id.iv_home_scancode);
         iv_home_scancode.setOnClickListener(this);
         //展示test
         iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
-        Glide.with(this).load(sa).into(iv_details_top);
+
+        tv_yishibie = (TextView) findViewById(R.id.tv_yishibie);
+        tv_weishibie = (TextView) findViewById(R.id.tv_weishibie);
     }
 
     @Override
@@ -98,7 +108,7 @@ public class DetailsActivity extends BaseActivity {
         //查询
         mQueryall = DataSupport.findAll(DBDataBean.class);
         hotpartsData();
-        accessoriesData();
+
     }
 
     //热门配件
@@ -119,6 +129,8 @@ public class DetailsActivity extends BaseActivity {
                         DetailsBean.DataDicBean dataDic = vinQueryBean.getDataDic();
                         tv_details_carname.setText(dataDic.getModel().getPpmc());
                         tv_details_brand.setText(dataDic.getModel().getCxmc2());
+                        Glide.with(DetailsActivity.this).load(dataDic.getModel().getImgurl())
+                                .into(iv_details_top);
                         //获取当前时间
                         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String date = sDateFormat.format(new Date());
@@ -164,11 +176,14 @@ public class DetailsActivity extends BaseActivity {
                 });
     }
 
+    //批量查询数据
     public void accessoriesData() {
         ArrayList<String> strings = new ArrayList<>();
         strings.add("1090027482");
         strings.add("1090031747");
         strings.add("1090032337");
+        strings.add("11111111111111");
+        strings.add("11111111111111");
         strings.add("11111111111111");
         UrlBean urlBean = new UrlBean();
         urlBean.setIds(strings);
@@ -179,26 +194,37 @@ public class DetailsActivity extends BaseActivity {
                 .tag(this)
                 .upJson(s)
                 .execute(new StringCallback() {
+
+                    private List<String> mErrorParts;
+                    private DetailsAdapters mMatchadapter;
+
+
                     @Override
                     public void onSuccess(Response<String> response) {
                         DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
                                 DetailsBeans.class);
+                        mMatchParts = detailsBeans.getDataDic().getMatchParts();
                         //已识别配件
-                        List<DetailsBeans.DataDicBean.MatchPartsBean> matchParts = detailsBeans
-                                .getDataDic().getMatchParts();
-                        DetailsAdapters matchadapter = new DetailsAdapters(R.layout
-                                .accessories_adapter,
-                                matchParts);
-                        matchadapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                        rl_details_accessories.setAdapter(matchadapter);
+                        if (!mMatchParts.isEmpty()) {
+                            tv_yishibie.setVisibility(View.VISIBLE);
+                        }
+
+                        mMatchadapter = new DetailsAdapters(R.layout.accessories_adapter,
+                                mMatchParts);
+                        mMatchadapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+                        rl_details_accessories.setAdapter(mMatchadapter);
+                        mErrorParts = detailsBeans.getDataDic().getErrorParts();
                         //未识别配件
-                        List<String> errorParts = detailsBeans.getDataDic().getErrorParts();
+                        if (!mErrorParts.isEmpty()) {
+                            tv_weishibie.setVisibility(View.VISIBLE);
+                        }
+
                         ErrorAdapter erroradapter = new ErrorAdapter(R.layout.error_adapter,
-                                errorParts);
+                                mErrorParts);
                         erroradapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
                         rl_details_noaccessories.setAdapter(erroradapter);
 
-                        matchadapter.setOnItemChildClickListener(new BaseQuickAdapter
+                        mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
                                 .OnItemChildClickListener() {
                             @Override
                             public void onItemChildClick(BaseQuickAdapter adapter, View view, int
@@ -211,6 +237,14 @@ public class DetailsActivity extends BaseActivity {
                                         intent.putExtra("brandname", "宝马");
                                         startActivity(intent);
                                         break;
+                                    case R.id.tv_vinquery_delete:
+                                        mMatchParts.remove(position);
+                                        mMatchadapter.notifyDataSetChanged();
+                                        if (mMatchParts.size() == 0) {
+                                            tv_yishibie.setVisibility(View.GONE);
+                                        }
+                                        break;
+
                                 }
                             }
                         });
@@ -256,15 +290,21 @@ public class DetailsActivity extends BaseActivity {
             @Override
             public void onItemClick(Object o, int position) {
                 if (position == 0) {
-              /*      if (!checkTokenStatus()) {
+                    if (!MainActivity.hasGotToken) {
+                        Toast.makeText(DetailsActivity.this, "Token值未获取", Toast.LENGTH_SHORT)
+                                .show();
                         return;
                     }
-                    Intent intent = new Intent(getActivity(), CameraActivity.class);
+                    Intent intent = new Intent(DetailsActivity.this, CameraActivity.class);
                     intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                            FileUtil.getSaveFile(getActivity().getApplication()).getAbsolutePath());
+                            FileUtil.getSaveFile(DetailsActivity.this.getApplication())
+                                    .getAbsolutePath());
                     intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                             CameraActivity.CONTENT_TYPE_GENERAL);
-                    startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);*/
+                    startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
+
+                    //批量查询数据
+                    accessoriesData();
                 } else if (position == 1) {
                     submit();
 
@@ -273,17 +313,47 @@ public class DetailsActivity extends BaseActivity {
         }).show();
     }
 
+    /**
+     * OCR识别返回的结果
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 识别成功回调，行驶证识别
+        if (requestCode == REQUEST_CODE_VEHICLE_LICENSE && resultCode == Activity.RESULT_OK) {
+            RecognizeService.recVehicleLicense(FileUtil.getSaveFile(DetailsActivity.this
+                            .getApplicationContext()).getAbsolutePath(),
+                    new RecognizeService.ServiceListener() {
+                        @Override
+                        public void onResult(String result) {
+                            //infoPopText(result);
+                            Logger.e(result.toString());
+                            Toast.makeText(DetailsActivity.this, result.toString(), Toast
+                                    .LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    //直接搜索
     private void submit() {
         // validate
         String vinnumber = et_home_vinnumber.getText().toString().trim();
         if (TextUtils.isEmpty(vinnumber)) {
             Toast.makeText(this, "输入配件编号...", Toast.LENGTH_SHORT).show();
             return;
+            //批量查询数据
         }
-    }
+        accessoriesData();
+        et_home_vinnumber.setText("");
+        }
 }

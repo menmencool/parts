@@ -58,4 +58,7 @@ dependencies {
     compile 'org.litepal.android:core:1.6.1'
     //查看数据库神器
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    //图片生成
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:26.1.0'
 }
