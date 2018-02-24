@@ -15,9 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
-import com.baidu.ocr.sdk.OnResultListener;
-import com.baidu.ocr.sdk.exception.OCRError;
-import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -29,11 +26,11 @@ import com.youth.banner.Banner;
 import java.util.ArrayList;
 import java.util.List;
 
-import cloud.parts.com.parts.PartsApp;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.home.bean.HomeBean;
+import cloud.parts.com.parts.fragment.query.DetailsActivity;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
@@ -41,6 +38,9 @@ import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 import cloud.parts.com.parts.utils.GlideImageLoader;
 
+/**
+ * 首页
+ */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private Banner banner;

@@ -130,10 +130,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     public void onSuccess(Response<String> response) {
                         LoginBean loginBean = gson.fromJson(response.body().toString(), LoginBean
                                 .class);
-                        String token = loginBean.getToken();
-                        //保存登录后获取的token
-                        UserCentre.getInstance().setToken(token);
-
+                        int errorcode = loginBean.getErrorcode();
+                        if (errorcode==0) {
+                            String token = loginBean.getToken();
+                            //保存登录后获取的token
+                            UserCentre.getInstance().setToken(token);
+                        }else {
+                            Toast.makeText(LoginActivity.this, loginBean.getErrormsg(), Toast
+                                    .LENGTH_LONG).show();
+                        }
                     }
                 });
 

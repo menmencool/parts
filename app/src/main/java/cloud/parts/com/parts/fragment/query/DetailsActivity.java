@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment.home;
+package cloud.parts.com.parts.fragment.query;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,18 +35,18 @@ import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.db.DBDataBean;
-import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapter;
-import cloud.parts.com.parts.fragment.home.adapter.DetailsAdapters;
-import cloud.parts.com.parts.fragment.home.adapter.ErrorAdapter;
-import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
-import cloud.parts.com.parts.fragment.home.bean.DetailsBeans;
+import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapter;
+import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapters;
+import cloud.parts.com.parts.fragment.query.adapter.ErrorAdapter;
+import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
+import cloud.parts.com.parts.fragment.query.bean.DetailsBeans;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
- * 类用途：
+ * 类用途：点击查询Vin号的详情页面
  * 作者：Zhuang
  * 时间：2017/12/24 10:49
  */

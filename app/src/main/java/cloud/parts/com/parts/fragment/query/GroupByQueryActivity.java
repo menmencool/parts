@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment.home;
+package cloud.parts.com.parts.fragment.query;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 
 /**
- * describe:
+ * describe:分组清单
  * date:2017/12/25
  * author:zhuang
  */

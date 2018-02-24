@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment;
+package cloud.parts.com.parts.fragment.me;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

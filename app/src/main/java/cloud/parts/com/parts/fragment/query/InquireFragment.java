@@ -36,11 +36,14 @@ import java.util.List;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.db.DBDataBean;
-import cloud.parts.com.parts.fragment.home.DetailsActivity;
 import cloud.parts.com.parts.fragment.query.adapter.InquireAdapter;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
 
+/**
+ * 配件查询
+ * 云配在线页面
+ */
 
 public class InquireFragment extends Fragment implements OnClickListener {
     private ImageView include_banck;

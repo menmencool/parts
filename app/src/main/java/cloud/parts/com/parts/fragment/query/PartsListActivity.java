@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment.home;
+package cloud.parts.com.parts.fragment.query;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,13 +17,13 @@ import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
-import cloud.parts.com.parts.fragment.home.adapter.QueryByBrandnameAdapter;
-import cloud.parts.com.parts.fragment.home.bean.QueryByBrandnameBean;
+import cloud.parts.com.parts.fragment.query.adapter.QueryByBrandnameAdapter;
+import cloud.parts.com.parts.fragment.query.bean.QueryByBrandnameBean;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
- * describe:
+ * describe:配件清单
  * date:2017/12/25
  * author:zhuang
  */

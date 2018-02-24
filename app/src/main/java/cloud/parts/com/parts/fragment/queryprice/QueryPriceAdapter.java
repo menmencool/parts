@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment;
+package cloud.parts.com.parts.fragment.queryprice;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

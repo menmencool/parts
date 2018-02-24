@@ -15,12 +15,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.fragment.QueryPriceAdapter;
 import cloud.parts.com.parts.fragment.queryprice.fragment.HQTPFragment;
 import cloud.parts.com.parts.fragment.queryprice.fragment.NoQuotationFragment;
 import cloud.parts.com.parts.fragment.queryprice.fragment.TSFragment;
 
-
+/**
+ * 询价单
+ */
 public class QueryFormFragment extends Fragment implements OnClickListener {
     private TextView include_title;
     private ImageView include_seek;

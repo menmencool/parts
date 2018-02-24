@@ -11,7 +11,7 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 
 /**
- * describe:
+ * describe:4S店查询
  * date:2017/12/22
  * author:zhuang
  */

@@ -25,7 +25,7 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.fragment.query.InquireFragment;
 import cloud.parts.com.parts.fragment.queryprice.QueryFormFragment;
 import cloud.parts.com.parts.fragment.home.HomeFragment;
-import cloud.parts.com.parts.fragment.UserFragment;
+import cloud.parts.com.parts.fragment.me.UserFragment;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 
 public class MainActivity extends BaseActivity{

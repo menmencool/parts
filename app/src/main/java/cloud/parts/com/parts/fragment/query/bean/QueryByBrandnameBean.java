@@ -1,29 +1,15 @@
-package cloud.parts.com.parts.fragment.home.bean;
+package cloud.parts.com.parts.fragment.query.bean;
 
 import java.util.List;
 
 /**
  * 类用途：
  * 作者：Zhuang
- * 时间：2017/12/24 13:50
+ * 时间：2018/1/2 14:06
  */
 
-public class DetailsBeans {
+public class QueryByBrandnameBean {
 
-    /**
-     * errorcode : 0
-     * errormsg :
-     * dataDic : {"matchParts":[{"partpk":"4","brandname":"宝马","partcode":"1090027482",
-     * "saleprice":"597","partname":"Buch","purchaseprice":""},{"partpk":"4959","brandname":"宝马",
-     * "partcode":"1090027482","saleprice":"597","partname":"Buch","purchaseprice":""},
-     * {"partpk":"5","brandname":"宝马","partcode":"1090031747","saleprice":"163","partname":"Buch
-     * Portr鋞","purchaseprice":""},{"partpk":"4961","brandname":"宝马","partcode":"1090031747",
-     * "saleprice":"163","partname":"Buch Portr鋞","purchaseprice":""},{"partpk":"7",
-     * "brandname":"宝马","partcode":"1090032337","saleprice":"326","partname":"\u201cBook
-     * \u201c\u201c75 Yea\u201c","purchaseprice":""},{"partpk":"4965","brandname":"宝马",
-     * "partcode":"1090032337","saleprice":"325","partname":"\u201cBook \u201c\u201c75
-     * Yea\u201c","purchaseprice":""}],"errorParts":["11111111111111"]}
-     */
 
     private int errorcode;
     private String errormsg;
@@ -55,7 +41,7 @@ public class DetailsBeans {
 
     public static class DataDicBean {
         private List<MatchPartsBean> matchParts;
-        private List<String> errorParts;
+        private List<?> errorParts;
 
         public List<MatchPartsBean> getMatchParts() {
             return matchParts;
@@ -65,21 +51,21 @@ public class DetailsBeans {
             this.matchParts = matchParts;
         }
 
-        public List<String> getErrorParts() {
+        public List<?> getErrorParts() {
             return errorParts;
         }
 
-        public void setErrorParts(List<String> errorParts) {
+        public void setErrorParts(List<?> errorParts) {
             this.errorParts = errorParts;
         }
 
         public static class MatchPartsBean {
             /**
-             * partpk : 4
+             * partpk : 2
              * brandname : 宝马
-             * partcode : 1090027482
-             * saleprice : 597
-             * partname : Buch
+             * partcode : 719908002
+             * saleprice : 123
+             * partname : HEX BOLT
              * purchaseprice :
              */
 

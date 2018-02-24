@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment.home.bean;
+package cloud.parts.com.parts.fragment.query.bean;
 
 import java.util.List;
 

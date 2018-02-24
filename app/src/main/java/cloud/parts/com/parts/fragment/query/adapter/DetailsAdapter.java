@@ -1,4 +1,4 @@
-package cloud.parts.com.parts.fragment.home.adapter;
+package cloud.parts.com.parts.fragment.query.adapter;
 
 import android.support.annotation.Nullable;
 
@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
+import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
 
 /**
  * describe:

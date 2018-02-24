@@ -25,12 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".fragment.home.ScanCodeActivity"/>
         <activity android:name=".fragment.home.FourSQueryActivity"/>
-        <activity android:name=".fragment.home.DetailsActivity"/>
+        <activity android:name=".fragment.query.DetailsActivity"/>
         <activity android:name=".web.WebViewShow"/>
-        <activity android:name=".fragment.home.GroupByQueryActivity"/>
-        <activity android:name=".fragment.home.PartsListActivity" />
+        <activity android:name=".fragment.query.GroupByQueryActivity"/>
+        <activity android:name=".fragment.query.PartsListActivity" />
     </application>
 
 </manifest>

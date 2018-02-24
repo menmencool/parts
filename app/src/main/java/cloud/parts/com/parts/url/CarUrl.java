@@ -18,7 +18,6 @@ public class CarUrl {
     public static final String BRANDNAME_URL=CAR_URL+"queryPartsByGrouppkAndBrandname.json";
      //配件详情接口
     public static final String PARTBYPARTCODE_URL=CAR_URL+"queryPartByPartcode.json";
-
     //历史价格接口
     public static final String HISTORYPRICE_URL=CAR_URL+"queryHistoryPrice.json";
     //图片生成

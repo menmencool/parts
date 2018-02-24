@@ -9,7 +9,6 @@ import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.db.DBDataBean;
-import cloud.parts.com.parts.fragment.home.bean.DetailsBean;
 
 /**
  * 类用途：
