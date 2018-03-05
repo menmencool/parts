@@ -94,15 +94,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return;
         }
         initDatas();
-        boolean remember_accounts = cb_login_commitid.isChecked();
-        boolean auto_login = cb_login_commitlogin.isChecked();
-        UserCentre.getInstance().setRememberAccounts(remember_accounts);
-        UserCentre.getInstance().setAutoLogin(auto_login);
-        if (remember_accounts) {
-            UserCentre.getInstance().setUserAccounts(phoneid);
-        } else {
-            UserCentre.getInstance().clearAccounts();
-        }
+
     }
 
     private void initDatas() {
@@ -121,6 +113,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 .class);
                         String errorcode = loginBean.getStatus();
                         if (errorcode.equals("0")) {
+                            boolean remember_accounts = cb_login_commitid.isChecked();
+                            boolean auto_login = cb_login_commitlogin.isChecked();
+                            UserCentre.getInstance().setRememberAccounts(remember_accounts);
+                            UserCentre.getInstance().setAutoLogin(auto_login);
+                            if (remember_accounts) {
+                                UserCentre.getInstance().setUserAccounts(ed_login_phoneid.getText().toString().trim());
+                            } else {
+                                UserCentre.getInstance().clearAccounts();
+                            }
                             String token = loginBean.getToken();
                             //保存登录后获取的token
                             UserCentre.getInstance().setToken(token);
