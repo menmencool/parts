@@ -7,9 +7,13 @@ package cloud.parts.com.parts.url;
  */
 
 public class CarUrl {
-    public static final String CAR_URL="http://47.95.240.83:8080/sscvapi/partscloudapi/";
-    public static final String Home_URL=CAR_URL+"queryIndexData.json";
-    public static final String VIN_URL=CAR_URL+"queryModelByVin.json";
+    public static final String CAR_URL="http://123.57.141.113:8080/PartsCloud/api/";
+    public static final String Home_URL=CAR_URL+"queryIndexData";
+    //histori历史记录接口
+    public static final String HISTORI_URL=CAR_URL+"queryHistory";
+    //输入VIN和扫描VIN码后的详细接口
+    public static final String VIN_URL=CAR_URL+"queryModelByVin";
+    public static final String QUERY_URL=CAR_URL+"queryHistoryByUserIdAndVIN";
     //通过配件编号查询
     public static final String PARTSBYIDS_URL=CAR_URL+"queryPartsByIds.json";
     /*分组按钮   入参   车型id   配件id   出参  该配件所在分组的全部配件列表
@@ -23,5 +27,5 @@ public class CarUrl {
     //图片生成
     public static final String IMAGE_GENERATION="http://47.95.240.83:8080/sscvapi/kaptcha/";
     //登录
-    public static final String LOGIN_URL=CAR_URL+"login.json";
+    public static final String LOGIN_URL=CAR_URL+"login";
 }

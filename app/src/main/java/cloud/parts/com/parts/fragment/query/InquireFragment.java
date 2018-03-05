@@ -27,18 +27,23 @@ import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
-import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.query.adapter.InquireAdapter;
+import cloud.parts.com.parts.fragment.query.bean.HistoriBean;
+import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
+import cloud.parts.com.parts.url.CarUrl;
+import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
  * 配件查询
@@ -90,31 +95,52 @@ public class InquireFragment extends Fragment implements OnClickListener {
     }
 
     private void initData() {
-        //查询
-        final List<DBDataBean> all = DataSupport.findAll(DBDataBean.class);
-        //热门配件
-        mAdapter = new InquireAdapter(R.layout.inquire_adapter,
-                all);
-        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        rl_home_carlist.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
-                () {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int
-                    position) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra("VIN", all.get(position).getVincode());
-                startActivity(intent);
-            }
-        });
-
+        initDatas();
+    }
+    //历史查询接口
+    private void initDatas() {
+        UrlBean urlBean = new UrlBean();
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        String token = UserCentre.getInstance().getToken();
+        OkGo.<String>post(CarUrl.HISTORI_URL)
+                .tag(this)
+                .headers("authtoken",token)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    private List<HistoriBean.DataDicBean.ListBean> mDicList;
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        HistoriBean historiBean = gson.fromJson(response.body().toString(), HistoriBean
+                                .class);
+                        String errorcode = historiBean.getStatus();
+                        if (errorcode.equals("0")) {
+                            mDicList = historiBean.getDataDic().getList();
+                            //热门配件
+                            mAdapter = new InquireAdapter(R.layout.inquire_adapter,
+                                    mDicList);
+                            rl_home_carlist.setAdapter(mAdapter);
+                            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
+                                    () {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int
+                                        position) {
+                                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                                    intent.putExtra("VIN", mDicList.get(position).getVins());
+                                    startActivity(intent);
+                                }
+                            });
+                        }else {
+                            Toast.makeText(getActivity(), historiBean.getErrmsg(), Toast
+                                    .LENGTH_LONG).show();
+                        }
+                    }
+                });
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
-        initData();
         getActivity().setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -183,6 +209,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
                         @Override
                         public void onResult(String result) {
                             Logger.e(result.toString());
+                            //todo ocr返回数据
                             Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
                                     .show();
                             Intent intent = new Intent(getActivity(), DetailsActivity.class);
@@ -241,7 +268,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
             return;
         }
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
-        intent.putExtra("VIN", TestData.VIN);//vinnumber
+        intent.putExtra("VIN",vinnumber);//vinnumber
         startActivity(intent);
         et_home_vinnumber.setText("");
     }

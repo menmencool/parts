@@ -9,6 +9,7 @@ import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.db.DBDataBean;
+import cloud.parts.com.parts.fragment.query.bean.HistoriBean;
 
 /**
  * 类用途：
@@ -16,17 +17,17 @@ import cloud.parts.com.parts.db.DBDataBean;
  * 时间：2017/12/26 14:18
  */
 
-public class InquireAdapter extends BaseQuickAdapter<DBDataBean, BaseViewHolder> {
+public class InquireAdapter extends BaseQuickAdapter<HistoriBean.DataDicBean.ListBean, BaseViewHolder> {
 
-    public InquireAdapter(int layoutResId, @Nullable List<DBDataBean> data) {
+    public InquireAdapter(int layoutResId, @Nullable List<HistoriBean.DataDicBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DBDataBean item) {
-        helper.setText(R.id.tv_inquire_carname, item.getCxmc2())
-                .setText(R.id.tv_inquire_vincode, item.getVincode())
-                .setText(R.id.tv_inquire_time, item.getTime());
+    protected void convert(BaseViewHolder helper, HistoriBean.DataDicBean.ListBean item) {
+        helper.setText(R.id.tv_inquire_carname, item.getVins())
+                .setText(R.id.tv_inquire_vincode, item.getModelname())
+                .setText(R.id.tv_inquire_time, item.getHistoryId());
     }
 
 }

@@ -23,23 +23,20 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
-import org.litepal.crud.DataSupport;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.activity.MainActivity;
-import cloud.parts.com.parts.db.DBDataBean;
-import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapter;
 import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapters;
 import cloud.parts.com.parts.fragment.query.adapter.ErrorAdapter;
+import cloud.parts.com.parts.fragment.query.adapter.QueryIVeiemAdapter;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBeans;
+import cloud.parts.com.parts.fragment.query.bean.QueryIVetemBean;
+import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
 import cloud.parts.com.parts.url.CarUrl;
@@ -61,14 +58,13 @@ public class DetailsActivity extends BaseActivity {
     private TextView tv_details_brand;
     private EditText et_home_vinnumber;
     private ImageView iv_home_scancode;
-    private DBDataBean mDataBean;
-    private List<DBDataBean> mQueryall;
     private RecyclerView rl_details_noaccessories;
     private ImageView iv_details_top;
     private TextView tv_yishibie;
     private TextView tv_weishibie;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
     private List<DetailsBeans.DataDicBean.MatchPartsBean> mMatchParts;
+    private RecyclerView rl_details_queryiveiem;
 
     @Override
     protected void initView() {
@@ -83,6 +79,7 @@ public class DetailsActivity extends BaseActivity {
         rl_details_accessories = (RecyclerView) findViewById(R.id.rl_details_accessories);//识别配件
         rl_details_noaccessories = (RecyclerView) findViewById(R.id.rl_details_noaccessories);
         rl_details_hotparts = (RecyclerView) findViewById(R.id.rl_details_hotparts);//热门配件
+        rl_details_queryiveiem = (RecyclerView) findViewById(R.id.rl_details_queryiveiem);//查询历史
         tv_details_carname = (TextView) findViewById(R.id.tv_details_carname);
         tv_details_brand = (TextView) findViewById(R.id.tv_details_brand);
         rl_details_accessories.setLayoutManager(new LinearLayoutManager(this));
@@ -91,6 +88,8 @@ public class DetailsActivity extends BaseActivity {
         rl_details_hotparts.setNestedScrollingEnabled(false);
         rl_details_accessories.setNestedScrollingEnabled(false);
         rl_details_noaccessories.setNestedScrollingEnabled(false);
+        rl_details_queryiveiem.setLayoutManager(new LinearLayoutManager(this));
+        rl_details_queryiveiem.setNestedScrollingEnabled(false);
         et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
         iv_home_scancode = (ImageView) findViewById(R.id.iv_home_scancode);
         iv_home_scancode.setOnClickListener(this);
@@ -99,16 +98,14 @@ public class DetailsActivity extends BaseActivity {
 
         tv_yishibie = (TextView) findViewById(R.id.tv_yishibie);
         tv_weishibie = (TextView) findViewById(R.id.tv_weishibie);
+
+
     }
 
     @Override
     protected void initData() {
-        //存储返回成功的内容
-        mDataBean = new DBDataBean();
-        //查询
-        mQueryall = DataSupport.findAll(DBDataBean.class);
         hotpartsData();
-
+        queryData();
     }
 
     //热门配件
@@ -118,49 +115,32 @@ public class DetailsActivity extends BaseActivity {
         urlBean.setVin(vin);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
+        String token = UserCentre.getInstance().getToken();
         OkGo.<String>post(CarUrl.VIN_URL)
                 .tag(this)
+                .headers("authtoken", token)
                 .upJson(s)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         DetailsBean vinQueryBean = gson.fromJson(response.body().toString(),
                                 DetailsBean.class);
-                        DetailsBean.DataDicBean dataDic = vinQueryBean.getDataDic();
-                        tv_details_carname.setText(dataDic.getModel().getPpmc());
-                        tv_details_brand.setText(dataDic.getModel().getCxmc2());
-                        Glide.with(DetailsActivity.this).load(dataDic.getModel().getImgurl())
-                                .into(iv_details_top);
-                        //获取当前时间
-                        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String date = sDateFormat.format(new Date());
-                        if (mQueryall.size() != 0) {
-                            for (int i = 0; i < mQueryall.size(); i++) {
-                                if (mQueryall.get(i).getVincode().equals(dataDic.getVincode())) {
-                                    mDataBean.setTime(date);
-                                    mDataBean.updateAll("vincode=?", dataDic.getVincode());
-                                } else {
-                                    //存入信息
-                                    mDataBean.setVincode(dataDic.getVincode());
-                                    mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
-                                    mDataBean.setTime(date);
-                                    mDataBean.save();
-                                }
-                            }
+                        String status = vinQueryBean.getStatus();
+                        if (status.equals("0")) {
+                            DetailsBean.DataDicBean dataDic = vinQueryBean.getDataDic();
+                            tv_details_carname.setText(dataDic.getModel().getPpmc());
+                            tv_details_brand.setText(dataDic.getModel().getCxmc2());
+                            Glide.with(DetailsActivity.this).load(dataDic.getModel().getImgurl())
+                                    .centerCrop().into(iv_details_top);
                         } else {
-                            //存入信息
-                            mDataBean.setVincode(dataDic.getVincode());
-                            mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
-                            mDataBean.setTime(date);
-                            mDataBean.save();
+                            Toast.makeText(DetailsActivity.this, vinQueryBean.getErrmsg(), Toast
+                                    .LENGTH_LONG).show();
                         }
-
-                        //热门配件
+                    /*    //热门配件
                         List<DetailsBean.DataDicBean.HotpartsBean> hotparts = dataDic.getHotparts();
                         DetailsAdapter adapter = new DetailsAdapter(R.layout.vinquery_adapter,
                                 hotparts);
-                        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                        rl_details_hotparts.setAdapter(adapter);
+                        rl_details_hotparts.setAdapter(adapter);*/
                      /*   adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
                      () {
                             @Override
@@ -264,6 +244,44 @@ public class DetailsActivity extends BaseActivity {
                 });
     }
 
+    //单个配件查询历史
+    public void queryData() {
+        String vin = getIntent().getStringExtra("VIN");
+        UrlBean urlBean = new UrlBean();
+        urlBean.setVin(vin);
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        String token = UserCentre.getInstance().getToken();
+        OkGo.<String>post(CarUrl.QUERY_URL)
+                .tag(this)
+                .headers("authtoken", token)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        QueryIVetemBean quryIvetemBean = gson.fromJson(response.body().toString(),
+                                QueryIVetemBean.class);
+                        final ArrayList<QueryIVetemBean.DataDicBean.PartListBean> partList =
+                                quryIvetemBean.getDataDic().getPartList();
+                        QueryIVeiemAdapter adapter = new QueryIVeiemAdapter(R.layout
+                                .queryivetem_adapter,
+                                partList);
+                        rl_details_queryiveiem.setAdapter(adapter);
+                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
+                                () {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int
+                                    position) {
+                                Intent intent = new Intent(DetailsActivity.this,
+                                        HollesiDataActivity.class);
+                                intent.putParcelableArrayListExtra("partList", partList);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+    }
+
     @Override
     protected void initListener() {
     }
@@ -355,5 +373,32 @@ public class DetailsActivity extends BaseActivity {
         }
         accessoriesData();
         et_home_vinnumber.setText("");
-        }
+    }
 }
+
+/*
+添加数据库
+    //获取当前时间
+    SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String date = sDateFormat.format(new Date());
+                        if (mQueryall.size() != 0) {
+                                for (int i = 0; i < mQueryall.size(); i++) {
+        if (mQueryall.get(i).getVincode().equals(dataDic.getVincode())) {
+        mDataBean.setTime(date);
+        mDataBean.updateAll("vincode=?", dataDic.getVincode());
+        } else {
+        //存入信息
+        mDataBean.setVincode(dataDic.getVincode());
+        mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
+        mDataBean.setTime(date);
+        mDataBean.save();
+        }
+        }
+        } else {
+        //存入信息
+        mDataBean.setVincode(dataDic.getVincode());
+        mDataBean.setCxmc2(dataDic.getModel().getCxmc2());
+        mDataBean.setTime(date);
+        mDataBean.save();
+        }
+*/

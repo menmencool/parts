@@ -15,7 +15,7 @@ import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
  * date:2017/12/22
  * author:zhuang
  */
-
+/*
 public class DetailsAdapter extends BaseQuickAdapter<DetailsBean.DataDicBean.HotpartsBean,
         BaseViewHolder> {
 
@@ -33,3 +33,4 @@ public class DetailsAdapter extends BaseQuickAdapter<DetailsBean.DataDicBean.Hot
                 .setText(R.id.tv_vinquery_sellingprice, item.getPurchaseprice() + "元");
     }
 }
+*/

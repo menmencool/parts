@@ -11,40 +11,24 @@ import java.util.List;
 public class DetailsBean {
 
 
-    /**
-     * errorcode : 0
-     * errormsg :
-     * dataDic : {"vincode":"5UXZV4C56D0B02465","model":{"model_pk":"1","brand_name":"宝马",
-     * "ppid":"15","ppszm":"B","ppmc":"宝马","cxzszm":"B","cxid":"472","cxzmc":"宝马(进口)",
-     * "cxiszm":"B","cximc":"宝马7系","cxiid":"153","cxmc":"2004款 730Li","cxmc2":"宝马 宝马7系 2004款
-     * 730Li","nf":"2004","zt":"停售","cjzdjg":"87.00万","sszdjg":"","cs":"宝马(进口)","jb":"大型车",
-     * "fdj":"3.0L 231马力 L6","bsx":"手自一体变速箱(AT)","fdjxh":"","plml":"2979","pll":"3",
-     * "jqxs":"自然吸气","qgplxs":"L","qggs":"6","qmgs":"4","ysb":"10.2","rlxs":"汽油","rybh":"95号",
-     * "gyfs":"多点电喷","ggcl":"铝","gtcl":"铝镁合金","hbbz":"欧III","jc":"6挡手自一体","dwgs":"6",
-     * "bsxlx":"手自一体变速箱(AT)","qdfs":"前置后驱","sqxs":"-","imgurl":"","configuration":[]},
-     * "hotparts":[{"partpk":"1","brandname":"宝马","partcode":"12345678","saleprice":"100.00",
-     * "partname":"大灯","purchaseprice":"120.00"},{"partpk":"2","brandname":"宝马",
-     * "partcode":"12345679","saleprice":"1000.00","partname":"轮胎","purchaseprice":"1200.00"}]}
-     */
-
-    private int errorcode;
-    private String errormsg;
+    private String status;
+    private String errmsg;
     private DataDicBean dataDic;
 
-    public int getErrorcode() {
-        return errorcode;
+    public String getStatus() {
+        return status;
     }
 
-    public void setErrorcode(int errorcode) {
-        this.errorcode = errorcode;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getErrormsg() {
-        return errormsg;
+    public String getErrmsg() {
+        return errmsg;
     }
 
-    public void setErrormsg(String errormsg) {
-        this.errormsg = errormsg;
+    public void setErrmsg(String errmsg) {
+        this.errmsg = errmsg;
     }
 
     public DataDicBean getDataDic() {
@@ -56,24 +40,9 @@ public class DetailsBean {
     }
 
     public static class DataDicBean {
-        /**
-         * vincode : 5UXZV4C56D0B02465
-         * model : {"model_pk":"1","brand_name":"宝马","ppid":"15","ppszm":"B","ppmc":"宝马",
-         * "cxzszm":"B","cxid":"472","cxzmc":"宝马(进口)","cxiszm":"B","cximc":"宝马7系","cxiid":"153",
-         * "cxmc":"2004款 730Li","cxmc2":"宝马 宝马7系 2004款 730Li","nf":"2004","zt":"停售",
-         * "cjzdjg":"87.00万","sszdjg":"","cs":"宝马(进口)","jb":"大型车","fdj":"3.0L 231马力 L6",
-         * "bsx":"手自一体变速箱(AT)","fdjxh":"","plml":"2979","pll":"3","jqxs":"自然吸气","qgplxs":"L",
-         * "qggs":"6","qmgs":"4","ysb":"10.2","rlxs":"汽油","rybh":"95号","gyfs":"多点电喷","ggcl":"铝",
-         * "gtcl":"铝镁合金","hbbz":"欧III","jc":"6挡手自一体","dwgs":"6","bsxlx":"手自一体变速箱(AT)",
-         * "qdfs":"前置后驱","sqxs":"-","imgurl":"","configuration":[]}
-         * hotparts : [{"partpk":"1","brandname":"宝马","partcode":"12345678","saleprice":"100.00",
-         * "partname":"大灯","purchaseprice":"120.00"},{"partpk":"2","brandname":"宝马",
-         * "partcode":"12345679","saleprice":"1000.00","partname":"轮胎","purchaseprice":"1200.00"}]
-         */
 
         private String vincode;
         private ModelBean model;
-        private List<HotpartsBean> hotparts;
 
         public String getVincode() {
             return vincode;
@@ -91,59 +60,7 @@ public class DetailsBean {
             this.model = model;
         }
 
-        public List<HotpartsBean> getHotparts() {
-            return hotparts;
-        }
-
-        public void setHotparts(List<HotpartsBean> hotparts) {
-            this.hotparts = hotparts;
-        }
-
         public static class ModelBean {
-            /**
-             * model_pk : 1
-             * brand_name : 宝马
-             * ppid : 15
-             * ppszm : B
-             * ppmc : 宝马
-             * cxzszm : B
-             * cxid : 472
-             * cxzmc : 宝马(进口)
-             * cxiszm : B
-             * cximc : 宝马7系
-             * cxiid : 153
-             * cxmc : 2004款 730Li
-             * cxmc2 : 宝马 宝马7系 2004款 730Li
-             * nf : 2004
-             * zt : 停售
-             * cjzdjg : 87.00万
-             * sszdjg :
-             * cs : 宝马(进口)
-             * jb : 大型车
-             * fdj : 3.0L 231马力 L6
-             * bsx : 手自一体变速箱(AT)
-             * fdjxh :
-             * plml : 2979
-             * pll : 3
-             * jqxs : 自然吸气
-             * qgplxs : L
-             * qggs : 6
-             * qmgs : 4
-             * ysb : 10.2
-             * rlxs : 汽油
-             * rybh : 95号
-             * gyfs : 多点电喷
-             * ggcl : 铝
-             * gtcl : 铝镁合金
-             * hbbz : 欧III
-             * jc : 6挡手自一体
-             * dwgs : 6
-             * bsxlx : 手自一体变速箱(AT)
-             * qdfs : 前置后驱
-             * sqxs : -
-             * imgurl :
-             * configuration : []
-             */
 
             private String model_pk;
             private String brand_name;
@@ -151,12 +68,12 @@ public class DetailsBean {
             private String ppszm;
             private String ppmc;
             private String cxzszm;
-            private String cxid;
             private String cxzmc;
             private String cxiszm;
             private String cximc;
             private String cxiid;
             private String cxmc;
+            private String cxid;
             private String cxmc2;
             private String nf;
             private String zt;
@@ -186,7 +103,7 @@ public class DetailsBean {
             private String qdfs;
             private String sqxs;
             private String imgurl;
-            private List<?> configuration;
+            private List<ConfigurationBean> configuration;
 
             public String getModel_pk() {
                 return model_pk;
@@ -236,14 +153,6 @@ public class DetailsBean {
                 this.cxzszm = cxzszm;
             }
 
-            public String getCxid() {
-                return cxid;
-            }
-
-            public void setCxid(String cxid) {
-                this.cxid = cxid;
-            }
-
             public String getCxzmc() {
                 return cxzmc;
             }
@@ -282,6 +191,14 @@ public class DetailsBean {
 
             public void setCxmc(String cxmc) {
                 this.cxmc = cxmc;
+            }
+
+            public String getCxid() {
+                return cxid;
+            }
+
+            public void setCxid(String cxid) {
+                this.cxid = cxid;
             }
 
             public String getCxmc2() {
@@ -516,78 +433,38 @@ public class DetailsBean {
                 this.imgurl = imgurl;
             }
 
-            public List<?> getConfiguration() {
+            public List<ConfigurationBean> getConfiguration() {
                 return configuration;
             }
 
-            public void setConfiguration(List<?> configuration) {
+            public void setConfiguration(List<ConfigurationBean> configuration) {
                 this.configuration = configuration;
             }
-        }
 
-        public static class HotpartsBean {
-            /**
-             * partpk : 1
-             * brandname : 宝马
-             * partcode : 12345678
-             * saleprice : 100.00
-             * partname : 大灯
-             * purchaseprice : 120.00
-             */
+            public static class ConfigurationBean {
+                /**
+                 * chapter : 基本参数
+                 * params : [["车型名称","比亚迪L3 2012款 1.5L 手动舒适型"],["厂商指导价(元)","5.39万"],["全国4S店最低价",""],["厂商","比亚迪"],["级别","紧凑型车"],["发动机","1.5L 109马力 L4"],["变速箱","5挡手动"],["长*宽*高(mm)","4568*1716*1480"],["车身结构","4门5座三厢车"],["最高车速(km/h)","170"],["官方0-100km/h加速(s)","-"],["实测0-100km/h加速(s)","-"],["实测100-0km/h制动(m)","-"],["实测油耗(L/100km)","-"],["工信部综合油耗(L/100km)","6.3"],["整车质保","四年或10万公里"],["电池容量(kWh)",""]]
+                 */
 
-            private String partpk;
-            private String brandname;
-            private String partcode;
-            private String saleprice;
-            private String partname;
-            private String purchaseprice;
+                private String chapter;
+                private List<List<String>> params;
 
-            public String getPartpk() {
-                return partpk;
-            }
+                public String getChapter() {
+                    return chapter;
+                }
 
-            public void setPartpk(String partpk) {
-                this.partpk = partpk;
-            }
+                public void setChapter(String chapter) {
+                    this.chapter = chapter;
+                }
 
-            public String getBrandname() {
-                return brandname;
-            }
+                public List<List<String>> getParams() {
+                    return params;
+                }
 
-            public void setBrandname(String brandname) {
-                this.brandname = brandname;
-            }
-
-            public String getPartcode() {
-                return partcode;
-            }
-
-            public void setPartcode(String partcode) {
-                this.partcode = partcode;
-            }
-
-            public String getSaleprice() {
-                return saleprice;
-            }
-
-            public void setSaleprice(String saleprice) {
-                this.saleprice = saleprice;
-            }
-
-            public String getPartname() {
-                return partname;
-            }
-
-            public void setPartname(String partname) {
-                this.partname = partname;
-            }
-
-            public String getPurchaseprice() {
-                return purchaseprice;
-            }
-
-            public void setPurchaseprice(String purchaseprice) {
-                this.purchaseprice = purchaseprice;
+                public void setParams(List<List<String>> params) {
+                    this.params = params;
+                }
             }
         }
     }

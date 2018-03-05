@@ -30,6 +30,7 @@
         <activity android:name=".web.WebViewShow"/>
         <activity android:name=".fragment.query.GroupByQueryActivity"/>
         <activity android:name=".fragment.query.PartsListActivity" />
+        <activity android:name=".fragment.query.HollesiDataActivity"/>
     </application>
 
 </manifest>

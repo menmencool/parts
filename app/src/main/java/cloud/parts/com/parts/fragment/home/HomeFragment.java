@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         OkGo.<String>post(CarUrl.Home_URL)
                 .tag(this)
                 .upJson(s)
+                .headers("authtoken",token)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -225,9 +226,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             OCR.getInstance().release();
         }
     }
-
-
-
-
-
 }
+
+

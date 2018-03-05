@@ -21,12 +21,14 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp">
+                android:layout_height="300dp">
 
                 <ImageView
                     android:id="@+id/iv_details_top"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:src="@mipmap/top3x"/>
 
                 <LinearLayout
@@ -72,7 +74,7 @@
                         <TextView
                             android:id="@+id/tv_details_brand"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:alayout_height="wrap_content"
                             android:text=""
                             android:textColor="@color/i_white"/>
                     </LinearLayout>
@@ -83,7 +85,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/yuanjiaojuxing"
                     android:text="详情"
@@ -175,12 +177,12 @@
                 android:background="@color/i_gray_line4"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/i_gray_line4"
-                android:padding="10dp"
-                android:text="热门配件"
-                android:textColor="#ff0000"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/i_gray_line4"
+            android:padding="10dp"
+            android:text="热门配件"
+            android:textColor="#ff0000"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -188,6 +190,26 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rl_details_hotparts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:background="@color/i_white"
+                    android:overScrollMode="never"
+                    />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/i_gray_line4"
+                android:padding="10dp"
+                android:text="配件历史"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rl_details_queryiveiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"

@@ -3,6 +3,7 @@ package cloud.parts.com.parts.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,7 +17,6 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.login.user_centre.LoginBean;
@@ -25,7 +25,7 @@ import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
 /**
- * 类用途：
+ * 类用途：登录页面
  * 作者：Zhuang
  * 时间：2018/1/2 15:08
  */
@@ -80,12 +80,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) and run LayoutCreator again
-    }
-
     private void submit() {
         // validate
         String phoneid = ed_login_phoneid.getText().toString().trim();
@@ -99,27 +93,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
             return;
         }
+        initDatas();
         boolean remember_accounts = cb_login_commitid.isChecked();
         boolean auto_login = cb_login_commitlogin.isChecked();
-
         UserCentre.getInstance().setRememberAccounts(remember_accounts);
         UserCentre.getInstance().setAutoLogin(auto_login);
-
         if (remember_accounts) {
             UserCentre.getInstance().setUserAccounts(phoneid);
         } else {
             UserCentre.getInstance().clearAccounts();
         }
-
-        //登录点击跳转逻辑在此
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
     }
 
     private void initDatas() {
         UrlBean urlBean = new UrlBean();
-        urlBean.setUsername(TestData.username);
-        urlBean.setPassword(TestData.password);
+        urlBean.setMobile(ed_login_phoneid.getText().toString().trim());
+        urlBean.setPassword(ed_login_pwd.getText().toString().trim());
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         OkGo.<String>post(CarUrl.LOGIN_URL)
@@ -130,13 +119,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     public void onSuccess(Response<String> response) {
                         LoginBean loginBean = gson.fromJson(response.body().toString(), LoginBean
                                 .class);
-                        int errorcode = loginBean.getErrorcode();
-                        if (errorcode==0) {
+                        String errorcode = loginBean.getStatus();
+                        if (errorcode.equals("0")) {
                             String token = loginBean.getToken();
                             //保存登录后获取的token
                             UserCentre.getInstance().setToken(token);
+                            //登录点击跳转逻辑在此
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
-                            Toast.makeText(LoginActivity.this, loginBean.getErrormsg(), Toast
+                            Toast.makeText(LoginActivity.this, loginBean.getErrmsg(), Toast
                                     .LENGTH_LONG).show();
                         }
                     }
