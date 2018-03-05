@@ -3,7 +3,9 @@ package cloud.parts.com.parts.fragment.query;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.fragment.query.bean.QueryIVetemBean;
@@ -41,15 +43,15 @@ public class HollesiDataActivity extends BaseActivity {
     protected void initData() {
         ArrayList<QueryIVetemBean.DataDicBean.PartListBean> partList = getIntent()
                 .getParcelableArrayListExtra("partList");
-        for (int i = 0; i <partList.size() ; i++) {
-            mTvHollesiBreandName.setText(partList.get(i).getBrand_name());
-            mTvHollesiPartName.setText(partList.get(i).getPart_name());
-            mTvHollesiPurchasePrice.setText(partList.get(i).getPurchase_price());
-            mTvHollesiSalePrice.setText(partList.get(i).getSale_price());
-            mTvHollesiLastModifiedTime.setText(partList.get(i).getLast_modified_time());
-            mTvHollesiCreateTime.setText(partList.get(i).getCreate_time());
-            mTvHollesiPartCode.setText(partList.get(i).getPart_code());
-        }
+        String position = getIntent().getStringExtra("position");
+        int i = Integer.parseInt(position);
+        mTvHollesiBreandName.setText(partList.get(i).getBrand_name());
+        mTvHollesiPartName.setText(partList.get(i).getPart_name());
+        mTvHollesiPurchasePrice.setText(partList.get(i).getPurchase_price());
+        mTvHollesiSalePrice.setText(partList.get(i).getSale_price());
+        mTvHollesiLastModifiedTime.setText(partList.get(i).getLast_modified_time());
+        mTvHollesiCreateTime.setText(partList.get(i).getCreate_time());
+        mTvHollesiPartCode.setText(partList.get(i).getPart_code());
 
 
     }

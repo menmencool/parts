@@ -275,6 +275,7 @@ public class DetailsActivity extends BaseActivity {
                                 Intent intent = new Intent(DetailsActivity.this,
                                         HollesiDataActivity.class);
                                 intent.putParcelableArrayListExtra("partList", partList);
+                                intent.putExtra("position",position);
                                 startActivity(intent);
                             }
                         });
