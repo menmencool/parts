@@ -2,6 +2,7 @@ package cloud.parts.com.parts.fragment.query;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class HollesiDataActivity extends BaseActivity {
     private TextView mTvHollesiLastModifiedTime;
     private TextView mTvHollesiCreateTime;
     private TextView mTvHollesiPartCode;
+    private ImageView include_banck;
+    private TextView include_title_zhong;
 
     @Override
     protected void initView() {
@@ -37,6 +40,10 @@ public class HollesiDataActivity extends BaseActivity {
         mTvHollesiLastModifiedTime = (TextView) findViewById(R.id.tv_hollesi_last_modified_time);
         mTvHollesiCreateTime = (TextView) findViewById(R.id.tv_hollesi_create_time);
         mTvHollesiPartCode = (TextView) findViewById(R.id.tv_hollesi_part_code);
+        include_banck = (ImageView) findViewById(R.id.include_banck);
+        include_banck.setOnClickListener(this);
+        include_title_zhong = (TextView) findViewById(R.id.include_title_zhong);
+        include_title_zhong.setText("详情内容");
     }
 
     @Override
@@ -58,7 +65,12 @@ public class HollesiDataActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        include_banck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
