@@ -74,7 +74,7 @@
                         <TextView
                             android:id="@+id/tv_details_brand"
                             android:layout_width="wrap_content"
-                            android:alayout_height="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text=""
                             android:textColor="@color/i_white"/>
                     </LinearLayout>
