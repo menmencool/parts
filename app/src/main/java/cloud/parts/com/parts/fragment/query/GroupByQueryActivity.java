@@ -77,28 +77,32 @@ public class GroupByQueryActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         GroupByQueryBean groupbyquerybean = gson.fromJson(response.body().toString(),
                                 GroupByQueryBean.class);
-                        List<GroupByQueryBean.DataDicBean.ListBean> listBeans = groupbyquerybean.getDataDic().getList();
+                        final List<GroupByQueryBean.DataDicBean.ListBean> listBeans = groupbyquerybean.getDataDic().getList();
                         GroupByQueryAdapter adapter = new GroupByQueryAdapter(R.layout
                                 .group_by_query_adapter, listBeans);
                         rl_groupby_list.setAdapter(adapter);
-                        for (int i = 0; i <listBeans.size() ; i++) {
-                            final ArrayList<GroupByQueryBean.DataDicBean.ListBean.SubGroupsBean> subGroups =
-                                    listBeans.get(i).getSubGroups();
+
+                            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    Intent intent = new Intent(GroupByQueryActivity.this,
+                                            PartsListActivity.class);
+                                    intent.putParcelableArrayListExtra("subGroups",listBeans.get(position).getSubGroups());
+                                    startActivity(intent);
+                                }
+                            });
+
+                      /*
                             adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                                 @Override
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                     switch (view.getId()) {
                                         case R.id.tv_vinquery_by:
-                                            Intent intent = new Intent(GroupByQueryActivity.this,
-                                                    PartsListActivity.class);
-                                            intent.putParcelableArrayListExtra("subGroups",subGroups);
-                                            startActivity(intent);
+
                                             break;
                                     }
                                 }
-                            });
-                        }
-
+                            });*/
 
                     }
                 });
