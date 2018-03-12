@@ -17,6 +17,7 @@ import com.lzy.okgo.model.Response;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.fragment.me.bean.UserInfo;
+import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 import cloud.parts.com.parts.utils.CircleImageView;
@@ -65,12 +66,15 @@ public class UserFragment extends Fragment implements OnClickListener {
     }
 
     private void initHttpDatas() {
+        //todo  获取token
+        String token = UserCentre.getInstance().getToken();
         final UrlBean urlBean = new UrlBean();
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         OkGo.<String>post(CarUrl.USERINFO_URL)
                 .tag(this)
                 .upJson(s)
+                .headers("authtoken",token)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
