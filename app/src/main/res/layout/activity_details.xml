@@ -64,7 +64,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
@@ -145,7 +144,6 @@
                 android:padding="10dp"
                 android:text="已识别配件"
                 android:visibility="gone"/>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rl_details_accessories"
                 android:layout_width="match_parent"
@@ -153,50 +151,6 @@
                 android:background="@color/i_white"
                 android:overScrollMode="never"
                 />
-
-            <TextView
-                android:id="@+id/tv_weishibie"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/i_gray_line4"
-                android:padding="10dp"
-                android:text="未识别配件"
-                android:visibility="gone"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rl_details_noaccessories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/i_white"
-                android:overScrollMode="never"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/i_gray_line4"/>
-
-            <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/i_gray_line4"
-            android:padding="10dp"
-            android:text="热门配件"
-            android:textColor="#ff0000"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rl_details_hotparts"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:background="@color/i_white"
-                    android:overScrollMode="never"
-                    />
-            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

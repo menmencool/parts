@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -97,6 +98,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
     private void initData() {
         initDatas();
     }
+
     //历史查询接口
     private void initDatas() {
         UrlBean urlBean = new UrlBean();
@@ -105,10 +107,11 @@ public class InquireFragment extends Fragment implements OnClickListener {
         String token = UserCentre.getInstance().getToken();
         OkGo.<String>post(CarUrl.HISTORI_URL)
                 .tag(this)
-                .headers("authtoken",token)
+                .headers("authtoken", token)
                 .upJson(s)
                 .execute(new StringCallback() {
                     private List<HistoriBean.DataDicBean.ListBean> mDicList;
+
                     @Override
                     public void onSuccess(Response<String> response) {
                         HistoriBean historiBean = gson.fromJson(response.body().toString(), HistoriBean
@@ -130,7 +133,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
                                     startActivity(intent);
                                 }
                             });
-                        }else {
+                        } else {
                             Toast.makeText(getActivity(), historiBean.getErrmsg(), Toast
                                     .LENGTH_LONG).show();
                         }
@@ -138,6 +141,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
                 });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -160,6 +164,9 @@ public class InquireFragment extends Fragment implements OnClickListener {
         switch (v.getId()) {
             case R.id.iv_home_scancode:
                 alertShow();
+                InputMethodManager imm = (InputMethodManager)
+                        getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 break;
             case R.id.include_banck:
                 getActivity().finish();
@@ -268,7 +275,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
             return;
         }
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
-        intent.putExtra("VIN",vinnumber);//vinnumber
+        intent.putExtra("VIN", vinnumber);//vinnumber
         startActivity(intent);
         et_home_vinnumber.setText("");
     }

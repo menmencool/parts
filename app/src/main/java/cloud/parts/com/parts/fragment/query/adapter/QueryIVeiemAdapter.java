@@ -27,7 +27,7 @@ public class QueryIVeiemAdapter extends BaseQuickAdapter<QueryIVetemBean.DataDic
     protected void convert(BaseViewHolder helper, QueryIVetemBean.DataDicBean.PartListBean item) {
         helper.setText(R.id.tv_vinquery_carname, item.getPart_code())
                 .setText(R.id.tv_vinquery_vincode, item.getPart_name())
-                .setText(R.id.tv_vinquery_purchasingprice,  item.getPurchase_price()+ "元")
-                .setText(R.id.tv_vinquery_sellingprice, item.getSale_price() + "元");
+                .setText(R.id.tv_vinquery_sellingprice, item.getSale_price())
+                .addOnClickListener(R.id.tv_vinquery_by);
     }
 }

@@ -1,252 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="80dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <View style="@style/view_di" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="40dp"
+            android:layout_centerVertical="true">
+
+            <View style="@style/view_shu" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="品牌名称"
-                android:textSize="18sp"/>
+                style="@style/tx_type"
+                android:layout_centerInParent="true"
+                android:text="配件详情"
+                android:textStyle="bold" />
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
+                style="@style/view_shu"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <View style="@style/view_di" />
+
+        <LinearLayout style="@style/ll_kuang">
+
+            <View style="@style/view_shu" />
 
             <TextView
-                android:id="@+id/tv_hollesi_breand_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
-                android:text=" "
-                android:textSize="18sp"/>
+                style="@style/tx_type"
+                android:text="配件名称" />
+
+            <View style="@style/view_shu" />
+
+            <RelativeLayout
+                android:layout_marginLeft="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <View
+                    style="@style/view_shu"
+                   android:layout_alignParentRight="true"/>
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_hollesi_part_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" " />
+
+            </RelativeLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
+        <View style="@style/view_di" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+        <LinearLayout style="@style/ll_kuang">
+
+            <View style="@style/view_shu" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="配件名称"
-                android:textSize="18sp"/>
+                style="@style/tx_type"
+                android:text="购买价格" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
-
-            <TextView
-                android:id="@+id/tv_hollesi_part_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
-                android:text=""
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="46dp"
-                android:text="进价"
-                android:textSize="18sp"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
+            <View style="@style/view_shu" />
 
             <TextView
                 android:id="@+id/tv_hollesi_purchase_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
-                android:text=" "
-                android:textSize="18sp"/>
+                style="@style/tv_neirong"
+                android:text=" " />
+
+            <View style="@style/view_quanzhong" />
+
+            <View style="@style/view_shu" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
+        <View style="@style/view_di" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+        <LinearLayout style="@style/ll_kuang">
+
+            <View style="@style/view_shu" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="46dp"
-                android:text="售价"
-                android:textSize="18sp"/>
+                style="@style/tx_type"
+                android:text="卖出价格" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
+            <View style="@style/view_shu" />
 
             <TextView
                 android:id="@+id/tv_hollesi_sale_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
-                android:text=" "
-                android:textSize="18sp"/>
+                style="@style/tv_neirong"
+                android:text=" " />
+
+            <View style="@style/view_quanzhong" />
+
+            <View style="@style/view_shu" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
+        <View style="@style/view_di" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+        <LinearLayout style="@style/ll_kuang">
+
+            <View style="@style/view_shu" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="修改时间"
-                android:textSize="18sp"/>
+                style="@style/tx_type"
+                android:text="修改时间" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
+            <View style="@style/view_shu" />
 
             <TextView
                 android:id="@+id/tv_hollesi_last_modified_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
-                android:text=" "
-                android:textSize="18sp"/>
+                style="@style/tv_neirong"
+                android:text=" " />
+
+            <View style="@style/view_quanzhong" />
+
+            <View style="@style/view_shu" />
         </LinearLayout>
 
-        <View
+        <View style="@style/view_di" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
+            android:layout_height="40dp"
+            android:layout_centerVertical="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="创建时间"
-                android:textSize="18sp"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
+            <View style="@style/view_shu" />
 
             <TextView
                 android:id="@+id/tv_hollesi_create_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
+                style="@style/tx_type"
+                android:layout_centerInParent="true"
                 android:text=" "
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="配件编号"
-                android:textSize="18sp"/>
+                android:textStyle="bold" />
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="50dp"
-                android:background="#999999"/>
+                style="@style/view_shu"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <View style="@style/view_di" />
+
+        <LinearLayout style="@style/ll_kuang">
+
+            <View style="@style/view_shu" />
+
+            <TextView
+                style="@style/tx_type"
+                android:text="品牌名称" />
+
+            <View style="@style/view_shu" />
+
+            <TextView
+                android:id="@+id/tv_hollesi_breand_name"
+                style="@style/tv_neirong"
+                android:text=" " />
+
+            <View style="@style/view_quanzhong" />
+
+            <View style="@style/view_shu" />
+        </LinearLayout>
+
+        <View style="@style/view_di" />
+
+        <LinearLayout style="@style/ll_kuang">
+
+            <View style="@style/view_shu" />
+
+            <TextView
+                style="@style/tx_type"
+                android:text="配件编号" />
+
+            <View style="@style/view_shu" />
 
             <TextView
                 android:id="@+id/tv_hollesi_part_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="30dp"
-                android:text=" "
-                android:textSize="18sp"/>
+                style="@style/tv_neirong"
+                android:text=" " />
+
+            <View style="@style/view_quanzhong" />
+
+            <View style="@style/view_shu" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#999999"/>
+        <View style="@style/view_di" />
 
     </LinearLayout>
-    <include layout="@layout/include_title"/>
+
+    <include layout="@layout/include_title" />
 </RelativeLayout>

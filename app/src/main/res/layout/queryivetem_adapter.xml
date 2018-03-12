@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/ll"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,56 +19,25 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
-            android:background="@mipmap/slide_bx"/>
+            android:background="@mipmap/slide_bx" />
 
         <TextView
-            android:textColor="@color/i_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="编码："/>
+            android:text="编码："
+            android:textColor="@color/i_black" />
 
         <TextView
-            android:textColor="@color/i_black"
             android:id="@+id/tv_vinquery_carname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text=""
+            android:textColor="@color/i_black" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/yuan_1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="替"
-            android:textColor="@color/i_white"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/yuan_2"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="包"
-            android:textColor="@color/i_white"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/yuan_3"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="警"
-            android:textColor="@color/i_white"
-            android:textSize="12sp"/>
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,13 +51,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="33dp"
-            android:text="名称："/>
+            android:text="名称：" />
 
         <TextView
             android:id="@+id/tv_vinquery_vincode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -100,36 +70,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="13dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="33dp"
-            android:text="进价："/>
-
-        <TextView
-            android:id="@+id/tv_vinquery_purchasingprice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="33dp"
-            android:text="售价："/>
+            android:text="报价：" />
 
         <TextView
             android:id="@+id/tv_vinquery_sellingprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,7 +95,7 @@
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
-      <!--  <LinearLayout
+        <LinearLayout
             android:id="@+id/tv_vinquery_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,16 +106,16 @@
                 android:layout_height="15dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="33dp"
-                android:src="@mipmap/fenzu"/>
+                android:src="@mipmap/fenzu" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
-                android:text="分组"
-                android:textColor="@color/erweima"/>
-        </LinearLayout>-->
+                android:text="详情"
+                android:textColor="@color/erweima" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/tv_vinquery_delete"
@@ -170,7 +128,7 @@
                 android:layout_height="15dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="33dp"
-                android:src="@mipmap/shanchu"/>
+                android:src="@mipmap/shanchu" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -178,12 +136,13 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
                 android:text="删除"
-                android:textColor="@color/erweima"/>
+                android:textColor="@color/erweima" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@color/i_gray_line4"/>
+        android:background="@color/i_gray_line4" />
 
 </LinearLayout>

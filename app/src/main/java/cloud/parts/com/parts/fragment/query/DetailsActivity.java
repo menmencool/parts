@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,14 +25,13 @@ import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapters;
-import cloud.parts.com.parts.fragment.query.adapter.ErrorAdapter;
 import cloud.parts.com.parts.fragment.query.adapter.QueryIVeiemAdapter;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBeans;
@@ -53,18 +53,16 @@ public class DetailsActivity extends BaseActivity {
     private ImageView include_banck;
     private TextView include_mes;
     private RecyclerView rl_details_accessories;
-    private RecyclerView rl_details_hotparts;
     private TextView tv_details_carname;
     private TextView tv_details_brand;
     private EditText et_home_vinnumber;
     private ImageView iv_home_scancode;
-    private RecyclerView rl_details_noaccessories;
     private ImageView iv_details_top;
     private TextView tv_yishibie;
-    private TextView tv_weishibie;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
-    private List<DetailsBeans.DataDicBean.MatchPartsBean> mMatchParts;
     private RecyclerView rl_details_queryiveiem;
+    private ArrayList<String> codingList = new ArrayList<>();
+    private DetailsBean.DataDicBean dataDic;
 
     @Override
     protected void initView() {
@@ -77,17 +75,11 @@ public class DetailsActivity extends BaseActivity {
         include_mes.setText("分组查询");
         include_mes.setOnClickListener(this);
         rl_details_accessories = (RecyclerView) findViewById(R.id.rl_details_accessories);//识别配件
-        rl_details_noaccessories = (RecyclerView) findViewById(R.id.rl_details_noaccessories);
-        rl_details_hotparts = (RecyclerView) findViewById(R.id.rl_details_hotparts);//热门配件
         rl_details_queryiveiem = (RecyclerView) findViewById(R.id.rl_details_queryiveiem);//查询历史
         tv_details_carname = (TextView) findViewById(R.id.tv_details_carname);
         tv_details_brand = (TextView) findViewById(R.id.tv_details_brand);
         rl_details_accessories.setLayoutManager(new LinearLayoutManager(this));
-        rl_details_hotparts.setLayoutManager(new LinearLayoutManager(this));
-        rl_details_noaccessories.setLayoutManager(new LinearLayoutManager(this));
-        rl_details_hotparts.setNestedScrollingEnabled(false);
         rl_details_accessories.setNestedScrollingEnabled(false);
-        rl_details_noaccessories.setNestedScrollingEnabled(false);
         rl_details_queryiveiem.setLayoutManager(new LinearLayoutManager(this));
         rl_details_queryiveiem.setNestedScrollingEnabled(false);
         et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
@@ -96,7 +88,6 @@ public class DetailsActivity extends BaseActivity {
         //展示test
         iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
         tv_yishibie = (TextView) findViewById(R.id.tv_yishibie);
-        tv_weishibie = (TextView) findViewById(R.id.tv_weishibie);
     }
 
     @Override
@@ -124,118 +115,15 @@ public class DetailsActivity extends BaseActivity {
                                 DetailsBean.class);
                         String status = vinQueryBean.getStatus();
                         if (status.equals("0")) {
-                            DetailsBean.DataDicBean dataDic = vinQueryBean.getDataDic();
+                            dataDic = vinQueryBean.getDataDic();
                             tv_details_carname.setText(dataDic.getModel().getPpmc());
-                            tv_details_brand.setText(dataDic.getModel().getCxmc2());
+                            tv_details_brand.setText(dataDic.getModel().getCxmc());
                             Glide.with(DetailsActivity.this).load(dataDic.getModel().getImgurl())
                                     .centerCrop().into(iv_details_top);
                         } else {
                             Toast.makeText(DetailsActivity.this, vinQueryBean.getErrmsg(), Toast
                                     .LENGTH_LONG).show();
                         }
-                    /*    //热门配件
-                        List<DetailsBean.DataDicBean.HotpartsBean> hotparts = dataDic.getHotparts();
-                        DetailsAdapter adapter = new DetailsAdapter(R.layout.vinquery_adapter,
-                                hotparts);
-                        rl_details_hotparts.setAdapter(adapter);*/
-                     /*   adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
-                     () {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int
-                            position) {
-                                String pkgId = result.get(position).getTestPkgId();
-                                Intent intent = new Intent(context, PkgIdActivity.class);
-                                intent.putExtra("id", pkgId);
-                                context.startActivity(intent);
-                            }
-                        });*/
-                    }
-                });
-    }
-
-    //批量查询数据
-    public void accessoriesData() {
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("1090027482");
-        strings.add("1090031747");
-        strings.add("1090032337");
-        strings.add("11111111111111");
-        strings.add("11111111111111");
-        strings.add("11111111111111");
-        UrlBean urlBean = new UrlBean();
-        urlBean.setIds(strings);
-        final Gson gson = new Gson();
-        final String s = gson.toJson(urlBean);
-        OkGo.<String>post(CarUrl.PARTSBYIDS_URL)
-                .tag(this)
-                .upJson(s)
-                .execute(new StringCallback() {
-
-                    private List<String> mErrorParts;
-                    private DetailsAdapters mMatchadapter;
-
-
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
-                                DetailsBeans.class);
-                        mMatchParts = detailsBeans.getDataDic().getMatchParts();
-                        //已识别配件
-                        if (!mMatchParts.isEmpty()) {
-                            tv_yishibie.setVisibility(View.VISIBLE);
-                        }
-
-                        mMatchadapter = new DetailsAdapters(R.layout.accessories_adapter,
-                                mMatchParts);
-                        mMatchadapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                        rl_details_accessories.setAdapter(mMatchadapter);
-                        mErrorParts = detailsBeans.getDataDic().getErrorParts();
-                        //未识别配件
-                        if (!mErrorParts.isEmpty()) {
-                            tv_weishibie.setVisibility(View.VISIBLE);
-                        }
-
-                        ErrorAdapter erroradapter = new ErrorAdapter(R.layout.error_adapter,
-                                mErrorParts);
-                        erroradapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                        rl_details_noaccessories.setAdapter(erroradapter);
-
-                        mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
-                                .OnItemChildClickListener() {
-                            @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int
-                                    position) {
-                                switch (view.getId()) {
-                                    case R.id.tv_vinquery_by:
-                                        Intent intent = new Intent(DetailsActivity.this,
-                                                PartsListActivity.class);
-                                        intent.putExtra("grouppk", "1");
-                                        intent.putExtra("brandname", "宝马");
-                                        startActivity(intent);
-                                        break;
-                                    case R.id.tv_vinquery_delete:
-                                        mMatchParts.remove(position);
-                                        mMatchadapter.notifyDataSetChanged();
-                                        if (mMatchParts.size() == 0) {
-                                            tv_yishibie.setVisibility(View.GONE);
-                                        }
-                                        break;
-
-                                }
-                            }
-                        });
-
-                     /*   adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
-                     () {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int
-                            position) {
-                                String pkgId = result.get(position).getTestPkgId();
-                                Intent intent = new Intent(context, PkgIdActivity.class);
-                                intent.putExtra("id", pkgId);
-                                context.startActivity(intent);
-                            }
-                        });*/
                     }
                 });
     }
@@ -263,18 +151,77 @@ public class DetailsActivity extends BaseActivity {
                                 .queryivetem_adapter,
                                 partList);
                         rl_details_queryiveiem.setAdapter(adapter);
-                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
-                                () {
+                        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                             @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int
-                                    position) {
-                                Intent intent = new Intent(DetailsActivity.this,
-                                        HollesiDataActivity.class);
-                                intent.putParcelableArrayListExtra("partList", partList);
-                                intent.putExtra("position",position);
-                                startActivity(intent);
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                switch (view.getId()) {
+                                    case R.id.tv_vinquery_by:
+                                        Intent intent = new Intent(DetailsActivity.this,
+                                                HollesiDataActivity.class);
+                                        intent.putParcelableArrayListExtra("partList", partList);
+                                        intent.putExtra("position", position + "");
+                                        startActivity(intent);
+                                        break;
+                                }
                             }
                         });
+                    }
+                });
+    }
+
+    //批量查询数据
+    public void accessoriesData() {
+        String coding = et_home_vinnumber.getText().toString().trim();
+        codingList.add(coding);
+        //反转控制
+        Collections.reverse(codingList);
+        UrlBean urlBean = new UrlBean();
+        urlBean.setIds(codingList);
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        OkGo.<String>post(CarUrl.PARTSBYIDS_URL)
+                .tag(this)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    private DetailsAdapters mMatchadapter;
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
+                                DetailsBeans.class);
+                        final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans.getDataDic().getList();
+                        for (int i = 0; i < listBeans.size(); i++) {
+                            //已识别配件
+                            if (!listBeans.isEmpty()) {
+                                tv_yishibie.setVisibility(View.VISIBLE);
+                            }
+                            mMatchadapter = new DetailsAdapters(R.layout.accessories_adapter,
+                                    listBeans);
+                            rl_details_accessories.setAdapter(mMatchadapter);
+
+                            mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
+                                    .OnItemChildClickListener() {
+                                @Override
+                                public void onItemChildClick(BaseQuickAdapter adapter, View view, int
+                                        position) {
+                                    switch (view.getId()) {
+                                        case R.id.tv_vinquery_by:
+                                     /*   Intent intent = new Intent(DetailsActivity.this,
+                                                PartsListActivity.class);
+                                        intent.putExtra("grouppk", "1");
+                                        intent.putExtra("brandname", "宝马");
+                                        startActivity(intent);*/
+                                            break;
+                                        case R.id.tv_vinquery_delete:
+                                            listBeans.remove(position);
+                                            mMatchadapter.notifyDataSetChanged();
+                                            if (listBeans.size() == 0) {
+                                                tv_yishibie.setVisibility(View.GONE);
+                                            }
+                                            break;
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
     }
@@ -290,10 +237,16 @@ public class DetailsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.include_mes:
-                startActivity(new Intent(this, GroupByQueryActivity.class));
+                Intent intent = new Intent(this, GroupByQueryActivity.class);
+                intent.putExtra("modelPk",dataDic.getModel().getModel_pk());
+                intent.putExtra("brandName",dataDic.getModel().getBrand_name());
+                startActivity(intent);
                 break;
             case R.id.iv_home_scancode:
                 alertShow();
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(this.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }
@@ -317,9 +270,7 @@ public class DetailsActivity extends BaseActivity {
                     intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
                             CameraActivity.CONTENT_TYPE_GENERAL);
                     startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
-
-                    //批量查询数据
-                    accessoriesData();
+                    //批量查询数据accessoriesData();
                 } else if (position == 1) {
                     submit();
 

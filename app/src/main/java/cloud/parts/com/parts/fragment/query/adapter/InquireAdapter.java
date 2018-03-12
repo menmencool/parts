@@ -25,9 +25,9 @@ public class InquireAdapter extends BaseQuickAdapter<HistoriBean.DataDicBean.Lis
 
     @Override
     protected void convert(BaseViewHolder helper, HistoriBean.DataDicBean.ListBean item) {
-        helper.setText(R.id.tv_inquire_carname, item.getVins())
-                .setText(R.id.tv_inquire_vincode, item.getModelname())
-                .setText(R.id.tv_inquire_time, item.getHistoryId());
+        helper.setText(R.id.tv_inquire_carname, item.getHistoryno())
+                .setText(R.id.tv_inquire_vincode, item.getVins())
+                .setText(R.id.tv_inquire_time, item.getLastupdateTime());
     }
 
 }

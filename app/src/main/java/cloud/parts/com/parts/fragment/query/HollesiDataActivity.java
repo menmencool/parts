@@ -59,7 +59,7 @@ public class HollesiDataActivity extends BaseActivity {
         mTvHollesiPurchasePrice.setText(partList.get(i).getPurchase_price());
         mTvHollesiSalePrice.setText(partList.get(i).getSale_price());
         mTvHollesiLastModifiedTime.setText(partList.get(i).getLast_modified_time());
-        mTvHollesiCreateTime.setText(partList.get(i).getCreate_time());
+        mTvHollesiCreateTime.setText(partList.get(i).getAdaptable_model());
         mTvHollesiPartCode.setText(partList.get(i).getPart_code());
     }
 
@@ -81,6 +81,5 @@ public class HollesiDataActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) and run LayoutCreator again
     }
 }
