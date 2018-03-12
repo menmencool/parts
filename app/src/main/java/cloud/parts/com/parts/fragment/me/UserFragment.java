@@ -66,7 +66,6 @@ public class UserFragment extends Fragment implements OnClickListener {
     }
 
     private void initHttpDatas() {
-        //todo  获取token
         String token = UserCentre.getInstance().getToken();
         final UrlBean urlBean = new UrlBean();
         final Gson gson = new Gson();
