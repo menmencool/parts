@@ -131,7 +131,7 @@ public class GroupByQueryBean {
                     this.graphGroups = graphGroups;
                 }
 
-                public static class GraphGroupsBean {
+                public static class GraphGroupsBean implements Parcelable{
                     /**
                      * graph_id : 5f67d724-e958-4534-82cd-fb703ac09673
                      * graph_name : F0-05013 顶棚、遮阳板
@@ -155,6 +155,37 @@ public class GroupByQueryBean {
                     public void setGraph_name(String graph_name) {
                         this.graph_name = graph_name;
                     }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(this.graph_id);
+                        dest.writeString(this.graph_name);
+                    }
+
+                    public GraphGroupsBean() {
+                    }
+
+                    protected GraphGroupsBean(Parcel in) {
+                        this.graph_id = in.readString();
+                        this.graph_name = in.readString();
+                    }
+
+                    public static final Creator<GraphGroupsBean> CREATOR = new Creator<GraphGroupsBean>() {
+                        @Override
+                        public GraphGroupsBean createFromParcel(Parcel source) {
+                            return new GraphGroupsBean(source);
+                        }
+
+                        @Override
+                        public GraphGroupsBean[] newArray(int size) {
+                            return new GraphGroupsBean[size];
+                        }
+                    };
                 }
 
                 @Override

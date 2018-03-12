@@ -14,15 +14,12 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.fragment.query.adapter.GroupByQueryAdapter;
-import cloud.parts.com.parts.fragment.query.adapter.QueryIVeiemAdapter;
 import cloud.parts.com.parts.fragment.query.bean.GroupByQueryBean;
-import cloud.parts.com.parts.fragment.query.bean.QueryIVetemBean;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
@@ -86,7 +83,7 @@ public class GroupByQueryActivity extends BaseActivity {
                                 @Override
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                     Intent intent = new Intent(GroupByQueryActivity.this,
-                                            PartsListActivity.class);
+                                            GroupByQueryHollesiActivity.class);
                                     intent.putParcelableArrayListExtra("subGroups",listBeans.get(position).getSubGroups());
                                     startActivity(intent);
                                 }

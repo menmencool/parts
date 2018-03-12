@@ -1,5 +1,6 @@
 package cloud.parts.com.parts.fragment.query;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +34,7 @@ import cloud.parts.com.parts.url.urlbean.UrlBean;
  * author:zhuang
  */
 
-public class PartsListActivity extends BaseActivity {
+public class GroupByQueryHollesiActivity extends BaseActivity {
 
     private ImageView include_banck;
     private TextView include_title_zhong;
@@ -55,11 +56,20 @@ public class PartsListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        ArrayList<GroupByQueryBean.DataDicBean.ListBean.SubGroupsBean> subGroups =
+        final ArrayList<GroupByQueryBean.DataDicBean.ListBean.SubGroupsBean> subGroups =
                 getIntent().getParcelableArrayListExtra("subGroups");
         PartsListAdapter adapter = new PartsListAdapter(R.layout
                 .group_by_query_adapter, subGroups);
         rl_groupby_list.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(GroupByQueryHollesiActivity.this,
+                        GroupByQueryHollesIdiActivity.class);
+                intent.putParcelableArrayListExtra("graphGroups",subGroups.get(position).getGraphGroups());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

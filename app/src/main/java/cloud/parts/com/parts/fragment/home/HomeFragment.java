@@ -209,9 +209,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         public void onResult(String result) {
                             //infoPopText(result);
                             Logger.e(result.toString());
-                            Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
-                                    .show();
+                          /*  Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
+                                    .show();*/
                             Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                            intent.putExtra("VIN",result.toString());
                             startActivity(intent);
                         }
                     });
