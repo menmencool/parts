@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
+import cloud.parts.com.parts.web.WebViewShow;
 
 /**
  * 类用途：点击查询Vin号的详情页面
@@ -48,7 +50,7 @@ import cloud.parts.com.parts.url.urlbean.UrlBean;
  * 时间：2017/12/24 10:49
  */
 
-public class DetailsActivity extends BaseActivity {
+public class DetailsActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView include_banck;
     private TextView include_mes;
@@ -63,6 +65,7 @@ public class DetailsActivity extends BaseActivity {
     private RecyclerView rl_details_queryiveiem;
     private ArrayList<String> codingList = new ArrayList<>();
     private DetailsBean.DataDicBean dataDic;
+    private Button bt_details_xiangqing;
 
     @Override
     protected void initView() {
@@ -88,6 +91,8 @@ public class DetailsActivity extends BaseActivity {
         //展示test
         iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
         tv_yishibie = (TextView) findViewById(R.id.tv_yishibie);
+        bt_details_xiangqing = (Button) findViewById(R.id.bt_details_xiangqing);
+        bt_details_xiangqing.setOnClickListener(this);
     }
 
     @Override
@@ -151,15 +156,17 @@ public class DetailsActivity extends BaseActivity {
                                 .queryivetem_adapter,
                                 partList);
                         rl_details_queryiveiem.setAdapter(adapter);
-                        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                        adapter.setOnItemChildClickListener(new BaseQuickAdapter
+                                .OnItemChildClickListener() {
                             @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int
+                                    position) {
                                 switch (view.getId()) {
                                     case R.id.tv_vinquery_by:
                                         Intent intent = new Intent(DetailsActivity.this,
-                                                HollesiDataActivity.class);
-                                        intent.putParcelableArrayListExtra("partList", partList);
-                                        intent.putExtra("position", position + "");
+                                                WebViewShow.class);
+                                        intent.putExtra("code", partList.get(position)
+                                                .getPart_code());
                                         startActivity(intent);
                                         break;
                                 }
@@ -184,11 +191,13 @@ public class DetailsActivity extends BaseActivity {
                 .upJson(s)
                 .execute(new StringCallback() {
                     private DetailsAdapters mMatchadapter;
+
                     @Override
                     public void onSuccess(Response<String> response) {
                         DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
                                 DetailsBeans.class);
-                        final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans.getDataDic().getList();
+                        final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans
+                                .getDataDic().getList();
                         for (int i = 0; i < listBeans.size(); i++) {
                             //已识别配件
                             if (!listBeans.isEmpty()) {
@@ -201,7 +210,8 @@ public class DetailsActivity extends BaseActivity {
                             mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
                                     .OnItemChildClickListener() {
                                 @Override
-                                public void onItemChildClick(BaseQuickAdapter adapter, View view, int
+                                public void onItemChildClick(BaseQuickAdapter adapter, View view,
+                                                             int
                                         position) {
                                     switch (view.getId()) {
                                         case R.id.tv_vinquery_by:
@@ -238,8 +248,8 @@ public class DetailsActivity extends BaseActivity {
                 break;
             case R.id.include_mes:
                 Intent intent = new Intent(this, GroupByQueryActivity.class);
-                intent.putExtra("modelPk",dataDic.getModel().getModel_pk());
-                intent.putExtra("brandName",dataDic.getModel().getBrand_name());
+                intent.putExtra("modelPk", dataDic.getModel().getModel_pk());
+                intent.putExtra("brandName", dataDic.getModel().getBrand_name());
                 startActivity(intent);
                 break;
             case R.id.iv_home_scancode:
@@ -247,6 +257,11 @@ public class DetailsActivity extends BaseActivity {
                 InputMethodManager imm = (InputMethodManager)
                         getSystemService(this.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                break;
+            case R.id.bt_details_xiangqing:
+                Intent intents = new Intent(this, GroupByQueryActivity.class);
+                intents.putExtra("code", dataDic.getVincode());
+                startActivity(intents);
                 break;
         }
     }

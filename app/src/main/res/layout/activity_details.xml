@@ -80,6 +80,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/bt_details_xiangqing"
                     android:layout_width="60dp"
                     android:layout_height="30dp"
                     android:layout_alignParentBottom="true"
