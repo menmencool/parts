@@ -23,7 +23,8 @@ public class CarUrl {
     public static final String BRANDNAME_URL = CAR_URL + "queryPartsByGrouppkAndBrandname.json";
     //登录
     public static final String LOGIN_URL = CAR_URL + "login";
-
+    //查询用户信息接口
+    public static final String USERINFO_URL = CAR_URL + "getUserInfo";
 
     //查询车型全部分组
     public static final String QATG_URL = CAR_URL + "queryTopGroupByBrandNameAndModelId";

@@ -164,7 +164,6 @@ public class DetailsActivity extends BaseActivity {
         strings.add("11111111111111");
         UrlBean urlBean = new UrlBean();
         urlBean.setIds(strings);
-        urlBean.setBrandname(TestData.NAME);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         OkGo.<String>post(CarUrl.PARTSBYIDS_URL)

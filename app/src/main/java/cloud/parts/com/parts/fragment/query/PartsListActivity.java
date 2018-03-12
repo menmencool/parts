@@ -81,8 +81,6 @@ public class PartsListActivity extends BaseActivity {
 
     public void groupbyData(String by, String name) {
         UrlBean urlBean = new UrlBean();
-        urlBean.setGrouppk(by);
-        urlBean.setBrandname(name);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         OkGo.<String>post(CarUrl.BRANDNAME_URL)

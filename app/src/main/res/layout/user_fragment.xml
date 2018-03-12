@@ -25,12 +25,13 @@
             app:border_width="4px"/>
 
         <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ci_user_pic"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="奥迪4S"
+            android:text=" "
             android:textColor="@color/i_white"
             android:textStyle="bold"/>
 
@@ -44,10 +45,11 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_user_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="到期时间：2008-01-01"/>
+            android:text="到期时间： "/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,10 +73,11 @@
                 android:textColor="@color/i_black"/>
 
             <TextView
+                android:id="@+id/tv_user_userorganization"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="中国人寿"/>
+                android:text=" "/>
 
             <ImageView
                 android:layout_width="16dp"
@@ -91,10 +94,11 @@
                 android:textColor="@color/i_black"/>
 
             <TextView
+                android:id="@+id/tv_user_positions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="定损经理"/>
+                android:text=" "/>
         </LinearLayout>
 
         <View
@@ -116,10 +120,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_user_freetimes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="18"
+                android:text=" "
                 android:textColor="@color/i_black"
                 android:textSize="50dp"
                 android:textStyle="bold"/>
@@ -155,10 +160,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_user_useabletimes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="12"
+                android:text=" "
                 android:textColor="@color/i_red_lock"
                 android:textSize="50dp"
                 android:textStyle="bold"/>
