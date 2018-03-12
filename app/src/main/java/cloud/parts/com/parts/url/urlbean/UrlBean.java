@@ -85,6 +85,15 @@ public class UrlBean extends DataSupport{
     private String startDate;
     private String endDate;
     private String fixFactoryId;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getModelPk() {
         return modelPk;
