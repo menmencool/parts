@@ -95,11 +95,8 @@ public class DetailsActivity extends BaseActivity {
         iv_home_scancode.setOnClickListener(this);
         //展示test
         iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
-
         tv_yishibie = (TextView) findViewById(R.id.tv_yishibie);
         tv_weishibie = (TextView) findViewById(R.id.tv_weishibie);
-
-
     }
 
     @Override

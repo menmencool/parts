@@ -41,8 +41,10 @@ public class HollesiDataActivity extends BaseActivity {
         mTvHollesiCreateTime = (TextView) findViewById(R.id.tv_hollesi_create_time);
         mTvHollesiPartCode = (TextView) findViewById(R.id.tv_hollesi_part_code);
         include_banck = (ImageView) findViewById(R.id.include_banck);
+        include_banck.setVisibility(View.VISIBLE);
         include_banck.setOnClickListener(this);
         include_title_zhong = (TextView) findViewById(R.id.include_title_zhong);
+        include_title_zhong.setVisibility(View.VISIBLE);
         include_title_zhong.setText("详情内容");
     }
 
@@ -59,8 +61,6 @@ public class HollesiDataActivity extends BaseActivity {
         mTvHollesiLastModifiedTime.setText(partList.get(i).getLast_modified_time());
         mTvHollesiCreateTime.setText(partList.get(i).getCreate_time());
         mTvHollesiPartCode.setText(partList.get(i).getPart_code());
-
-
     }
 
     @Override

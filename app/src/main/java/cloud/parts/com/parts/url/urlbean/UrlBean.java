@@ -11,79 +11,95 @@ import java.util.List;
  */
 
 public class UrlBean extends DataSupport{
+
     /**
-     * mobile : 13011111111
-     * verifycode : 1234
+     * modelPk : 839
+     * brandName : 比亚迪
      */
 
-    private String mobile;
-    private String verifycode;
+    private String modelPk;
+    private String brandName;
     /**
-     * token : 1234567
-     */
-
-    private String token;
-    /**
-     * vin : 5UXZV4C56D0B02465
+     * vin : LS4BDB3D57F061666
      */
 
     private String vin;
-    /**
-     * ids : ["1090027482","1090031747","1090032337","11111111111111"]
-     * brandname : 宝马
-     */
-
-    private String brandname;
     private List<String> ids;
     /**
-     * grouppk : 1
-     * page : 1
+     * historyId : 1
      */
 
-    private String grouppk;
-    private String page;
+    private String historyId;
     /**
-     * userid : 1
-     * parts : [{"carmodel":"1","carvin":"121312313","partid":"123123123","partname":"测试",
-     * "pricefrom4s":"100","pricefromyp":"90"},{"carmodel":"1","carvin":"121312313",
-     * "partid":"123123124","partname":"测试","pricefrom4s":"1001","pricefromyp":"901"}]
+     * action : 0
+     * partsList : [{"part_code":"1234567"},{"part_code":"1234567"},{"part_code":"1234567"},
+     * {"part_code":"1234567"}]
      */
 
-    private String userid;
-    private List<PartsBean> parts;
+    private String action;
+    private List<PartsListBean> partsList;
     /**
-     * partcode : 1090035256
+     * mobile : 18516858660
+     * postion : 经理
+     * freeTimes : 100
+     * usableTimes : 100
+     * password : 12345678
      */
 
-    private String partcode;
-    /**
-     * password : 111111
-     */
-
+    private String mobile;
+    private String postion;
+    private String freeTimes;
+    private String usableTimes;
     private String password;
+    /**
+     * userId : 12
+     * userName : BillXu
+     * userType : 0
+     */
 
+    private String userId;
+    private String userName;
+    private String userType;
+    /**
+     * province : 北京
+     * city : 西城
+     * district :
+     * keywds : 奥迪
+     */
 
-    public String getMobile() {
-        return mobile;
+    private String province;
+    private String city;
+    private String district;
+    private String keywds;
+    /**
+     * status : 0
+     */
+
+    private String status;
+    /**
+     * startDate : 2018-01-01
+     * endDate : 2018-03-01
+     * fixFactoryId : 1
+     */
+
+    private String startDate;
+    private String endDate;
+    private String fixFactoryId;
+
+    public String getModelPk() {
+        return modelPk;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setModelPk(String modelPk) {
+        this.modelPk = modelPk;
     }
 
-    public String getVerifycode() {
-        return verifycode;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setVerifycode(String verifycode) {
-        this.verifycode = verifycode;
-    }
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getVin() {
@@ -94,15 +110,6 @@ public class UrlBean extends DataSupport{
         this.vin = vin;
     }
 
-
-    public String getBrandname() {
-        return brandname;
-    }
-
-    public void setBrandname(String brandname) {
-        this.brandname = brandname;
-    }
-
     public List<String> getIds() {
         return ids;
     }
@@ -111,44 +118,60 @@ public class UrlBean extends DataSupport{
         this.ids = ids;
     }
 
-    public String getGrouppk() {
-        return grouppk;
+    public String getHistoryId() {
+        return historyId;
     }
 
-    public void setGrouppk(String grouppk) {
-        this.grouppk = grouppk;
+    public void setHistoryId(String historyId) {
+        this.historyId = historyId;
     }
 
-    public String getPage() {
-        return page;
+    public String getAction() {
+        return action;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public String getUserid() {
-        return userid;
+    public List<PartsListBean> getPartsList() {
+        return partsList;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setPartsList(List<PartsListBean> partsList) {
+        this.partsList = partsList;
     }
 
-    public List<PartsBean> getParts() {
-        return parts;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setParts(List<PartsBean> parts) {
-        this.parts = parts;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String getPartcode() {
-        return partcode;
+    public String getPostion() {
+        return postion;
     }
 
-    public void setPartcode(String partcode) {
-        this.partcode = partcode;
+    public void setPostion(String postion) {
+        this.postion = postion;
+    }
+
+    public String getFreeTimes() {
+        return freeTimes;
+    }
+
+    public void setFreeTimes(String freeTimes) {
+        this.freeTimes = freeTimes;
+    }
+
+    public String getUsableTimes() {
+        return usableTimes;
+    }
+
+    public void setUsableTimes(String usableTimes) {
+        this.usableTimes = usableTimes;
     }
 
     public String getPassword() {
@@ -159,70 +182,107 @@ public class UrlBean extends DataSupport{
         this.password = password;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 
-    public static class PartsBean {
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getKeywds() {
+        return keywds;
+    }
+
+    public void setKeywds(String keywds) {
+        this.keywds = keywds;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getFixFactoryId() {
+        return fixFactoryId;
+    }
+
+    public void setFixFactoryId(String fixFactoryId) {
+        this.fixFactoryId = fixFactoryId;
+    }
+
+    public static class PartsListBean {
         /**
-         * carmodel : 1
-         * carvin : 121312313
-         * partid : 123123123
-         * partname : 测试
-         * pricefrom4s : 100
-         * pricefromyp : 90
+         * part_code : 1234567
          */
 
-        private String carmodel;
-        private String carvin;
-        private String partid;
-        private String partname;
-        private String pricefrom4s;
-        private String pricefromyp;
+        private String part_code;
 
-        public String getCarmodel() {
-            return carmodel;
+        public String getPart_code() {
+            return part_code;
         }
 
-        public void setCarmodel(String carmodel) {
-            this.carmodel = carmodel;
-        }
-
-        public String getCarvin() {
-            return carvin;
-        }
-
-        public void setCarvin(String carvin) {
-            this.carvin = carvin;
-        }
-
-        public String getPartid() {
-            return partid;
-        }
-
-        public void setPartid(String partid) {
-            this.partid = partid;
-        }
-
-        public String getPartname() {
-            return partname;
-        }
-
-        public void setPartname(String partname) {
-            this.partname = partname;
-        }
-
-        public String getPricefrom4s() {
-            return pricefrom4s;
-        }
-
-        public void setPricefrom4s(String pricefrom4s) {
-            this.pricefrom4s = pricefrom4s;
-        }
-
-        public String getPricefromyp() {
-            return pricefromyp;
-        }
-
-        public void setPricefromyp(String pricefromyp) {
-            this.pricefromyp = pricefromyp;
+        public void setPart_code(String part_code) {
+            this.part_code = part_code;
         }
     }
 }
