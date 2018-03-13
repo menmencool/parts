@@ -2,6 +2,19 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    /**
+     * 超出65535用此标签来搞定
+     */
+    dexOptions {
+        jumboMode true
+    }
+    /**
+     * 图片路径
+     */
+    aaptOptions {
+        cruncherEnabled = false
+    }
     defaultConfig {
         applicationId "cloud.parts.com.parts"
         minSdkVersion 19
@@ -12,8 +25,32 @@ android {
     }
     buildTypes {
         release {
+            //不显示log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //Zipalign优化
+            zipAlignEnabled false
+            //代码混淆开关
             minifyEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    /**
+     * 打包加入的
+     */
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
 }

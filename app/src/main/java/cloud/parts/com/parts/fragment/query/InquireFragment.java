@@ -37,7 +37,6 @@ import com.orhanobut.logger.Logger;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.fragment.query.adapter.InquireAdapter;
 import cloud.parts.com.parts.fragment.query.bean.HistoriBean;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
@@ -55,7 +54,6 @@ public class InquireFragment extends Fragment implements OnClickListener {
     private ImageView include_banck;
     private TextView include_titles;
     private ImageView iv_home_scancode;
-    // private ArrayList<VINQueryBean.DataDicBean> dataDicBeans = new ArrayList<>();
     private RecyclerView rl_home_carlist;
     //行驶证需要的
     private boolean hasGotToken = false;

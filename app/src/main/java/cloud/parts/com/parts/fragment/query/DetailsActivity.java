@@ -29,9 +29,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cloud.parts.com.parts.init.PartsApp;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
-import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapters;
 import cloud.parts.com.parts.fragment.query.adapter.QueryIVeiemAdapter;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
@@ -97,15 +97,15 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initData() {
-        hotpartsData();
-        queryData();
+        String vin = getIntent().getStringExtra("VIN");
+        hotpartsData(vin);
+        queryData(vin);
     }
 
     //热门配件
-    public void hotpartsData() {
-        String vin = getIntent().getStringExtra("VIN");
+    public void hotpartsData(String vinCode) {
         UrlBean urlBean = new UrlBean();
-        urlBean.setVin(vin);
+        urlBean.setVin(vinCode);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         String token = UserCentre.getInstance().getToken();
@@ -126,18 +126,18 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                             Glide.with(DetailsActivity.this).load(dataDic.getModel().getImgurl())
                                     .centerCrop().into(iv_details_top);
                         } else {
-                            Toast.makeText(DetailsActivity.this, vinQueryBean.getErrmsg(), Toast
-                                    .LENGTH_LONG).show();
+                           /* Toast.makeText(DetailsActivity.this, vinQueryBean.getErrmsg(), Toast
+                                    .LENGTH_LONG).show();*/
+                            promptShow(vinQueryBean.getErrmsg());
                         }
                     }
                 });
     }
 
     //单个配件查询历史
-    public void queryData() {
-        String vin = getIntent().getStringExtra("VIN");
+    public void queryData(String vinCode) {
         UrlBean urlBean = new UrlBean();
-        urlBean.setVin(vin);
+        urlBean.setVin(vinCode);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         String token = UserCentre.getInstance().getToken();
@@ -177,16 +177,14 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
     }
 
     //批量查询数据
-    public void accessoriesData() {
-        String coding = et_home_vinnumber.getText().toString().trim();
-        codingList.add(coding);
+    public void accessoriesData(ArrayList<String> codingLists) {
         //反转控制
-        Collections.reverse(codingList);
+        Collections.reverse(codingLists);
         UrlBean urlBean = new UrlBean();
-        urlBean.setIds(codingList);
+        urlBean.setIds(codingLists);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
-        OkGo.<String>post(CarUrl.PARTSBYIDS_URL)
+        OkGo.<String>post(CarUrl.QUERYPARTSBYI0DS_URL)
                 .tag(this)
                 .upJson(s)
                 .execute(new StringCallback() {
@@ -212,7 +210,7 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                                 @Override
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view,
                                                              int
-                                        position) {
+                                                                     position) {
                                     switch (view.getId()) {
                                         case R.id.tv_vinquery_by:
                                      /*   Intent intent = new Intent(DetailsActivity.this,
@@ -248,9 +246,13 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.include_mes:
                 Intent intent = new Intent(this, GroupByQueryActivity.class);
-                intent.putExtra("modelPk", dataDic.getModel().getModel_pk());
-                intent.putExtra("brandName", dataDic.getModel().getBrand_name());
-                startActivity(intent);
+                if (!dataDic.getModel().getModel_pk().equals("")&&dataDic.getModel().getModel_pk() != null) {
+                    intent.putExtra("modelPk", dataDic.getModel().getModel_pk());
+                    intent.putExtra("brandName", dataDic.getModel().getBrand_name());
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(this, "缺少modelpk字段，资料尚未完善", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.iv_home_scancode:
                 alertShow();
@@ -259,13 +261,14 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
             case R.id.bt_details_xiangqing:
-                Intent intents = new Intent(this, GroupByQueryActivity.class);
+                Intent intents = new Intent(this, WebViewShow.class);
                 intents.putExtra("code", dataDic.getVincode());
                 startActivity(intents);
                 break;
         }
     }
 
+    //选择框
     public void alertShow() {
         new AlertView("选择搜索方式", null, "取消", null,
                 new String[]{"批量扫描", "直接搜索"},
@@ -273,7 +276,7 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onItemClick(Object o, int position) {
                 if (position == 0) {
-                    if (!MainActivity.hasGotToken) {
+                    if (!PartsApp.hasGotToken) {
                         Toast.makeText(DetailsActivity.this, "Token值未获取", Toast.LENGTH_SHORT)
                                 .show();
                         return;
@@ -289,6 +292,19 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 } else if (position == 1) {
                     submit();
 
+                }
+            }
+        }).show();
+    }
+
+    //提示框
+    public void promptShow(String conent) {
+        new AlertView("提示", conent, null, new String[]{"确定"}, null, this,
+                AlertView.Style.Alert, new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position) {
+                if (position == 0) {
+                    finish();
                 }
             }
         }).show();
@@ -315,6 +331,9 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                             Logger.e(result.toString());
                             Toast.makeText(DetailsActivity.this, result.toString(), Toast
                                     .LENGTH_SHORT).show();
+                            //牌照输入查询
+                            codingList.add(result.toString());
+                            accessoriesData(codingList);
                         }
                     });
         }
@@ -334,7 +353,9 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
             return;
             //批量查询数据
         }
-        accessoriesData();
+        //手动输入查询
+        codingList.add(vinnumber);
+        accessoriesData(codingList);
         et_home_vinnumber.setText("");
     }
 }

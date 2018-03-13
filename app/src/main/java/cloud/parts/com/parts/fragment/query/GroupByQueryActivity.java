@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -55,10 +56,11 @@ public class GroupByQueryActivity extends BaseActivity {
         byQueryData();
     }
 
-    //单个配件查询历史
+    //单个配件查询分组
     public void byQueryData() {
-        String modelPk = getIntent().getStringExtra("modelPk");
-        String brandName = getIntent().getStringExtra("brandName");
+        final String modelPk = getIntent().getStringExtra("modelPk");
+        final String brandName = getIntent().getStringExtra("brandName");
+        Logger.e(modelPk+brandName+"-----------------");
         UrlBean urlBean = new UrlBean();
         urlBean.setModelPk(modelPk);
         urlBean.setBrandName(brandName);
@@ -84,6 +86,9 @@ public class GroupByQueryActivity extends BaseActivity {
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                     Intent intent = new Intent(GroupByQueryActivity.this,
                                             GroupByQueryHollesiActivity.class);
+                                    intent.putExtra("modelPk",modelPk);
+                                    intent.putExtra("brandName",brandName);
+                                    intent.putExtra("topGroupId",listBeans.get(position).getGroup_id());
                                     intent.putParcelableArrayListExtra("subGroups",listBeans.get(position).getSubGroups());
                                     startActivity(intent);
                                 }

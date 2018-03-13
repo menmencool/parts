@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -26,8 +25,8 @@ import com.youth.banner.Banner;
 import java.util.ArrayList;
 import java.util.List;
 
+import cloud.parts.com.parts.init.PartsApp;
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.TestData;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.home.bean.HomeBean;
 import cloud.parts.com.parts.fragment.query.DetailsActivity;
@@ -118,7 +117,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //todo  获取token
         String token = UserCentre.getInstance().getToken();
         UrlBean urlBean = new UrlBean();
-        urlBean.setToken(TestData.TOKEN);
+        urlBean.setToken(token);
         final Gson gson = new Gson();
         final String s = gson.toJson(urlBean);
         OkGo.<String>post(CarUrl.Home_URL)
@@ -149,7 +148,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_home_accessories:
-                if (!MainActivity.hasGotToken) {
+                if (!PartsApp.hasGotToken) {
                     Toast.makeText(getActivity(), "Token值未获取", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -207,7 +206,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            //infoPopText(result);
                             Logger.e(result.toString());
                           /*  Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
                                     .show();*/
@@ -222,10 +220,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 释放内存资源
-        if (OCR.getInstance() != null) {
-            OCR.getInstance().release();
-        }
     }
 }
 

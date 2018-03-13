@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ne-rNP\\values-ne-rNP.xml",
+            "outputFile": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ne-rNP\\values-ne-rNP.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\1d0c7b816e61b1ca551bf2464c87c95c\\res\\values-ne-rNP\\values-ne-rNP.xml",
+                    "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\values-ne-rNP\\values-ne-rNP.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -16,7 +16,7 @@
             ]
         },
         {
-            "outputFile": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ne-rNP\\values-ne-rNP.xml",
+            "outputFile": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-ne-rNP\\values-ne-rNP.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\values-ne-rNP\\values-ne-rNP.xml",

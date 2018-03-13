@@ -48,7 +48,7 @@ public class GroupByQueryHollesiActivity extends BaseActivity {
         include_banck.setOnClickListener(this);
         include_title_zhong = (TextView) findViewById(R.id.include_title_zhong);
         include_title_zhong.setVisibility(View.VISIBLE);
-        include_title_zhong.setText("配件清单");
+        include_title_zhong.setText("分组清单");
         include_title_zhong.setOnClickListener(this);
         rl_groupby_list = (RecyclerView) findViewById(R.id.rl_groupby_list);
         rl_groupby_list.setLayoutManager(new LinearLayoutManager(this));
@@ -58,6 +58,7 @@ public class GroupByQueryHollesiActivity extends BaseActivity {
     protected void initData() {
         final ArrayList<GroupByQueryBean.DataDicBean.ListBean.SubGroupsBean> subGroups =
                 getIntent().getParcelableArrayListExtra("subGroups");
+
         PartsListAdapter adapter = new PartsListAdapter(R.layout
                 .group_by_query_adapter, subGroups);
         rl_groupby_list.setAdapter(adapter);
@@ -66,7 +67,11 @@ public class GroupByQueryHollesiActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(GroupByQueryHollesiActivity.this,
                         GroupByQueryHollesIdiActivity.class);
-                intent.putParcelableArrayListExtra("graphGroups",subGroups.get(position).getGraphGroups());
+                intent.putExtra("modelPk", getIntent().getStringExtra("modelPk"));
+                intent.putExtra("brandName", getIntent().getStringExtra("brandName"));
+                intent.putExtra("topGroupId", getIntent().getStringExtra("topGroupId"));
+                intent.putExtra("subGroupId", subGroups.get(position).getSub_group_id());
+                intent.putParcelableArrayListExtra("graphGroups", subGroups.get(position).getGraphGroups());
                 startActivity(intent);
             }
         });

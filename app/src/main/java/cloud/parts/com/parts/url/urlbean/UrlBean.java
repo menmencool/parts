@@ -86,6 +86,9 @@ public class UrlBean extends DataSupport{
     private String endDate;
     private String fixFactoryId;
     private String token;
+    private String topGroupId;
+    private String subGroupId;
+    private String graphGroupId;
 
     public String getToken() {
         return token;
@@ -277,6 +280,30 @@ public class UrlBean extends DataSupport{
 
     public void setFixFactoryId(String fixFactoryId) {
         this.fixFactoryId = fixFactoryId;
+    }
+
+    public String getTopGroupId() {
+        return topGroupId;
+    }
+
+    public void setTopGroupId(String topGroupId) {
+        this.topGroupId = topGroupId;
+    }
+
+    public String getSubGroupId() {
+        return subGroupId;
+    }
+
+    public void setSubGroupId(String subGroupId) {
+        this.subGroupId = subGroupId;
+    }
+
+    public String getGraphGroupId() {
+        return graphGroupId;
+    }
+
+    public void setGraphGroupId(String graphGroupId) {
+        this.graphGroupId = graphGroupId;
     }
 
     public static class PartsListBean {

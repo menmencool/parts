@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 /**
  * 类用途：用户信息
- * 作者：ShiZhuangZhuang
- * 时间：2017/10/21 18:25
+ * 作者：zhuang
  */
 
 public class User implements Serializable{

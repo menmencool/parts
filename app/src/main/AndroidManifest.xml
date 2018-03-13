@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
-        android:name=".PartsApp"
+        android:name=".init.PartsApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon180"
         android:label="@string/app_name"
@@ -31,6 +31,7 @@
         <activity android:name=".fragment.query.GroupByQueryActivity"/>
         <activity android:name=".fragment.query.GroupByQueryHollesiActivity" />
         <activity android:name=".fragment.query.GroupByQueryHollesIdiActivity"/>
+        <activity android:name=".fragment.query.QueryPartsListActivity" />
     </application>
 
 </manifest>

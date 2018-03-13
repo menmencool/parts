@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
-import cloud.parts.com.parts.db.DBDataBean;
 import cloud.parts.com.parts.fragment.query.bean.HistoriBean;
 
 /**

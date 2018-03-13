@@ -3,7 +3,7 @@ package cloud.parts.com.parts.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import cloud.parts.com.parts.PartsApp;
+import cloud.parts.com.parts.init.PartsApp;
 
 /**
  * SharedPreferences的一个工具类，调用setParam就能保存String, Integer, Boolean, Float, Long类型的参数

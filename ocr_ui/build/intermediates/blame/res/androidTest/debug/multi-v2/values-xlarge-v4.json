@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "E:\\Studio\\parts\\ocr_ui\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
+            "outputFile": "D:\\app\\car\\parts\\ocr_ui\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xlarge-v4\\values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\1d0c7b816e61b1ca551bf2464c87c95c\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "C:\\Users\\Strongger\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-25.1.1.aar\\adb5cd77cbd90672c9c17d5f2f326583\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",
