@@ -22,7 +22,6 @@ public class WebViewShow extends BaseActivity {
     private WebView webView;
     private ImageView include_banck;
     private TextView include_title_zhong;
-    private String urls = "http://123.57.141.113:8080/PartsCloud/api/displayPartByPartCode?partCode=";
     private ImageView im_error;
 
     @Override
@@ -40,8 +39,15 @@ public class WebViewShow extends BaseActivity {
         //脚本
         webView.getSettings().setJavaScriptEnabled(true);
         Intent intent = getIntent();
-        String code = intent.getStringExtra("code");
-        webView.loadUrl(urls + code);
+        String url = intent.getStringExtra("url");
+        String type = intent.getStringExtra("type");
+        if(type.equals("1")){
+            webView.loadUrl(url);
+        }else {
+            webView.loadDataWithBaseURL(null,url,"text/html" , "utf-8", null);
+        }
+
+
         //缩放
         webView.getSettings().setBuiltInZoomControls(true);
         //可以访问的文件

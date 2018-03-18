@@ -1,5 +1,8 @@
 package cloud.parts.com.parts.fragment.query.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -86,7 +89,7 @@ public class DetailsBeans {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Parcelable {
             /**
              * part_name : S6-3721020_低音蜗牛电子喇叭_M00000
              * part_pk : 1537016
@@ -96,9 +99,9 @@ public class DetailsBeans {
              * last_modified_time : 2018-03-04 16:29:49.0
              * adaptable_model : S6
              * create_time : 2018-03-04 16:29:49.0
-             * part_code : 1053401000
-             * comment : 请订购10747564-00。切换状态
-             * brand_name : 比亚迪
+             * partent : 请订购10747564-00。切换状态
+             * brand_code : 1053401000
+             * comm_name : 比亚迪
              */
 
             private String part_name;
@@ -200,6 +203,55 @@ public class DetailsBeans {
             public void setBrand_name(String brand_name) {
                 this.brand_name = brand_name;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.part_name);
+                dest.writeString(this.part_pk);
+                dest.writeString(this.purchase_price);
+                dest.writeString(this.sale_price);
+                dest.writeString(this.status);
+                dest.writeString(this.last_modified_time);
+                dest.writeString(this.adaptable_model);
+                dest.writeString(this.create_time);
+                dest.writeString(this.part_code);
+                dest.writeString(this.comment);
+                dest.writeString(this.brand_name);
+            }
+
+            public ListBean() {
+            }
+
+            protected ListBean(Parcel in) {
+                this.part_name = in.readString();
+                this.part_pk = in.readString();
+                this.purchase_price = in.readString();
+                this.sale_price = in.readString();
+                this.status = in.readString();
+                this.last_modified_time = in.readString();
+                this.adaptable_model = in.readString();
+                this.create_time = in.readString();
+                this.part_code = in.readString();
+                this.comment = in.readString();
+                this.brand_name = in.readString();
+            }
+
+            public static final Parcelable.Creator<ListBean> CREATOR = new Parcelable.Creator<ListBean>() {
+                @Override
+                public ListBean createFromParcel(Parcel source) {
+                    return new ListBean(source);
+                }
+
+                @Override
+                public ListBean[] newArray(int size) {
+                    return new ListBean[size];
+                }
+            };
         }
     }
 }

@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/i_gray_line4"
                 android:padding="10dp"
-                android:text="配件历史"/>
+                android:text="已识别配件"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

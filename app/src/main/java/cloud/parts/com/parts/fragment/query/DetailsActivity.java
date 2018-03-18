@@ -54,19 +54,18 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
 
     private ImageView include_banck;
     private TextView include_mes;
-    private RecyclerView rl_details_accessories;
     private TextView tv_details_carname;
     private TextView tv_details_brand;
     private EditText et_home_vinnumber;
     private ImageView iv_home_scancode;
     private ImageView iv_details_top;
-    private TextView tv_yishibie;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
     private RecyclerView rl_details_queryiveiem;
     private ArrayList<String> codingList = new ArrayList<>();
     private DetailsBean.DataDicBean dataDic;
     private Button bt_details_xiangqing;
-
+    ArrayList<DetailsBeans.DataDicBean.ListBean> partListAll =new ArrayList<>();
+    private QueryIVeiemAdapter mAdapter;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_details);
@@ -77,12 +76,9 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
         include_mes.setVisibility(View.VISIBLE);
         include_mes.setText("分组查询");
         include_mes.setOnClickListener(this);
-        rl_details_accessories = (RecyclerView) findViewById(R.id.rl_details_accessories);//识别配件
         rl_details_queryiveiem = (RecyclerView) findViewById(R.id.rl_details_queryiveiem);//查询历史
         tv_details_carname = (TextView) findViewById(R.id.tv_details_carname);
         tv_details_brand = (TextView) findViewById(R.id.tv_details_brand);
-        rl_details_accessories.setLayoutManager(new LinearLayoutManager(this));
-        rl_details_accessories.setNestedScrollingEnabled(false);
         rl_details_queryiveiem.setLayoutManager(new LinearLayoutManager(this));
         rl_details_queryiveiem.setNestedScrollingEnabled(false);
         et_home_vinnumber = (EditText) findViewById(R.id.et_home_vinnumber);
@@ -90,7 +86,6 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
         iv_home_scancode.setOnClickListener(this);
         //展示test
         iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
-        tv_yishibie = (TextView) findViewById(R.id.tv_yishibie);
         bt_details_xiangqing = (Button) findViewById(R.id.bt_details_xiangqing);
         bt_details_xiangqing.setOnClickListener(this);
     }
@@ -146,17 +141,21 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 .headers("authtoken", token)
                 .upJson(s)
                 .execute(new StringCallback() {
+
+
+
                     @Override
                     public void onSuccess(Response<String> response) {
                         QueryIVetemBean quryIvetemBean = gson.fromJson(response.body().toString(),
                                 QueryIVetemBean.class);
-                        final ArrayList<QueryIVetemBean.DataDicBean.PartListBean> partList =
+                        final ArrayList<DetailsBeans.DataDicBean.ListBean> partList =
                                 quryIvetemBean.getDataDic().getPartList();
-                        QueryIVeiemAdapter adapter = new QueryIVeiemAdapter(R.layout
+                        partListAll.addAll(partList);
+                        mAdapter = new QueryIVeiemAdapter(R.layout
                                 .queryivetem_adapter,
-                                partList);
-                        rl_details_queryiveiem.setAdapter(adapter);
-                        adapter.setOnItemChildClickListener(new BaseQuickAdapter
+                                partListAll);
+                        rl_details_queryiveiem.setAdapter(mAdapter);
+                        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter
                                 .OnItemChildClickListener() {
                             @Override
                             public void onItemChildClick(BaseQuickAdapter adapter, View view, int
@@ -165,9 +164,14 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                                     case R.id.tv_vinquery_by:
                                         Intent intent = new Intent(DetailsActivity.this,
                                                 WebViewShow.class);
-                                        intent.putExtra("code", partList.get(position)
-                                                .getPart_code());
+                                        intent.putExtra("url", CarUrl.WEBURL + partListAll.get
+                                                (position).getPart_code());
+                                        intent.putExtra("type", "1");
                                         startActivity(intent);
+                                        break;
+                                    case R.id.tv_vinquery_delete:
+                                        partListAll.remove(position);
+                                        adapter.notifyDataSetChanged();
                                         break;
                                 }
                             }
@@ -179,7 +183,7 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
     //批量查询数据
     public void accessoriesData(ArrayList<String> codingLists) {
         //反转控制
-        Collections.reverse(codingLists);
+        //Collections.reverse(codingLists);
         UrlBean urlBean = new UrlBean();
         urlBean.setIds(codingLists);
         final Gson gson = new Gson();
@@ -188,7 +192,6 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 .tag(this)
                 .upJson(s)
                 .execute(new StringCallback() {
-                    private DetailsAdapters mMatchadapter;
 
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -196,16 +199,44 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                                 DetailsBeans.class);
                         final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans
                                 .getDataDic().getList();
-                        for (int i = 0; i < listBeans.size(); i++) {
-                            //已识别配件
-                            if (!listBeans.isEmpty()) {
-                                tv_yishibie.setVisibility(View.VISIBLE);
+
+                        DetailsBeans.DataDicBean.ListBean one;
+                        DetailsBeans.DataDicBean.ListBean two;
+                        String code;
+                        boolean f = false;
+                        for (int i = 0; i < listBeans.size() ; i++) {
+                            f = false;
+                            one = listBeans.get(i);
+                            code = one.getPart_code();
+                            Logger.e("这是搜索回来的"+code);
+                            for (int j = 0; j < partListAll.size(); j++) {
+                                two = partListAll.get(j);
+                                Logger.e("这是原来集合的"+two.getPart_code());
+                                if (code.equals(two.getPart_code())) {
+                                    partListAll.remove(j);
+                                    partListAll.add(0, one);
+                                    f = true;
+                                    break;
+                                }
                             }
+                            if (!f) {
+                                partListAll.add(0, one);
+                            }
+
+                        }
+                        mAdapter.notifyDataSetChanged();
+
+
+/*
+
+
+
                             mMatchadapter = new DetailsAdapters(R.layout.accessories_adapter,
                                     listBeans);
-                            rl_details_accessories.setAdapter(mMatchadapter);
+*/
+                            // rl_details_accessories.setAdapter(mMatchadapter);
 
-                            mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
+                  /*          mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
                                     .OnItemChildClickListener() {
                                 @Override
                                 public void onItemChildClick(BaseQuickAdapter adapter, View view,
@@ -213,24 +244,22 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                                                                      position) {
                                     switch (view.getId()) {
                                         case R.id.tv_vinquery_by:
-                                     /*   Intent intent = new Intent(DetailsActivity.this,
+                                     *//*   Intent intent = new Intent(DetailsActivity.this,
                                                 PartsListActivity.class);
                                         intent.putExtra("grouppk", "1");
                                         intent.putExtra("brandname", "宝马");
-                                        startActivity(intent);*/
+                                        startActivity(intent);*//*
                                             break;
                                         case R.id.tv_vinquery_delete:
                                             listBeans.remove(position);
                                             mMatchadapter.notifyDataSetChanged();
-                                            if (listBeans.size() == 0) {
-                                                tv_yishibie.setVisibility(View.GONE);
-                                            }
+
                                             break;
                                     }
                                 }
-                            });
+                            });*/
                         }
-                    }
+
                 });
     }
 
@@ -246,11 +275,12 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.include_mes:
                 Intent intent = new Intent(this, GroupByQueryActivity.class);
-                if (!dataDic.getModel().getModel_pk().equals("")&&dataDic.getModel().getModel_pk() != null) {
+                if (!dataDic.getModel().getModel_pk().equals("") && dataDic.getModel()
+                        .getModel_pk() != null) {
                     intent.putExtra("modelPk", dataDic.getModel().getModel_pk());
                     intent.putExtra("brandName", dataDic.getModel().getBrand_name());
                     startActivity(intent);
-                }else {
+                } else {
                     Toast.makeText(this, "缺少modelpk字段，资料尚未完善", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -262,7 +292,8 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.bt_details_xiangqing:
                 Intent intents = new Intent(this, WebViewShow.class);
-                intents.putExtra("code", dataDic.getVincode());
+                intents.putExtra("url", CarUrl.DISPLAYMODELBY_URL + dataDic.getVincode());
+                intents.putExtra("type", "1");
                 startActivity(intents);
                 break;
         }

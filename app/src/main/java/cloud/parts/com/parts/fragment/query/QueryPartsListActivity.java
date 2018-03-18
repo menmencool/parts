@@ -84,27 +84,33 @@ public class QueryPartsListActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        QueryPartsListBean querypartslistbean = gson.fromJson(response.body().toString(),
+                        QueryPartsListBean querypartslistbean = gson.fromJson(response.body()
+                                        .toString(),
                                 QueryPartsListBean.class);
-                        final List<QueryPartsListBean.DataDicBean.ListBean> listBeans = querypartslistbean.getDataDic().getList();
+                        final List<QueryPartsListBean.DataDicBean.ListBean> listBeans =
+                                querypartslistbean.getDataDic().getList();
                         QueryPartsListAdaptre adapter = new QueryPartsListAdaptre(R.layout
                                 .querypartslist_adapter, listBeans);
-                        Logger.e(listBeans.toString() + "=============================");
                         rl_querypartslist_list.setAdapter(adapter);
                         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int
+                                    position) {
                                 Intent intent = new Intent(QueryPartsListActivity.this,
                                         WebViewShow.class);
-                                intent.putExtra("code", listBeans.get(position).getPart_code());
+                                intent.putExtra("url", CarUrl.WEBURL + listBeans.get(position)
+                                        .getPart_code());
+                                intent.putExtra("type", "1");
                                 startActivity(intent);
                             }
                         });
 
                       /*
-                            adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                            adapter.setOnItemChildClickListener(new BaseQuickAdapter
+                            .OnItemChildClickListener() {
                                 @Override
-                                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                public void onItemChildClick(BaseQuickAdapter adapter, View view,
+                                 int position) {
                                     switch (view.getId()) {
                                         case R.id.tv_vinquery_by:
 

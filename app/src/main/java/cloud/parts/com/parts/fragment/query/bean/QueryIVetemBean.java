@@ -56,7 +56,7 @@ public class QueryIVetemBean {
         private String fixfactoryid;
         private String fixfactoryname;
         private String modelname;
-        private ArrayList<PartListBean> partList;
+        private ArrayList<DetailsBeans.DataDicBean.ListBean> partList;
 
         public String getVincode() {
             return vincode;
@@ -154,11 +154,11 @@ public class QueryIVetemBean {
             this.modelname = modelname;
         }
 
-        public ArrayList<PartListBean> getPartList() {
+        public ArrayList<DetailsBeans.DataDicBean.ListBean> getPartList() {
             return partList;
         }
 
-        public void setPartList(ArrayList<PartListBean> partList) {
+        public void setPartList(ArrayList<DetailsBeans.DataDicBean.ListBean> partList) {
             this.partList = partList;
         }
 
@@ -570,7 +570,7 @@ public class QueryIVetemBean {
             }
         }
 
-        public static class PartListBean implements Parcelable {
+        public static class PartListBean extends DetailsBeans.DataDicBean.ListBean {
             /**
              * status : 0
              * part_code : 1053398900
@@ -585,7 +585,7 @@ public class QueryIVetemBean {
              * brand_name : 比亚迪
              */
 
-            private String status;
+            /*private String status;
             private String part_code;
             private String sale_price;
             private String adaptable_model;
@@ -732,7 +732,7 @@ public class QueryIVetemBean {
                 public PartListBean[] newArray(int size) {
                     return new PartListBean[size];
                 }
-            };
+            };*/
         }
     }
 }

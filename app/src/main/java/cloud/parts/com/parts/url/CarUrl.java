@@ -27,14 +27,14 @@ public class CarUrl {
     public static final String QUERYPARTSBYI0DS_URL = CAR_URL + "queryPartsByIds";
     //新增历史（报告单）接口
     public static final String ADDORUPDATEHISTORYLOG_URL = CAR_URL + "addOrUpdateHistoryLog";
-    // 查询机构信息及雇员列表
-    public static final String GETORGINFO_URL = CAR_URL + "getOrgInfo";
-    // 新增员工信息// 修改员工信息//删除员工信息
-    public static final String ADDORUPDATEUSERINFOURL = CAR_URL + "addOrUpdateUserInfo";
     // 机构通告查询接口// 云配通告查询接口
-    public static final String queryNews_URL = CAR_URL + "queryNews";
+    public static final String QUERYNEWS_URL = CAR_URL + "queryNews";
     // 新增通告接口
     public static final String ADDORUPDATENEWSINFO_URL = CAR_URL + "addOrUpdateNewsInfo";
     //4S店查询接口
     public static final String QUERY4S_URL = CAR_URL + "query4S";
+    //web接口
+    public static final String WEBURL = CAR_URL+"displayPartByPartCode?partCode=";
+    //车辆详情displayModelByVin
+    public static final String DISPLAYMODELBY_URL = CAR_URL + "displayModelByVin?vin=";
 }

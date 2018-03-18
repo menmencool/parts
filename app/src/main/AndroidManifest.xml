@@ -31,7 +31,9 @@
         <activity android:name=".fragment.query.GroupByQueryActivity"/>
         <activity android:name=".fragment.query.GroupByQueryHollesiActivity" />
         <activity android:name=".fragment.query.GroupByQueryHollesIdiActivity"/>
-        <activity android:name=".fragment.query.QueryPartsListActivity" />
+        <activity android:name=".fragment.home.AgencyNoticeActivity"/>
+        <activity android:name=".fragment.query.QueryPartsListActivity"/>
+        <activity android:name=".fragment.home.ContentDisplayActivity"/>
     </application>
 
 </manifest>

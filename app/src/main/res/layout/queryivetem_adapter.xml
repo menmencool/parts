@@ -38,6 +38,42 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_query_ti"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuan_1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="替"
+            android:textColor="@color/i_white"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_query_bao"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuan_2"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="包"
+            android:textColor="@color/i_white"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_query_jing"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuan_3"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="警"
+            android:textColor="@color/i_white"
+            android:textSize="12sp"/>
+
     </LinearLayout>
 
     <LinearLayout

@@ -118,6 +118,5 @@ public class MainActivity extends BaseActivity{
     protected void onDestroy() {
         super.onDestroy();
         UserCentre.getInstance().destroy();
-        OCR.getInstance().release();
     }
 }

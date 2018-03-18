@@ -175,8 +175,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.ll_home_new:
                 break;
             case R.id.ll_home_notice:
+                Intent notice = new Intent(getActivity(), AgencyNoticeActivity.class);
+                notice.putExtra("title","公告消息");
+                notice.putExtra("action","1");
+                startActivity(notice);
                 break;
             case R.id.ll_home_organization:
+                Intent notices = new Intent(getActivity(), AgencyNoticeActivity.class);
+                notices.putExtra("title","机构消息");
+                notices.putExtra("action","0");
+                startActivity(notices);
                 break;
             case R.id.ll_home_expect:
                 break;
