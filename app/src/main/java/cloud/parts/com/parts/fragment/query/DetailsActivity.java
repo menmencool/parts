@@ -26,17 +26,15 @@ import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import cloud.parts.com.parts.init.PartsApp;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
-import cloud.parts.com.parts.fragment.query.adapter.DetailsAdapters;
 import cloud.parts.com.parts.fragment.query.adapter.QueryIVeiemAdapter;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBean;
 import cloud.parts.com.parts.fragment.query.bean.DetailsBeans;
 import cloud.parts.com.parts.fragment.query.bean.QueryIVetemBean;
+import cloud.parts.com.parts.init.PartsApp;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
@@ -64,8 +62,11 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
     private ArrayList<String> codingList = new ArrayList<>();
     private DetailsBean.DataDicBean dataDic;
     private Button bt_details_xiangqing;
-    ArrayList<DetailsBeans.DataDicBean.ListBean> partListAll =new ArrayList<>();
+    ArrayList<DetailsBeans.DataDicBean.ListBean> partListAll = new ArrayList<>();
     private QueryIVeiemAdapter mAdapter;
+    private QueryIVetemBean quryIvetemBean;
+    private ImageView iv_details_add;
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_details);
@@ -88,6 +89,8 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
         iv_details_top = (ImageView) findViewById(R.id.iv_details_top);
         bt_details_xiangqing = (Button) findViewById(R.id.bt_details_xiangqing);
         bt_details_xiangqing.setOnClickListener(this);
+        iv_details_add = (ImageView) findViewById(R.id.iv_details_add);
+        iv_details_add.setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +98,152 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
         String vin = getIntent().getStringExtra("VIN");
         hotpartsData(vin);
         queryData(vin);
+    }
+
+    @Override
+    protected void initListener() {
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.include_banck:
+                finish();
+                break;
+            case R.id.include_mes:
+                Intent intent = new Intent(this, GroupByQueryActivity.class);
+                if (!dataDic.getModel().getModel_pk().equals("") && dataDic.getModel()
+                        .getModel_pk() != null) {
+                    intent.putExtra("modelPk", dataDic.getModel().getModel_pk());
+                    intent.putExtra("brandName", dataDic.getModel().getBrand_name());
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "资料尚未完善", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.iv_home_scancode:
+                alertShow();
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(this.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                break;
+            case R.id.bt_details_xiangqing:
+                Intent intents = new Intent(this, WebViewShow.class);
+                intents.putExtra("url", CarUrl.DISPLAYMODELBY_URL + dataDic.getVincode());
+                intents.putExtra("type", "1");
+                startActivity(intents);
+                break;
+            case R.id.iv_details_add:
+                ordersShow();
+                break;
+        }
+    }
+
+    /**
+     * OCR识别返回的结果
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 识别成功回调，行驶证识别
+        if (requestCode == REQUEST_CODE_VEHICLE_LICENSE && resultCode == Activity.RESULT_OK) {
+            RecognizeService.recVehicleLicense(FileUtil.getSaveFile(DetailsActivity.this
+                            .getApplicationContext()).getAbsolutePath(),
+                    new RecognizeService.ServiceListener() {
+                        @Override
+                        public void onResult(String result) {
+                            //infoPopText(result);
+                            Logger.e(result.toString());
+                            Toast.makeText(DetailsActivity.this, result.toString(), Toast
+                                    .LENGTH_SHORT).show();
+                            //牌照输入查询
+                            codingList.add(result.toString());
+                            accessoriesData(codingList);
+                        }
+                    });
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    //搜索选择框
+    public void alertShow() {
+        new AlertView("选择搜索方式", null, "取消", null,
+                new String[]{"批量扫描", "直接搜索"},
+                this, AlertView.Style.ActionSheet, new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position) {
+                if (position == 0) {
+                    if (!PartsApp.hasGotToken) {
+                        Toast.makeText(DetailsActivity.this, "Token值未获取", Toast.LENGTH_SHORT)
+                                .show();
+                        return;
+                    }
+                    Intent intent = new Intent(DetailsActivity.this, CameraActivity.class);
+                    intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                            FileUtil.getSaveFile(DetailsActivity.this.getApplication())
+                                    .getAbsolutePath());
+                    intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                            CameraActivity.CONTENT_TYPE_GENERAL);
+                    startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
+                    //批量查询数据accessoriesData();
+                } else if (position == 1) {
+                    submit();
+
+                }
+            }
+        }).show();
+    }
+
+    //提示框
+    public void promptShow(String conent) {
+        new AlertView("提示", conent, null, new String[]{"确定"}, null, this,
+                AlertView.Style.Alert, new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position) {
+                if (position == 0) {
+                    finish();
+                }
+            }
+        }).show();
+    }
+
+    //订单报价单选择框
+    public void ordersShow() {
+        new AlertView("选择搜索方式", null, "取消", null,
+                new String[]{"订单查询", "报价单查询"},
+                this, AlertView.Style.ActionSheet, new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position) {
+                if (position == 0) {
+
+                } else if (position == 1) {
+
+                }
+            }
+        }).show();
+    }
+
+    //直接搜索
+    private void submit() {
+        // validate
+        String vinnumber = et_home_vinnumber.getText().toString().trim();
+        if (TextUtils.isEmpty(vinnumber)) {
+            Toast.makeText(this, "输入配件编号...", Toast.LENGTH_SHORT).show();
+            return;
+            //批量查询数据
+        }
+        //手动输入查询
+        codingList.add(vinnumber);
+        accessoriesData(codingList);
+        et_home_vinnumber.setText("");
     }
 
     //热门配件
@@ -143,12 +292,11 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 .execute(new StringCallback() {
 
 
-
                     @Override
                     public void onSuccess(Response<String> response) {
-                        QueryIVetemBean quryIvetemBean = gson.fromJson(response.body().toString(),
+                        quryIvetemBean = gson.fromJson(response.body().toString(),
                                 QueryIVetemBean.class);
-                        final ArrayList<DetailsBeans.DataDicBean.ListBean> partList =
+                        ArrayList<DetailsBeans.DataDicBean.ListBean> partList =
                                 quryIvetemBean.getDataDic().getPartList();
                         partListAll.addAll(partList);
                         mAdapter = new QueryIVeiemAdapter(R.layout
@@ -172,6 +320,9 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                                     case R.id.tv_vinquery_delete:
                                         partListAll.remove(position);
                                         adapter.notifyDataSetChanged();
+                                        //更新接口
+                                        upHistoryData(quryIvetemBean.getDataDic().getHistoryId(),
+                                                quryIvetemBean.getDataDic().getVincode());
                                         break;
                                 }
                             }
@@ -204,14 +355,14 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                         DetailsBeans.DataDicBean.ListBean two;
                         String code;
                         boolean f = false;
-                        for (int i = 0; i < listBeans.size() ; i++) {
+                        for (int i = 0; i < listBeans.size(); i++) {
                             f = false;
                             one = listBeans.get(i);
                             code = one.getPart_code();
-                            Logger.e("这是搜索回来的"+code);
+                            Logger.e("这是搜索回来的" + code);
                             for (int j = 0; j < partListAll.size(); j++) {
                                 two = partListAll.get(j);
-                                Logger.e("这是原来集合的"+two.getPart_code());
+                                Logger.e("这是原来集合的" + two.getPart_code());
                                 if (code.equals(two.getPart_code())) {
                                     partListAll.remove(j);
                                     partListAll.add(0, one);
@@ -225,169 +376,53 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
 
                         }
                         mAdapter.notifyDataSetChanged();
+                        //更新接口
+                        upHistoryData(quryIvetemBean.getDataDic().getHistoryId(),
+                                quryIvetemBean.getDataDic().getVincode());
 
+                    }
 
-/*
+                });
+    }
 
+    //更新历史报价单
+    public void upHistoryData(String histryid, String vincode) {
+        UrlBean urlBean = new UrlBean();
+        urlBean.setAction("1");
+        urlBean.setHistoryId(histryid);
+        urlBean.setVin(vincode);
+        urlBean.setPartsList(partListAll);
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        String token = UserCentre.getInstance().getToken();
+        OkGo.<String>post(CarUrl.ADDORUPDATEHISTORYLOG_URL)
+                .tag(this)
+                .headers("authtoken", token)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
+                                DetailsBeans.class);
+                        final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans
+                                .getDataDic().getList();
 
-
-                            mMatchadapter = new DetailsAdapters(R.layout.accessories_adapter,
-                                    listBeans);
-*/
-                            // rl_details_accessories.setAdapter(mMatchadapter);
-
-                  /*          mMatchadapter.setOnItemChildClickListener(new BaseQuickAdapter
-                                    .OnItemChildClickListener() {
-                                @Override
-                                public void onItemChildClick(BaseQuickAdapter adapter, View view,
-                                                             int
-                                                                     position) {
-                                    switch (view.getId()) {
-                                        case R.id.tv_vinquery_by:
-                                     *//*   Intent intent = new Intent(DetailsActivity.this,
-                                                PartsListActivity.class);
-                                        intent.putExtra("grouppk", "1");
-                                        intent.putExtra("brandname", "宝马");
-                                        startActivity(intent);*//*
-                                            break;
-                                        case R.id.tv_vinquery_delete:
-                                            listBeans.remove(position);
-                                            mMatchadapter.notifyDataSetChanged();
-
-                                            break;
-                                    }
-                                }
-                            });*/
-                        }
+                    }
 
                 });
     }
 
     @Override
-    protected void initListener() {
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.include_banck:
-                finish();
-                break;
-            case R.id.include_mes:
-                Intent intent = new Intent(this, GroupByQueryActivity.class);
-                if (!dataDic.getModel().getModel_pk().equals("") && dataDic.getModel()
-                        .getModel_pk() != null) {
-                    intent.putExtra("modelPk", dataDic.getModel().getModel_pk());
-                    intent.putExtra("brandName", dataDic.getModel().getBrand_name());
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "缺少modelpk字段，资料尚未完善", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.iv_home_scancode:
-                alertShow();
-                InputMethodManager imm = (InputMethodManager)
-                        getSystemService(this.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                break;
-            case R.id.bt_details_xiangqing:
-                Intent intents = new Intent(this, WebViewShow.class);
-                intents.putExtra("url", CarUrl.DISPLAYMODELBY_URL + dataDic.getVincode());
-                intents.putExtra("type", "1");
-                startActivity(intents);
-                break;
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!codingList.isEmpty()) {
+            codingList = null;
+            codingList.clear();
         }
-    }
-
-    //选择框
-    public void alertShow() {
-        new AlertView("选择搜索方式", null, "取消", null,
-                new String[]{"批量扫描", "直接搜索"},
-                this, AlertView.Style.ActionSheet, new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object o, int position) {
-                if (position == 0) {
-                    if (!PartsApp.hasGotToken) {
-                        Toast.makeText(DetailsActivity.this, "Token值未获取", Toast.LENGTH_SHORT)
-                                .show();
-                        return;
-                    }
-                    Intent intent = new Intent(DetailsActivity.this, CameraActivity.class);
-                    intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                            FileUtil.getSaveFile(DetailsActivity.this.getApplication())
-                                    .getAbsolutePath());
-                    intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                            CameraActivity.CONTENT_TYPE_GENERAL);
-                    startActivityForResult(intent, REQUEST_CODE_VEHICLE_LICENSE);
-                    //批量查询数据accessoriesData();
-                } else if (position == 1) {
-                    submit();
-
-                }
-            }
-        }).show();
-    }
-
-    //提示框
-    public void promptShow(String conent) {
-        new AlertView("提示", conent, null, new String[]{"确定"}, null, this,
-                AlertView.Style.Alert, new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object o, int position) {
-                if (position == 0) {
-                    finish();
-                }
-            }
-        }).show();
-    }
-
-    /**
-     * OCR识别返回的结果
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // 识别成功回调，行驶证识别
-        if (requestCode == REQUEST_CODE_VEHICLE_LICENSE && resultCode == Activity.RESULT_OK) {
-            RecognizeService.recVehicleLicense(FileUtil.getSaveFile(DetailsActivity.this
-                            .getApplicationContext()).getAbsolutePath(),
-                    new RecognizeService.ServiceListener() {
-                        @Override
-                        public void onResult(String result) {
-                            //infoPopText(result);
-                            Logger.e(result.toString());
-                            Toast.makeText(DetailsActivity.this, result.toString(), Toast
-                                    .LENGTH_SHORT).show();
-                            //牌照输入查询
-                            codingList.add(result.toString());
-                            accessoriesData(codingList);
-                        }
-                    });
+        if (!partListAll.isEmpty()) {
+            partListAll = null;
+            partListAll.clear();
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    //直接搜索
-    private void submit() {
-        // validate
-        String vinnumber = et_home_vinnumber.getText().toString().trim();
-        if (TextUtils.isEmpty(vinnumber)) {
-            Toast.makeText(this, "输入配件编号...", Toast.LENGTH_SHORT).show();
-            return;
-            //批量查询数据
-        }
-        //手动输入查询
-        codingList.add(vinnumber);
-        accessoriesData(codingList);
-        et_home_vinnumber.setText("");
     }
 }
 

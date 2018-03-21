@@ -4,6 +4,8 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+import cloud.parts.com.parts.fragment.query.bean.DetailsBeans;
+
 /**
  * 类用途：
  * 作者：Zhuang
@@ -37,7 +39,7 @@ public class UrlBean extends DataSupport{
      */
 
     private String action;
-    private List<PartsListBean> partsList;
+    private List<DetailsBeans.DataDicBean.ListBean> partsList;
     /**
      * mobile : 18516858660
      * postion : 经理
@@ -146,11 +148,11 @@ public class UrlBean extends DataSupport{
         this.action = action;
     }
 
-    public List<PartsListBean> getPartsList() {
+    public List<DetailsBeans.DataDicBean.ListBean> getPartsList() {
         return partsList;
     }
 
-    public void setPartsList(List<PartsListBean> partsList) {
+    public void setPartsList(List<DetailsBeans.DataDicBean.ListBean> partsList) {
         this.partsList = partsList;
     }
 
@@ -306,12 +308,12 @@ public class UrlBean extends DataSupport{
         this.graphGroupId = graphGroupId;
     }
 
-    public static class PartsListBean {
+    public static class PartsListBean extends DetailsBeans.DataDicBean.ListBean{
         /**
          * part_code : 1234567
          */
 
-        private String part_code;
+   /*     private String part_code;
 
         public String getPart_code() {
             return part_code;
@@ -319,6 +321,6 @@ public class UrlBean extends DataSupport{
 
         public void setPart_code(String part_code) {
             this.part_code = part_code;
-        }
+        }*/
     }
 }
