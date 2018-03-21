@@ -21,6 +21,7 @@ import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 import cloud.parts.com.parts.utils.CircleImageView;
+import cloud.parts.com.parts.utils.DateUtils;
 
 public class UserFragment extends Fragment implements OnClickListener {
     private View root;
@@ -83,7 +84,7 @@ public class UserFragment extends Fragment implements OnClickListener {
                         String errorcode = userInfo.getStatus();
                         if (errorcode.equals("0")) {
                             tv_user_name.setText(userInfoBean.getUsername());
-                            tv_user_time.setText("到期日期：" + userInfoBean.getExpiredate());
+                            tv_user_time.setText("到期日期：" + DateUtils.getStringDate(userInfoBean.getExpiredate()));
                             tv_user_userorganization.setText(userInfoBean.getUserorganization());
                             tv_user_positions.setText(userInfoBean.getPositions());
                             tv_user_freetimes.setText(userInfoBean.getFreetimes());

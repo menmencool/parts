@@ -37,8 +37,10 @@ import com.orhanobut.logger.Logger;
 import java.util.List;
 
 import cloud.parts.com.parts.R;
+import cloud.parts.com.parts.fragment.home.bean.VINBean;
 import cloud.parts.com.parts.fragment.query.adapter.InquireAdapter;
 import cloud.parts.com.parts.fragment.query.bean.HistoriBean;
+import cloud.parts.com.parts.init.PartsApp;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
@@ -56,7 +58,6 @@ public class InquireFragment extends Fragment implements OnClickListener {
     private ImageView iv_home_scancode;
     private RecyclerView rl_home_carlist;
     //行驶证需要的
-    private boolean hasGotToken = false;
     private static final int REQUEST_CODE_VEHICLE_LICENSE = 120;
     private EditText et_home_vinnumber;
     private InquireAdapter mAdapter;
@@ -66,8 +67,6 @@ public class InquireFragment extends Fragment implements OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_cloudwithonline, container,
                 false);
-        // 请选择您的初始化方式
-        initAccessToken();  //授权文件、安全模式
         initView(rootView);
         return rootView;
     }
@@ -180,7 +179,7 @@ public class InquireFragment extends Fragment implements OnClickListener {
             @Override
             public void onItemClick(Object o, int position) {
                 if (position == 0) {
-                    if (!checkTokenStatus()) {
+                    if (!PartsApp.hasGotToken) {
                         return;
                     }
                     Intent intent = new Intent(getActivity(), CameraActivity.class);
@@ -213,11 +212,15 @@ public class InquireFragment extends Fragment implements OnClickListener {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            Logger.e(result.toString());
                             //todo ocr返回数据
-                            Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
-                                    .show();
+                       /*     Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
+                                    .show();*/
+                            Gson gson = new Gson();
+                            VINBean vinBean = gson.fromJson(result.toString(), VINBean.class);
+                            VINBean.WordsResultBean words_result = vinBean.getWords_result();
                             Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                            intent.putExtra("VIN",words_result.get车辆识别代号().getWords());
+                            Logger.e(words_result.get车辆识别代号().getWords()+"===========vin==============");
                             startActivity(intent);
                         }
                     });
@@ -233,37 +236,6 @@ public class InquireFragment extends Fragment implements OnClickListener {
         }
     }
 
-    /**
-     * 行驶证识别
-     */
-    private boolean checkTokenStatus() {
-        if (!hasGotToken) {
-            Toast.makeText(getActivity().getApplicationContext(), "token还未成功获取", Toast
-                    .LENGTH_LONG).show();
-        }
-        Log.e("----------------", hasGotToken + "");
-        return hasGotToken;
-    }
-
-    //授权文件（安全模式）
-    //此种身份验证方案使用授权文件获得AccessToken，缓存在本地。建议有安全考虑的开发者使用此种身份验证方式。
-    private void initAccessToken() {
-        OCR.getInstance().initAccessToken(new OnResultListener<AccessToken>() {
-            @Override
-            public void onResult(AccessToken accessToken) {
-                // 调用成功，返回AccessToken对象
-                String token = accessToken.getAccessToken();
-                Log.e("---------------", "token:-------->" + token);
-                hasGotToken = true;
-            }
-
-            @Override
-            public void onError(OCRError error) {
-                error.printStackTrace();
-                Log.e("============", "onError:licence方式获取token失败---->" + error.getMessage());
-            }
-        }, getActivity().getApplicationContext());
-    }
 
     private void submit() {
         // validate

@@ -36,8 +36,8 @@ public class QueryIVeiemAdapter extends BaseQuickAdapter<DetailsBeans.DataDicBea
                     .addOnClickListener(R.id.tv_vinquery_delete);
         }else {
             helper.setText(R.id.tv_vinquery_carname, item.getPart_code())
-                    .setText(R.id.tv_vinquery_vincode, item.getPart_name())
-                    .setText(R.id.tv_vinquery_sellingprice, item.getSale_price())
+                    .setText(R.id.tv_vinquery_vincode, "暂无")
+                    .setText(R.id.tv_vinquery_sellingprice,"暂无")
                     .setVisible(R.id.tv_query_bao,true)
                     .setVisible(R.id.tv_query_ti,true)
                     .setVisible(R.id.tv_query_jing,true)

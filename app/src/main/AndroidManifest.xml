@@ -34,6 +34,7 @@
         <activity android:name=".fragment.home.AgencyNoticeActivity"/>
         <activity android:name=".fragment.query.QueryPartsListActivity"/>
         <activity android:name=".fragment.home.ContentDisplayActivity"/>
+        <activity android:name=".fragment.query.OrdersActivity"/>
     </application>
 
 </manifest>

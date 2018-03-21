@@ -9,6 +9,7 @@ import java.util.List;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.fragment.query.bean.HistoriBean;
+import cloud.parts.com.parts.utils.DateUtils;
 
 /**
  * 类用途：
@@ -24,9 +25,10 @@ public class InquireAdapter extends BaseQuickAdapter<HistoriBean.DataDicBean.Lis
 
     @Override
     protected void convert(BaseViewHolder helper, HistoriBean.DataDicBean.ListBean item) {
+        String stringDate = DateUtils.getStringDate(item.getLastupdateTime());
         helper.setText(R.id.tv_inquire_carname, item.getHistoryno())
                 .setText(R.id.tv_inquire_vincode, item.getVins())
-                .setText(R.id.tv_inquire_time, item.getLastupdateTime());
+                .setText(R.id.tv_inquire_time, stringDate);
     }
 
 }

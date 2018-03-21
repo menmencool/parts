@@ -25,6 +25,7 @@ import com.youth.banner.Banner;
 import java.util.ArrayList;
 import java.util.List;
 
+import cloud.parts.com.parts.fragment.home.bean.VINBean;
 import cloud.parts.com.parts.init.PartsApp;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.MainActivity;
@@ -214,11 +215,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            Logger.e(result.toString());
                           /*  Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
                                     .show();*/
+                            Gson gson = new Gson();
+                            VINBean vinBean = gson.fromJson(result.toString(), VINBean.class);
+                            VINBean.WordsResultBean words_result = vinBean.getWords_result();
                             Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                            intent.putExtra("VIN",result.toString());
+                            intent.putExtra("VIN",words_result.get车辆识别代号().getWords());
+                            Logger.e(words_result.get车辆识别代号().getWords()+"===========vin==============");
                             startActivity(intent);
                         }
                     });

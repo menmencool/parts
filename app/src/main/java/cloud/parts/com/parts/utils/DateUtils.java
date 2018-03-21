@@ -3,6 +3,7 @@ package cloud.parts.com.parts.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -34,5 +35,19 @@ public class DateUtils {
         return date.getTime();
     }
 
+    /*将字符串转为时间戳*/
+    public static String getStringDate(String time) {
+        SimpleDateFormat sdf1 = new SimpleDateFormat("EEE MMM d HH:mm:ss 'CST' yyyy", Locale.ENGLISH);
+        Date date =null;
+        try {
+            date = sdf1.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            return sdf.format(date);
 
+
+
+    }
 }
