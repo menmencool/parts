@@ -29,8 +29,9 @@ public class ModifyThePriceFourSAdapter extends BaseQuickAdapter<FourSQueryBean.
 
     @Override
     protected void convert(BaseViewHolder helper, FourSQueryBean.DataDicBean.ListBean item) {
-        helper.setText(R.id.tv_fours_ffname, item.getFfName())
-                .setText(R.id.tv_fours_ffaddress, item.getFfAddress());
+        helper.setText(R.id.tv_fours_ffname, item.getFfId())
+                .setText(R.id.tv_fours_ffaddress, item.getFfBrands())
+                .setText(R.id.tv_fours_price, "");
 
     }
 }

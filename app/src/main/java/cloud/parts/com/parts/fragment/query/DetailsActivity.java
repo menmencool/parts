@@ -192,10 +192,8 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                             f = false;
                             one = listBeans.get(i);
                             code = one.getPart_code();
-                            Logger.e("这是搜索回来的" + code);
                             for (int j = 0; j < partListAll.size(); j++) {
                                 two = partListAll.get(j);
-                                Logger.e("这是原来集合的" + two.getPart_code());
                                 if (code.equals(two.getPart_code())) {
                                     partListAll.remove(j);
                                     partListAll.add(0, one);
