@@ -1,5 +1,9 @@
 package cloud.parts.com.parts.fragment.home.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,17 +50,17 @@ public class FourSQueryBean {
     }
 
     public static class DataDicBean {
-        private List<ListBean> list;
+        private ArrayList<ListBean> list;
 
-        public List<ListBean> getList() {
+        public ArrayList<ListBean> getList() {
             return list;
         }
 
-        public void setList(List<ListBean> list) {
+        public void setList(ArrayList<ListBean> list) {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Parcelable {
             /**
              * ffAddress : 北京八达岭高速收费站东侧
              * ffBrands : 宝马、奥迪、奔驰
@@ -130,6 +134,47 @@ public class FourSQueryBean {
             public void setFfTel(String ffTel) {
                 this.ffTel = ffTel;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.ffAddress);
+                dest.writeString(this.ffBrands);
+                dest.writeString(this.ffCity);
+                dest.writeInt(this.ffId);
+                dest.writeString(this.ffName);
+                dest.writeString(this.ffProvince);
+                dest.writeString(this.ffTel);
+            }
+
+            public ListBean() {
+            }
+
+            protected ListBean(Parcel in) {
+                this.ffAddress = in.readString();
+                this.ffBrands = in.readString();
+                this.ffCity = in.readString();
+                this.ffId = in.readInt();
+                this.ffName = in.readString();
+                this.ffProvince = in.readString();
+                this.ffTel = in.readString();
+            }
+
+            public static final Creator<ListBean> CREATOR = new Creator<ListBean>() {
+                @Override
+                public ListBean createFromParcel(Parcel source) {
+                    return new ListBean(source);
+                }
+
+                @Override
+                public ListBean[] newArray(int size) {
+                    return new ListBean[size];
+                }
+            };
         }
     }
 }

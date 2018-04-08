@@ -218,6 +218,33 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 });
     }
 
+    //更新历史报价单
+    public void upHistoryData(String histryid, String vincode) {
+        UrlBean urlBean = new UrlBean();
+        urlBean.setAction("1");
+        urlBean.setHistoryId(histryid);
+        urlBean.setVin(vincode);
+        urlBean.setPartsList(partListAll);
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        String token = UserCentre.getInstance().getToken();
+        OkGo.<String>post(CarUrl.ADDORUPDATEHISTORYLOG_URL)
+                .tag(this)
+                .headers("authtoken", token)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
+                                DetailsBeans.class);
+                        final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans
+                                .getDataDic().getList();
+
+                    }
+
+                });
+    }
+
     /**
      * OCR识别返回的结果
      *
@@ -385,33 +412,6 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         }).show();
-    }
-
-    //更新历史报价单
-    public void upHistoryData(String histryid, String vincode) {
-        UrlBean urlBean = new UrlBean();
-        urlBean.setAction("1");
-        urlBean.setHistoryId(histryid);
-        urlBean.setVin(vincode);
-        urlBean.setPartsList(partListAll);
-        final Gson gson = new Gson();
-        final String s = gson.toJson(urlBean);
-        String token = UserCentre.getInstance().getToken();
-        OkGo.<String>post(CarUrl.ADDORUPDATEHISTORYLOG_URL)
-                .tag(this)
-                .headers("authtoken", token)
-                .upJson(s)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        DetailsBeans detailsBeans = gson.fromJson(response.body().toString(),
-                                DetailsBeans.class);
-                        final List<DetailsBeans.DataDicBean.ListBean> listBeans = detailsBeans
-                                .getDataDic().getList();
-
-                    }
-
-                });
     }
 
 }

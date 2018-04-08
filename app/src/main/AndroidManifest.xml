@@ -35,6 +35,7 @@
         <activity android:name=".fragment.query.QueryPartsListActivity"/>
         <activity android:name=".fragment.home.ContentDisplayActivity"/>
         <activity android:name=".fragment.query.OrdersActivity"/>
+        <activity android:name=".fragment.home.ModifyThePriceFourS"/>
     </application>
 
 </manifest>

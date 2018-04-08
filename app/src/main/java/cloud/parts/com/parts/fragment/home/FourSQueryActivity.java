@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,17 +16,15 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
-import cloud.parts.com.parts.fragment.home.adapter.AgencyNoticeAdapter;
-import cloud.parts.com.parts.fragment.home.bean.AgencyNoticeBean;
+import cloud.parts.com.parts.fragment.home.adapter.FourSQueryAdapter;
 import cloud.parts.com.parts.fragment.home.bean.FourSQueryBean;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
-import cloud.parts.com.parts.web.WebViewShow;
 
 /**
  * describe:4S店查询
@@ -33,12 +32,19 @@ import cloud.parts.com.parts.web.WebViewShow;
  * author:zhuang
  */
 
-public class FourSQueryActivity extends BaseActivity {
+public class FourSQueryActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView include_banck;
     private TextView include_titles;
     private ImageView include_seek;
     private RecyclerView rl_cityfour_list;
+    private ArrayList<FourSQueryBean.DataDicBean.ListBean> mListBeans;
+    private Button bt_fours_shaixuan;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
@@ -55,59 +61,12 @@ public class FourSQueryActivity extends BaseActivity {
         include_seek.setOnClickListener(this);
         rl_cityfour_list = (RecyclerView) findViewById(R.id.rl_cityfour_list);
         rl_cityfour_list.setLayoutManager(new LinearLayoutManager(this));
+        bt_fours_shaixuan = (Button) findViewById(R.id.bt_fours_shaixuan);
+        bt_fours_shaixuan.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-    }
-
-    private void httpData() {
-        //todo  获取token
-        String token = UserCentre.getInstance().getToken();
-        UrlBean urlBean = new UrlBean();
-        urlBean.setProvince("");
-        urlBean.setCity("");
-        urlBean.setDistrict("");
-        urlBean.setKeywds("");
-        final Gson gson = new Gson();
-        final String s = gson.toJson(urlBean);
-        OkGo.<String>post(CarUrl.QUERY4S_URL)
-                .tag(this)
-                .upJson(s)
-                .headers("authtoken", token)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        FourSQueryBean fourSQueryBean = gson.fromJson(response.body()
-                                .toString(), FourSQueryBean
-                                .class);
-                        String errorcode = fourSQueryBean.getStatus();
-                        if (errorcode.equals("0")) {
-                            List<FourSQueryBean.DataDicBean.ListBean> listBeans = fourSQueryBean
-                                    .getDataDic().getList();
-                     /*       AgencyNoticeAdapter mAdapter = new AgencyNoticeAdapter(R.layout
-                                    .group_by_query_adapter,
-                                    listBeans);*/
-                            //rl_agencynotice_list.setAdapter(mAdapter);
-                       /*     mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
-                                    () {
-                                @Override
-                                public void onItemClick(BaseQuickAdapter adapter, View view, int
-                                        position) {
-                                    Intent intent = new Intent(AgencyNoticeActivity.this,
-                                            WebViewShow.class);
-                                    intent.putExtra("url", listBeans.get(position).getNewscontent
-                                            ());
-                                    startActivity(intent);
-                                }
-                            });*/
-                        } else {
-                    /*        Toast.makeText(AgencyNoticeActivity.this, agencyNoticeBean.getErrmsg
-                                    (), Toast
-                                    .LENGTH_LONG).show();*/
-                        }
-                    }
-                });
 
     }
 
@@ -122,11 +81,60 @@ public class FourSQueryActivity extends BaseActivity {
             case R.id.include_banck:
                 finish();
                 break;
+            case R.id.bt_fours_shaixuan:
+                httpData("北京", "西城", "", "奥迪");
+                break;
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void httpData(String peovince, String city, String district, String keywds) {
+        //todo  获取token
+        String token = UserCentre.getInstance().getToken();
+        UrlBean urlBean = new UrlBean();
+        urlBean.setProvince(peovince);
+        urlBean.setCity(city);
+        urlBean.setDistrict(district);
+        urlBean.setKeywds(keywds);
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        OkGo.<String>post(CarUrl.QUERY4S_URL)
+                .tag(this)
+                .upJson(s)
+                .headers("authtoken", token)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        FourSQueryBean fourSQueryBean = gson.fromJson(response.body()
+                                .toString(), FourSQueryBean
+                                .class);
+                        String errorcode = fourSQueryBean.getStatus();
+                        if (errorcode.equals("0")) {
+                            mListBeans = fourSQueryBean
+                                    .getDataDic().getList();
+                            FourSQueryAdapter mAdapter = new FourSQueryAdapter(R.layout
+                                    .foursquery_adapter,
+                                    mListBeans);
+                            rl_cityfour_list.setAdapter(mAdapter);
+                            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
+                                    () {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int
+                                        position) {
+                                    Intent intent = new Intent(FourSQueryActivity.this,
+                                            ModifyThePriceFourS.class);
+                                    intent.putParcelableArrayListExtra("city", mListBeans);
+                                    startActivity(intent);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(FourSQueryActivity.this, fourSQueryBean.getErrmsg(),
+                                    Toast
+                                            .LENGTH_LONG).show();
+                        }
+                    }
+                });
+
     }
+
+
 }
