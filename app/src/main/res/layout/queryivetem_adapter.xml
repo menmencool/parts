@@ -28,6 +28,7 @@
             android:textColor="@color/i_black" />
 
         <TextView
+            android:maxLength="10"
             android:id="@+id/tv_vinquery_carname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
