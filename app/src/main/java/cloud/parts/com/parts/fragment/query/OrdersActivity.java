@@ -55,6 +55,5 @@ public class OrdersActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) and run LayoutCreator again
     }
 }
