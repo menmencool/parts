@@ -98,4 +98,7 @@ dependencies {
     //图片生成
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:26.1.0'
+    //城市选择器
+    compile 'com.github.addappcn:android-pickers:1.0.1'
+    compile 'com.alibaba:fastjson:1.1.56.android'
 }

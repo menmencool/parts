@@ -25,6 +25,9 @@ import cloud.parts.com.parts.fragment.home.bean.FourSQueryBean;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
+import cn.addapp.pickers.entity.City;
+import cn.addapp.pickers.entity.County;
+import cn.addapp.pickers.entity.Province;
 
 /**
  * describe:4S店查询
@@ -86,7 +89,27 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
+    public void onAddressPicker() {
+        AddressPickTask task = new AddressPickTask(this);
+        task.setHideProvince(false);
+        task.setHideCounty(false);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                Toast.makeText(FourSQueryActivity.this, "数据初始化失败", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                if (county == null) {
+                    Toast.makeText(FourSQueryActivity.this, province.getAreaName() + city.getAreaName(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FourSQueryActivity.this, province.getAreaName() + city.getAreaName() + county.getAreaName(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        task.execute("北京市", "北京市", "东城区");
+    }
     private void httpData(String peovince, String city, String district, String keywds) {
         //todo  获取token
         String token = UserCentre.getInstance().getToken();
