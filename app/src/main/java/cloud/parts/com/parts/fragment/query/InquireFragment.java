@@ -132,15 +132,17 @@ public class InquireFragment extends Fragment implements OnClickListener {
                         @Override
                         public void onResult(String result) {
                             //todo ocr返回数据
-                       /*     Toast.makeText(getActivity(), result.toString(), Toast.LENGTH_SHORT)
-                                    .show();*/
-                            Gson gson = new Gson();
-                            VINBean vinBean = gson.fromJson(result.toString(), VINBean.class);
-                            VINBean.WordsResultBean words_result = vinBean.getWords_result();
-                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                            intent.putExtra("VIN", words_result.get车辆识别代号().getWords());
-                            Logger.e(words_result.get车辆识别代号().getWords() + "===========vin==============");
-                            startActivity(intent);
+                            try {
+                                Gson gson = new Gson();
+                                VINBean vinBean = gson.fromJson(result.toString(), VINBean.class);
+                                VINBean.WordsResultBean words_result = vinBean.getWords_result();
+                                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                                intent.putExtra("VIN", words_result.get车辆识别代号().getWords());
+                                Logger.e(words_result.get车辆识别代号().getWords() + "===========vin==============");
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                Toast.makeText(getActivity(), "错误的请求，识别错误", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
         }

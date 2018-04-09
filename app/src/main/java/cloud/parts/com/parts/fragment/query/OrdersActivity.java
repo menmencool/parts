@@ -28,7 +28,7 @@ public class OrdersActivity extends BaseActivity {
         include_banck.setOnClickListener(this);
         include_title_zhong = (TextView) findViewById(R.id.include_title_zhong);
         include_title_zhong.setVisibility(View.VISIBLE);
-        include_title_zhong.setText("订单");
+        include_title_zhong.setText("修理厂选择");
         include_title_zhong.setOnClickListener(this);
     }
 

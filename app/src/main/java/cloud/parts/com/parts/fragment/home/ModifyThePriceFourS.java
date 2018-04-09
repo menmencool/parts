@@ -1,11 +1,15 @@
 package cloud.parts.com.parts.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 
@@ -13,6 +17,9 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.fragment.home.adapter.ModifyThePriceFourSAdapter;
 import cloud.parts.com.parts.fragment.home.bean.FourSQueryBean;
+import cloud.parts.com.parts.fragment.query.DetailsActivity;
+import cloud.parts.com.parts.url.CarUrl;
+import cloud.parts.com.parts.web.WebViewShow;
 
 /**
  * 类用途：
@@ -48,6 +55,7 @@ public class ModifyThePriceFourS extends BaseActivity {
         include_title_zhong.setText("修改4S店报价");
         rl_modefythepricefours_list = (RecyclerView) findViewById(R.id.rl_modefythepricefours_list);
         rl_modefythepricefours_list.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
@@ -55,21 +63,21 @@ public class ModifyThePriceFourS extends BaseActivity {
         ArrayList<FourSQueryBean.DataDicBean.ListBean> city = getIntent()
                 .getParcelableArrayListExtra("city");
         ModifyThePriceFourSAdapter mAdapter = new ModifyThePriceFourSAdapter(R.layout
-                .foursquery_adapter,
+                .modifythepricefours_adapter,
                 city);
         rl_modefythepricefours_list.setAdapter(mAdapter);
-       /* mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener
-                () {
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter
+                .OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int
                     position) {
-                Intent intent = new Intent(ModifyThePriceFourS.this,
-                        ModifyThePriceFourS.class);
-                intent.putParcelableArrayListExtra("city", mListBeans);
-                startActivity(intent);
-            }
-        });*/
+                switch (view.getId()) {
+                    case R.id.bt_fours_xiugai:
 
+                        break;
+                }
+            }
+        });
     }
 
     @Override

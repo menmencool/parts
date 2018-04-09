@@ -1,37 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@mipmap/top3x">
 
-        <include layout="@layout/include_title"/>
+        <include layout="@layout/include_title" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        >
+        android:background="@color/i_gray_line2">
 
-        <TextView
-            android:id="@+id/tv_fours_city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="省份，城市"/>
+        <LinearLayout
+            android:id="@+id/ll_fours_citys"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="当前选择："
+                android:textColor="@color/i_black" />
+
+            <TextView
+                android:id="@+id/tv_fours_province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="全部"
+                android:textColor="@color/i_black" />
+
+            <TextView
+                android:id="@+id/tv_fours_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="全部"
+                android:textColor="@color/i_black" />
+
+            <TextView
+                android:id="@+id/tv_fours_district"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="全部"
+                android:textColor="@color/i_black" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/bt_fours_shaixuan"
-            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="筛选"/>
+            android:layout_marginRight="10dp"
+            android:text="筛选" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

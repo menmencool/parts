@@ -1,6 +1,7 @@
 package cloud.parts.com.parts.fragment.home.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -29,9 +30,11 @@ public class ModifyThePriceFourSAdapter extends BaseQuickAdapter<FourSQueryBean.
 
     @Override
     protected void convert(BaseViewHolder helper, FourSQueryBean.DataDicBean.ListBean item) {
-        helper.setText(R.id.tv_fours_ffname, item.getFfId())
-                .setText(R.id.tv_fours_ffaddress, item.getFfBrands())
-                .setText(R.id.tv_fours_price, "");
+        EditText ed_fours_price = helper.getView(R.id.ed_fours_price);
+        helper.setText(R.id.tv_fours_ffname, "编号：" + item.getFfId() + "")
+                .setText(R.id.tv_fours_ffaddress, "名称：" + item.getFfBrands())
+                .setText(R.id.ed_fours_price, ed_fours_price.getText().toString().trim())
+                .addOnClickListener(R.id.bt_fours_xiugai);
 
     }
 }

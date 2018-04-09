@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,10 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
     private RecyclerView rl_cityfour_list;
     private ArrayList<FourSQueryBean.DataDicBean.ListBean> mListBeans;
     private Button bt_fours_shaixuan;
+    private LinearLayout ll_fours_citys;
+    private TextView tv_fours_province;
+    private TextView tv_fours_city;
+    private TextView tv_fours_district;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,11 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
         rl_cityfour_list.setLayoutManager(new LinearLayoutManager(this));
         bt_fours_shaixuan = (Button) findViewById(R.id.bt_fours_shaixuan);
         bt_fours_shaixuan.setOnClickListener(this);
+        ll_fours_citys = (LinearLayout) findViewById(R.id.ll_fours_citys);
+        ll_fours_citys.setOnClickListener(this);
+        tv_fours_province = (TextView) findViewById(R.id.tv_fours_province);
+        tv_fours_city = (TextView) findViewById(R.id.tv_fours_city);
+        tv_fours_district = (TextView) findViewById(R.id.tv_fours_district);
     }
 
     @Override
@@ -87,29 +97,12 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
             case R.id.bt_fours_shaixuan:
                 httpData("北京", "西城", "", "奥迪");
                 break;
+            case R.id.ll_fours_citys:
+                onAddressPicker();
+                break;
         }
     }
-    public void onAddressPicker() {
-        AddressPickTask task = new AddressPickTask(this);
-        task.setHideProvince(false);
-        task.setHideCounty(false);
-        task.setCallback(new AddressPickTask.Callback() {
-            @Override
-            public void onAddressInitFailed() {
-                Toast.makeText(FourSQueryActivity.this, "数据初始化失败", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onAddressPicked(Province province, City city, County county) {
-                if (county == null) {
-                    Toast.makeText(FourSQueryActivity.this, province.getAreaName() + city.getAreaName(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(FourSQueryActivity.this, province.getAreaName() + city.getAreaName() + county.getAreaName(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        task.execute("北京市", "北京市", "东城区");
-    }
     private void httpData(String peovince, String city, String district, String keywds) {
         //todo  获取token
         String token = UserCentre.getInstance().getToken();
@@ -157,6 +150,31 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
                     }
                 });
 
+    }
+
+    public void onAddressPicker() {
+        AddressPickTask task = new AddressPickTask(this);
+        task.setHideProvince(false);
+        task.setHideCounty(false);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                Toast.makeText(FourSQueryActivity.this, "数据初始化失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                if (county == null) {
+                    tv_fours_province.setText(province.getAreaName());
+                    tv_fours_district.setText(city.getAreaName());
+                } else {
+                    tv_fours_province.setText(province.getAreaName());
+                    tv_fours_district.setText(county.getAreaName());
+                    tv_fours_city.setText(city.getAreaName());
+                }
+            }
+        });
+        task.execute("全部", "全部", "全部");
     }
 
 

@@ -97,7 +97,8 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intents);
                 break;
             case R.id.iv_details_add:
-                ordersShow();
+                Intent intentadd = new Intent(DetailsActivity.this, OrdersActivity.class);
+                startActivity(intentadd);
                 break;
         }
     }
@@ -126,24 +127,6 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 } else if (position == 1) {
                     submit();
 
-                }
-            }
-        }).show();
-    }
-
-    //订单报价单选择框
-    public void ordersShow() {
-        new AlertView("选择查询类型", null, "取消", null,
-                new String[]{"订单查询", "报价单查询"},
-                this, AlertView.Style.ActionSheet, new OnItemClickListener() {
-            @Override
-            public void onItemClick(Object o, int position) {
-                if (position == 0) {
-                    Intent intent = new Intent(DetailsActivity.this, OrdersActivity.class);
-                    startActivity(intent);
-                } else if (position == 1) {
-                    Intent intent = new Intent(DetailsActivity.this, OrdersActivity.class);
-                    startActivity(intent);
                 }
             }
         }).show();
