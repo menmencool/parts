@@ -44,7 +44,6 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
     private RecyclerView rl_cityfour_list;
     private ArrayList<FourSQueryBean.DataDicBean.ListBean> mListBeans;
     private Button bt_fours_shaixuan;
-    private LinearLayout ll_fours_citys;
     private TextView tv_fours_province;
     private TextView tv_fours_city;
     private TextView tv_fours_district;
@@ -71,8 +70,6 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
         rl_cityfour_list.setLayoutManager(new LinearLayoutManager(this));
         bt_fours_shaixuan = (Button) findViewById(R.id.bt_fours_shaixuan);
         bt_fours_shaixuan.setOnClickListener(this);
-        ll_fours_citys = (LinearLayout) findViewById(R.id.ll_fours_citys);
-        ll_fours_citys.setOnClickListener(this);
         tv_fours_province = (TextView) findViewById(R.id.tv_fours_province);
         tv_fours_city = (TextView) findViewById(R.id.tv_fours_city);
         tv_fours_district = (TextView) findViewById(R.id.tv_fours_district);
@@ -95,9 +92,6 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.bt_fours_shaixuan:
-                httpData("北京", "西城", "", "奥迪");
-                break;
-            case R.id.ll_fours_citys:
                 onAddressPicker();
                 break;
         }
@@ -167,10 +161,12 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
                 if (county == null) {
                     tv_fours_province.setText(province.getAreaName());
                     tv_fours_district.setText(city.getAreaName());
+                    httpData("北京", "西城", "", "奥迪");
                 } else {
                     tv_fours_province.setText(province.getAreaName());
                     tv_fours_district.setText(county.getAreaName());
                     tv_fours_city.setText(city.getAreaName());
+                    httpData("北京", "西城", "", "奥迪");
                 }
             }
         });
