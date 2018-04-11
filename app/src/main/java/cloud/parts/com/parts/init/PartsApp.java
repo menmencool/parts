@@ -47,7 +47,7 @@ public class PartsApp extends LitePalApplication {
         builder.cookieJar(new CookieJarImpl(new MemoryCookieStore()));
         OkGo.getInstance().init(this)                           //必须调用初始化
                 .setOkHttpClient(builder.build())               //建议设置OkHttpClient，不设置将使用默认的
-                .setCacheMode(CacheMode.NO_CACHE)               //全局统一缓存模式，默认不使用缓存，可以不传
+                .setCacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)               //全局统一缓存模式，默认不使用缓存，可以不传
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(3);
         initAccessToken();//全局统一超时重连次数，默认为三次，那么最差的情况会请求4次
