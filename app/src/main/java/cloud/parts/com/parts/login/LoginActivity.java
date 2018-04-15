@@ -1,9 +1,10 @@
 package cloud.parts.com.parts.login;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -40,6 +41,140 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private CheckBox cb_login_commitlogin;
 
     @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_login_ok:
+                submit();
+                break;
+            case R.id.tv_login_getid:
+                submits();
+                break;
+        }
+    }
+
+    private void submit() {
+        // validate
+        String phoneid = ed_login_phoneid.getText().toString().trim();
+        if (TextUtils.isEmpty(phoneid)) {
+            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String pwd = ed_login_pwd.getText().toString().trim();
+        if (TextUtils.isEmpty(pwd)) {
+            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        initDatas();
+
+    }
+
+    private void submits() {
+        // validate
+        String phoneid = ed_login_phoneid.getText().toString().trim();
+        if (TextUtils.isEmpty(phoneid)) {
+            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        countdowntimer();
+    }
+
+    //登录
+    private void initDatas() {
+        //保存登录后获取的token
+        String token = UserCentre.getInstance().getToken();
+        UrlBean urlBean = new UrlBean();
+        urlBean.setMobile(ed_login_phoneid.getText().toString().trim());
+        urlBean.setPassword(ed_login_pwd.getText().toString().trim());
+        urlBean.setSmsToken(token);
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        OkGo.<String>post(CarUrl.LOGIN_URL)
+                .tag(this)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LoginBean loginBean = gson.fromJson(response.body().toString(), LoginBean
+                                .class);
+                        String errorcode = loginBean.getStatus();
+                        if (errorcode.equals("0")) {
+                            boolean remember_accounts = cb_login_commitid.isChecked();
+                            boolean auto_login = cb_login_commitlogin.isChecked();
+                            UserCentre.getInstance().setRememberAccounts(remember_accounts);
+                            UserCentre.getInstance().setAutoLogin(auto_login);
+                            if (remember_accounts) {
+                                UserCentre.getInstance().setUserAccounts(ed_login_phoneid.getText
+                                        ().toString().trim());
+                            } else {
+                                UserCentre.getInstance().clearAccounts();
+                            }
+                            //登录点击跳转逻辑在此
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, loginBean.getErrmsg(), Toast
+                                    .LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+    }
+
+    private void countdowntimer() {
+        /** 倒计时60秒，一次1秒 */
+        CountDownTimer timer = new CountDownTimer(30 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tv_login_getid.setText("获取验证码(" + millisUntilFinished / 1000 + ")");
+                tv_login_getid.setTextColor(Color.parseColor("#999999"));
+                tv_login_getid.setClickable(false);
+                //调用短信验证
+                sendLoginVericode();
+            }
+
+            @Override
+            public void onFinish() {
+                tv_login_getid.setText("获取验证码");
+                tv_login_getid.setTextColor(Color.parseColor("#01AFFA"));
+                tv_login_getid.setClickable(true);
+            }
+        }.start();
+    }
+
+    //短信验证
+    private void sendLoginVericode() {
+        UrlBean urlBean = new UrlBean();
+        urlBean.setMobile(ed_login_phoneid.getText().toString().trim());
+        final Gson gson = new Gson();
+        final String s = gson.toJson(urlBean);
+        OkGo.<String>post(CarUrl.SENDLOGINVERICODE)
+                .tag(this)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LoginBean loginBean = gson.fromJson(response.body().toString(), LoginBean
+                                .class);
+                        String errorcode = loginBean.getStatus();
+                        if (errorcode.equals("0")) {
+                            String token = loginBean.getToken();
+                            //保存登录后获取的token
+                            UserCentre.getInstance().setToken(token);
+                        } else {
+                            Toast.makeText(LoginActivity.this, loginBean.getErrmsg(), Toast
+                                    .LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
         ed_login_phoneid = (EditText) findViewById(R.id.ed_login_phoneid);
@@ -68,73 +203,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initListener() {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bt_login_ok:
-                submit();
-                break;
-        }
-    }
-
-    private void submit() {
-        // validate
-        String phoneid = ed_login_phoneid.getText().toString().trim();
-        if (TextUtils.isEmpty(phoneid)) {
-            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String pwd = ed_login_pwd.getText().toString().trim();
-        if (TextUtils.isEmpty(pwd)) {
-            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        initDatas();
-
-    }
-
-    private void initDatas() {
-        UrlBean urlBean = new UrlBean();
-        urlBean.setMobile(ed_login_phoneid.getText().toString().trim());
-        urlBean.setPassword(ed_login_pwd.getText().toString().trim());
-        final Gson gson = new Gson();
-        final String s = gson.toJson(urlBean);
-        OkGo.<String>post(CarUrl.LOGIN_URL)
-                .tag(this)
-                .upJson(s)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        LoginBean loginBean = gson.fromJson(response.body().toString(), LoginBean
-                                .class);
-                        String errorcode = loginBean.getStatus();
-                        if (errorcode.equals("0")) {
-                            boolean remember_accounts = cb_login_commitid.isChecked();
-                            boolean auto_login = cb_login_commitlogin.isChecked();
-                            UserCentre.getInstance().setRememberAccounts(remember_accounts);
-                            UserCentre.getInstance().setAutoLogin(auto_login);
-                            if (remember_accounts) {
-                                UserCentre.getInstance().setUserAccounts(ed_login_phoneid.getText().toString().trim());
-                            } else {
-                                UserCentre.getInstance().clearAccounts();
-                            }
-                            String token = loginBean.getToken();
-                            //保存登录后获取的token
-                            UserCentre.getInstance().setToken(token);
-                            //登录点击跳转逻辑在此
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else {
-                            Toast.makeText(LoginActivity.this, loginBean.getErrmsg(), Toast
-                                    .LENGTH_LONG).show();
-                        }
-                    }
-                });
 
     }
 }

@@ -1,10 +1,14 @@
 package cloud.parts.com.parts.fragment.home.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
 
 import java.util.List;
 
@@ -35,6 +39,12 @@ public class ModifyThePriceFourSAdapter extends BaseQuickAdapter<FourSQueryBean.
                 .setText(R.id.tv_fours_ffaddress, "名称：" + item.getFfBrands())
                 .setText(R.id.ed_fours_price, ed_fours_price.getText().toString().trim())
                 .addOnClickListener(R.id.bt_fours_xiugai);
-
+        Button button = helper.getView(R.id.bt_fours_xiugai);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "修改", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

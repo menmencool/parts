@@ -91,6 +91,15 @@ public class UrlBean extends DataSupport{
     private String topGroupId;
     private String subGroupId;
     private String graphGroupId;
+    private String smsToken;
+
+    public String getSmsToken() {
+        return smsToken;
+    }
+
+    public void setSmsToken(String smsToken) {
+        this.smsToken = smsToken;
+    }
 
     public String getToken() {
         return token;

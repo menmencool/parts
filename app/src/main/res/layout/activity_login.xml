@@ -39,16 +39,16 @@
                     android:src="@mipmap/phoneid"/>
 
                 <EditText
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:maxLength="11"
-                    android:inputType="number"
                     android:id="@+id/ed_login_phoneid"
                     android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:background="@null"
                     android:hint="手机号"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/i_white_bottom"
                     android:textColorHint="@color/i_white_bottom"/>
             </LinearLayout>
@@ -72,15 +72,15 @@
                     android:src="@mipmap/pwd"/>
 
                 <EditText
-                    android:maxLength="8"
-                    android:maxLines="1"
-                    android:singleLine="true"
                     android:id="@+id/ed_login_pwd"
-                    android:layout_width="180dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:background="@null"
                     android:hint="验证码"
+                    android:maxLength="8"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/i_white_bottom"
                     android:textColorHint="@color/i_white_bottom"/>
 
@@ -88,7 +88,6 @@
                     android:id="@+id/tv_login_getid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="获取验证码"
                     android:textColor="@color/erweima"/>
@@ -99,6 +98,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/i_white_bottom"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:layout_marginRight="50dp"
                     android:checked="true"
                     android:text="记住帐号"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <CheckBox
                     android:id="@+id/cb_login_commitlogin"
@@ -121,13 +121,14 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="自动登录"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </LinearLayout>
+
             <Button
                 android:id="@+id/bt_login_ok"
-                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/yuanjiao_login"
                 android:text="登录"
                 android:textColor="@color/i_white"/>
