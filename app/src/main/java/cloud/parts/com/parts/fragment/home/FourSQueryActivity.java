@@ -1,18 +1,24 @@
 package cloud.parts.com.parts.fragment.home;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -26,9 +32,6 @@ import cloud.parts.com.parts.fragment.home.bean.FourSQueryBean;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
-import cn.addapp.pickers.entity.City;
-import cn.addapp.pickers.entity.County;
-import cn.addapp.pickers.entity.Province;
 
 /**
  * describe:4S店查询
@@ -38,6 +41,8 @@ import cn.addapp.pickers.entity.Province;
 
 public class FourSQueryActivity extends BaseActivity implements View.OnClickListener {
 
+    //申明对象
+    CityPickerView mPicker = new CityPickerView();
     private ImageView include_banck;
     private TextView include_titles;
     private ImageView include_seek;
@@ -51,6 +56,10 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * 预先加载仿iOS滚轮实现的全部数据
+         */
+        mPicker.init(this);
     }
 
     @Override
@@ -95,6 +104,47 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
                 onAddressPicker();
                 break;
         }
+    }
+    //城市选择
+    public void onAddressPicker() {
+        //添加默认的配置，不需要自己定义
+        CityConfig cityConfig = new CityConfig.Builder()
+                .title("城市选择")
+                .province("北京市")
+                .city("北京市")
+                .district("东城区")
+                .provinceCyclic(false)
+                .cityCyclic(false)
+                .districtCyclic(false)
+                .visibleItemsCount(5)
+                .setShowGAT(true)//是否显示港澳台数据，默认不显示
+                .build();
+        mPicker.setConfig(cityConfig);
+
+        //监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                if (district.getName().equals("市辖区")) {
+                    tv_fours_province.setText(province.getName());
+                    tv_fours_city.setText(city.getName());
+                    tv_fours_district.setText(null);//区
+                    httpData("北京", "西城", "", "奥迪");
+                } else {
+                    tv_fours_province.setText(province.getName());
+                    tv_fours_city.setText(city.getName());
+                    tv_fours_district.setText(district.getName());//区
+                    httpData("北京", "西城", "", "奥迪");
+                }
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
+
+        //显示
+        mPicker.showCityPicker();
     }
 
     private void httpData(String peovince, String city, String district, String keywds) {
@@ -144,33 +194,6 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
                     }
                 });
 
-    }
-
-    public void onAddressPicker() {
-        AddressPickTask task = new AddressPickTask(this);
-        task.setHideProvince(false);
-        task.setHideCounty(false);
-        task.setCallback(new AddressPickTask.Callback() {
-            @Override
-            public void onAddressInitFailed() {
-                Toast.makeText(FourSQueryActivity.this, "数据初始化失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAddressPicked(Province province, City city, County county) {
-                if (county == null) {
-                    tv_fours_province.setText(province.getAreaName());
-                    tv_fours_district.setText(city.getAreaName());
-                    httpData("北京", "西城", "", "奥迪");
-                } else {
-                    tv_fours_province.setText(province.getAreaName());
-                    tv_fours_district.setText(county.getAreaName());
-                    tv_fours_city.setText(city.getAreaName());
-                    httpData("北京", "西城", "", "奥迪");
-                }
-            }
-        });
-        task.execute("全部", "全部", "全部");
     }
 
 
