@@ -146,7 +146,7 @@ public class FourSQueryActivity extends BaseActivity implements View.OnClickList
         //显示
         mPicker.showCityPicker();
     }
-
+    //获取数据
     private void httpData(String peovince, String city, String district, String keywds) {
         //todo  获取token
         String token = UserCentre.getInstance().getToken();

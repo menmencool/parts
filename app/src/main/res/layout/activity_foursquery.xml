@@ -14,9 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/tb_bg"
-        >
+        android:layout_height="50dp">
 
         <LinearLayout
             android:id="@+id/ll_fours_citys"
@@ -75,9 +73,15 @@
             android:text="筛选"/>
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#999999"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rl_cityfour_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
