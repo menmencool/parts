@@ -20,8 +20,10 @@ import com.lzy.okgo.model.Response;
 import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.activity.MainActivity;
+import cloud.parts.com.parts.fragment.home.ModifyThePriceFourS;
 import cloud.parts.com.parts.login.user_centre.LoginBean;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
+import cloud.parts.com.parts.qrcode.SimpleCaptureActivity;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 
@@ -44,6 +46,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login_ok:
+                startActivity(new Intent(LoginActivity.this, SimpleCaptureActivity.class));
                 submit();
                 break;
             case R.id.tv_login_getid:

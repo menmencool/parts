@@ -1,5 +1,6 @@
 package cloud.parts.com.parts.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.BaseActivity;
 import cloud.parts.com.parts.fragment.home.adapter.ModifyThePriceFourSAdapter;
 import cloud.parts.com.parts.fragment.home.bean.FourSQueryBean;
+import cloud.parts.com.parts.qrcode.SimpleCaptureActivity;
 
 /**
  * 类用途：
