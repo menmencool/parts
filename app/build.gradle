@@ -98,7 +98,8 @@ dependencies {
     //图片生成
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:26.1.0'
-    //城市选择
-    compile 'liji.library.dev:citypickerview:3.1.6'
+    //二维码
     implementation project(':qrcodelib')
+    //城市选择
+    implementation project(':ChooseCity')
 }

@@ -341,8 +341,6 @@ public class DetailsActivity extends BaseActivity implements View.OnClickListene
                 .headers("authtoken", token)
                 .upJson(s)
                 .execute(new StringCallback() {
-
-
                     @Override
                     public void onSuccess(Response<String> response) {
                         quryIvetemBean = gson.fromJson(response.body().toString(),

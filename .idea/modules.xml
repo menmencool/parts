@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ChooseCity/ChooseCity.iml" filepath="$PROJECT_DIR$/ChooseCity/ChooseCity.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ocr_ui/ocr_ui.iml" filepath="$PROJECT_DIR$/ocr_ui/ocr_ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/parts.iml" filepath="$PROJECT_DIR$/parts.iml" />
       <module fileurl="file://E:\Studio\parts\.idea\parts.iml" filepath="E:\Studio\parts\.idea\parts.iml" />
-      <module fileurl="file://D:\app\car\parts\parts.iml" filepath="D:\app\car\parts\parts.iml" />
       <module fileurl="file://$PROJECT_DIR$/qrcodelib/qrcodelib.iml" filepath="$PROJECT_DIR$/qrcodelib/qrcodelib.iml" />
     </modules>
   </component>

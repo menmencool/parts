@@ -27,6 +27,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,9 +57,17 @@ public class CaptureActivity extends Activity implements Callback {
 
     private static final int REQUEST_PERMISSION_CAMERA = 1000;
     private static final int REQUEST_PERMISSION_PHOTO = 1001;
-
+    private static final float BEEP_VOLUME = 0.10f;
+    private static final long VIBRATE_DURATION = 200L;
+    /**
+     * When the beep has finished playing, rewind to queue up another one.
+     */
+    private final OnCompletionListener beepListener = new OnCompletionListener() {
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            mediaPlayer.seekTo(0);
+        }
+    };
     private CaptureActivity mActivity;
-
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
     private boolean hasSurface;
@@ -67,7 +76,6 @@ public class CaptureActivity extends Activity implements Callback {
     private InactivityTimer inactivityTimer;
     private MediaPlayer mediaPlayer;
     private boolean playBeep;
-    private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
     private ImageView im_back;
     private TextView tv_title;
@@ -79,6 +87,9 @@ public class CaptureActivity extends Activity implements Callback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Window window = getWindow();
+    //设置透明状态栏,这样才能让 ContentView 向上
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         mActivity = this;
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
@@ -135,6 +146,36 @@ public class CaptureActivity extends Activity implements Callback {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && requestCode == REQUEST_PERMISSION_CAMERA) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                // 未获得Camera权限
+                new AlertDialog.Builder(mActivity)
+                        .setTitle("提示")
+                        .setMessage("请在系统设置中为App开启摄像头权限后重试")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mActivity.finish();
+                            }
+                        })
+                        .show();
+            }
+        } else if (grantResults.length > 0 && requestCode == REQUEST_PERMISSION_PHOTO) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                new AlertDialog.Builder(mActivity)
+                        .setTitle("提示")
+                        .setMessage("请在系统设置中为App中开启文件权限后重试")
+                        .setPositiveButton("确定", null)
+                        .show();
+            } else {
+                ActionUtils.startActivityForGallery(mActivity, ActionUtils.PHOTO_REQUEST_GALLERY);
+            }
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK
@@ -172,36 +213,6 @@ public class CaptureActivity extends Activity implements Callback {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && requestCode == REQUEST_PERMISSION_CAMERA) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                // 未获得Camera权限
-                new AlertDialog.Builder(mActivity)
-                        .setTitle("提示")
-                        .setMessage("请在系统设置中为App开启摄像头权限后重试")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mActivity.finish();
-                            }
-                        })
-                        .show();
-            }
-        } else if (grantResults.length > 0 && requestCode == REQUEST_PERMISSION_PHOTO) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                new AlertDialog.Builder(mActivity)
-                        .setTitle("提示")
-                        .setMessage("请在系统设置中为App中开启文件权限后重试")
-                        .setPositiveButton("确定", null)
-                        .show();
-            } else {
-                ActionUtils.startActivityForGallery(mActivity, ActionUtils.PHOTO_REQUEST_GALLERY);
-            }
-        }
-    }
-
     /**
      * Handler scan result
      *
@@ -213,6 +224,16 @@ public class CaptureActivity extends Activity implements Callback {
         playBeepSoundAndVibrate();
         String resultString = result.getText();
         handleResult(resultString);
+    }
+
+    private void playBeepSoundAndVibrate() {
+        if (playBeep && mediaPlayer != null) {
+            mediaPlayer.start();
+        }
+        if (vibrate) {
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(VIBRATE_DURATION);
+        }
     }
 
     protected void handleResult(String resultString) {
@@ -228,22 +249,6 @@ public class CaptureActivity extends Activity implements Callback {
         mActivity.finish();
     }
 
-    protected void initView() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.qr_camera);
-        viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-        im_back = (ImageView) findViewById(R.id.im_back);
-        im_back.setVisibility(View.VISIBLE);
-        im_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        tv_title.setText("二维码扫描");
-    }
-
     private void initCamera(SurfaceHolder surfaceHolder) {
         try {
             CameraManager.get().openDriver(surfaceHolder);
@@ -255,46 +260,6 @@ public class CaptureActivity extends Activity implements Callback {
         if (handler == null) {
             handler = new CaptureActivityHandler(this, decodeFormats,
                     characterSet);
-        }
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format,
-                               int width, int height) {
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        if (!hasSurface) {
-            hasSurface = true;
-            initCamera(holder);
-        }
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        hasSurface = false;
-    }
-
-    public ViewfinderView getViewfinderView() {
-        return viewfinderView;
-    }
-
-    public Handler getHandler() {
-        return handler;
-    }
-
-    public void drawViewfinder() {
-        viewfinderView.drawViewfinder();
-    }
-
-    protected void restartPreview() {
-        // 当界面跳转时 handler 可能为null
-        if (handler != null) {
-            Message restartMessage = Message.obtain();
-            restartMessage.what = R.id.restart_preview;
-            handler.handleMessage(restartMessage);
         }
     }
 
@@ -322,25 +287,60 @@ public class CaptureActivity extends Activity implements Callback {
         }
     }
 
-    private static final long VIBRATE_DURATION = 200L;
-
-    private void playBeepSoundAndVibrate() {
-        if (playBeep && mediaPlayer != null) {
-            mediaPlayer.start();
-        }
-        if (vibrate) {
-            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-            vibrator.vibrate(VIBRATE_DURATION);
-        }
+    protected void initView() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.qr_camera);
+        viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
+        im_back = (ImageView) findViewById(R.id.im_back);
+        im_back.setVisibility(View.VISIBLE);
+        im_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_title.setText("二维码扫描登陆");
     }
 
-    /**
-     * When the beep has finished playing, rewind to queue up another one.
-     */
-    private final OnCompletionListener beepListener = new OnCompletionListener() {
-        public void onCompletion(MediaPlayer mediaPlayer) {
-            mediaPlayer.seekTo(0);
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        if (!hasSurface) {
+            hasSurface = true;
+            initCamera(holder);
         }
-    };
+
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format,
+                               int width, int height) {
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        hasSurface = false;
+    }
+
+    public ViewfinderView getViewfinderView() {
+        return viewfinderView;
+    }
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    public void drawViewfinder() {
+        viewfinderView.drawViewfinder();
+    }
+
+    protected void restartPreview() {
+        // 当界面跳转时 handler 可能为null
+        if (handler != null) {
+            Message restartMessage = Message.obtain();
+            restartMessage.what = R.id.restart_preview;
+            handler.handleMessage(restartMessage);
+        }
+    }
 
 }

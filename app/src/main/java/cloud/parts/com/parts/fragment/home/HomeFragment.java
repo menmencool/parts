@@ -31,9 +31,11 @@ import cloud.parts.com.parts.R;
 import cloud.parts.com.parts.activity.MainActivity;
 import cloud.parts.com.parts.fragment.home.bean.HomeBean;
 import cloud.parts.com.parts.fragment.query.DetailsActivity;
+import cloud.parts.com.parts.login.LoginActivity;
 import cloud.parts.com.parts.login.user_centre.UserCentre;
 import cloud.parts.com.parts.ocr.FileUtil;
 import cloud.parts.com.parts.ocr.RecognizeService;
+import cloud.parts.com.parts.qrcode.SimpleCaptureActivity;
 import cloud.parts.com.parts.url.CarUrl;
 import cloud.parts.com.parts.url.urlbean.UrlBean;
 import cloud.parts.com.parts.utils.GlideImageLoader;
@@ -233,6 +235,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         include_mes.setVisibility(View.VISIBLE);
         include_mes.setText("关于我们");
         include_mes.setOnClickListener(this);
+        include_mes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SimpleCaptureActivity.class));
+            }
+        });
     }
 }
 

@@ -7,14 +7,15 @@
         android:id="@+id/all_title_color"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/titlecolor"
+        android:layout_marginTop="20dp"
+        android:background="#00000000"
         android:gravity="center"
         android:orientation="vertical">
 
         <View
             style="@style/view_size"
             android:layout_height="5dp"
-            android:background="@color/titlecolor"></View>
+            android:background="#00000000"></View>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,8 +32,7 @@
                 android:paddingLeft="10px"
                 android:paddingRight="30px"
                 android:paddingTop="5dp"
-                android:src="@drawable/back"
-                />
+                android:src="@drawable/back" />
 
             <TextView
                 android:id="@+id/tv_title"

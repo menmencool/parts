@@ -7,7 +7,8 @@ package cloud.parts.com.parts.url;
  */
 
 public class CarUrl {
-    public static final String CAR_URL = "http://192.168.1.97:8080/PartsCloud/api/";
+    //public static final String CAR_URL = "http://192.168.1.97:8080/PartsCloud/api/";
+    public static final String CAR_URL = "http://47.95.240.83:8080/PartsCloud/api/";
     //public static final String CAR_URL = "http://123.57.141.113:8080/PartsCloud/api/";
     //短信验证 sendLoginVericode
     public static final String SENDLOGINVERICODE = CAR_URL + "sendLoginVericode";

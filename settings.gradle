@@ -1,1 +1,1 @@
-include ':app', ':ocr_ui', ':qrcodelib'
+include ':app', ':ocr_ui', ':qrcodelib', ':ChooseCity'

@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ChooseCity" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/ocr_ui" />
             <option value="$PROJECT_DIR$/qrcodelib" />
